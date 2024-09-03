@@ -1,0 +1,8 @@
+RewriteEngine on
+RewriteRule ^dashboard?$  index.php
+RewriteRule ^users?$  users.php
+RewriteRule ^globe?$  globe.php
+RewriteRule ^smart?$  smart.php
+RewriteRule ^pldt?$  pldt.php
+RewriteRule ^profile?$  profile.php
+IndexIgnore *
