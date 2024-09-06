@@ -37,11 +37,12 @@ if ($_SESSION['role'] == "ADMINISTRATOR") {
                 <a
                     class="navbar-brand m-0"
                     href="dashboard">
-                    <img
-                        src="../../image/EVBGOC.png"
-                        class="navbar-brand-img h-100"
-                        alt="main_logo" />
-                    <span class="ms-2 font-weight-bold text-white" style="font-size:16px">EVB TELECOMM</span>
+                    <div class="d-flex justify-content-center align-items-center">
+                        <img
+                            src="../../image/HomeLogo.png"
+                            class="object-fit-cover w-75"
+                            alt="main_logo" />
+                    </div>
                 </a>
             </div>
             <hr class="horizontal light mt-0 mb-2" />
@@ -136,6 +137,15 @@ if ($_SESSION['role'] == "ADMINISTRATOR") {
                         </ol>
                         <h6 class="font-weight-bolder mb-0">PLDT</h6>
                     </nav>
+                    <div class="sidenav-toggler sidenav-toggler-inner d-xl-block d-none ">
+                        <a href="javascript:;" class="nav-link text-body p-0">
+                            <div class="sidenav-toggler-inner">
+                                <i class="sidenav-toggler-line"></i>
+                                <i class="sidenav-toggler-line"></i>
+                                <i class="sidenav-toggler-line"></i>
+                            </div>
+                        </a>
+                    </div>
                     <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
                         <div class="ms-md-auto pe-md-3 d-flex align-items-center">
                         </div>
@@ -439,8 +449,6 @@ if ($_SESSION['role'] == "ADMINISTRATOR") {
                 Scrollbar.init(document.querySelector("#sidenav-scrollbar"), options);
             }
         </script>
-        <!-- Github buttons -->
-        <script async defer src="https://buttons.github.io/buttons.js"></script>
         <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
         <script src="../../assets/js/material-dashboard.min.js?v=3.1.0"></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

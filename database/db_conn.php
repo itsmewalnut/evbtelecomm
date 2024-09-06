@@ -1,9 +1,9 @@
 <?php
 
 //$sname= "localhost";
-//$unmae= "evbgroupbiz_newportal";
+//$unmae= "evbgroupbiz_telecomm";
 //$password = "Evbgroup123!";
-//$db_name = "evbgroupbiz_newportal";
+//$db_name = "evbgroupbiz_telecomm";
 $sname = "localhost";
 $unmae = "root";
 $password = "";

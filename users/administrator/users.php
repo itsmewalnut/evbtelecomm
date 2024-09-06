@@ -23,6 +23,11 @@ if ($_SESSION['role'] == "ADMINISTRATOR") {
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet" />
         <!-- CSS Files -->
         <link id="pagestyle" href="../../assets/css/material-dashboard.css?v=3.1.0" rel="stylesheet" />
+        <link href="../../assets/css/avatar.css" rel="stylesheet" />
+        <!-- DataTables -->
+        <link rel="stylesheet" href="../../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+        <link rel="stylesheet" href="../../plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+        <link rel="stylesheet" href="../../plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
     </head>
 
     <body class="g-sidenav-show bg-gray-200">
@@ -37,11 +42,12 @@ if ($_SESSION['role'] == "ADMINISTRATOR") {
                 <a
                     class="navbar-brand m-0"
                     href="dashboard">
-                    <img
-                        src="../../image/EVBGOC.png"
-                        class="navbar-brand-img h-100"
-                        alt="main_logo" />
-                    <span class="ms-2 font-weight-bold text-white" style="font-size:16px">EVB TELECOMM</span>
+                    <div class="main-logo d-flex justify-content-center align-items-center">
+                        <img
+                            src="../../image/HomeLogo.png"
+                            class="object-fit-cover w-75"
+                            alt="main_logo" />
+                    </div>
                 </a>
             </div>
             <hr class="horizontal light mt-0 mb-2" />
@@ -136,6 +142,15 @@ if ($_SESSION['role'] == "ADMINISTRATOR") {
                         </ol>
                         <h6 class="font-weight-bolder mb-0">Users</h6>
                     </nav>
+                    <div class="sidenav-toggler sidenav-toggler-inner d-xl-block d-none ">
+                        <a href="javascript:;" class="nav-link text-body p-0">
+                            <div class="sidenav-toggler-inner">
+                                <i class="sidenav-toggler-line"></i>
+                                <i class="sidenav-toggler-line"></i>
+                                <i class="sidenav-toggler-line"></i>
+                            </div>
+                        </a>
+                    </div>
                     <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
                         <div class="ms-md-auto pe-md-3 d-flex align-items-center">
                         </div>
@@ -199,210 +214,29 @@ if ($_SESSION['role'] == "ADMINISTRATOR") {
                         <div class="card my-4">
                             <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
                                 <div class="bg-gradient-secondary shadow-secondary border-radius-lg pt-4 pb-3">
-                                    <h6 class="text-white text-capitalize ps-3">Users Account</h6>
+                                    <h6 class="text-white text-capitalize ps-3">Users Information</h6>
                                 </div>
                             </div>
                             <div class="card-body px-0 pb-2">
-                                <div class="table-responsive p-0">
-                                    <table class="table align-items-center mb-0">
+                                <div class="table-responsive p-3">
+
+                                    <!-- Add User Button -->
+                                    <button type="button" id="AddNewUser" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addUser">
+                                        add new user
+                                    </button>
+
+                                    <table id="userTable" class="table align-items-center mb-0">
                                         <thead>
                                             <tr>
-                                                <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">user id</th>
-                                                <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">fullname</th>
-                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">branch</th>
-                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">department</th>
-                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">status</th>
-                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Action</th>
+                                                <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-8 ps-2">user id</th>
+                                                <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-8 ps-2">fullname</th>
+                                                <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-8 ps-2">branch</th>
+                                                <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-8 ps-2">department</th>
+                                                <th class="text-uppercase text-secondary text-center text-xs font-weight-bolder opacity-8 ps-2">role</th>
+                                                <th class="text-uppercase text-secondary text-center text-xs font-weight-bolder opacity-8 ps-2">status</th>
+                                                <th class="text-uppercase text-secondary text-center text-xs font-weight-bolder opacity-8">Action</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>
-                                                    <div class="d-flex px-2 py-1">
-                                                        <div>
-                                                            <img src="../../assets/img/team-2.jpg" class="avatar avatar-sm me-3 border-radius-lg" alt="user1">
-                                                        </div>
-                                                        <div class="d-flex flex-column justify-content-center">
-                                                            <h6 class="mb-0 text-sm">John Michael</h6>
-                                                            <p class="text-xs text-secondary mb-0">john@creative-tim.com</p>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <p class="text-xs font-weight-bold mb-0">Manager</p>
-                                                    <p class="text-xs text-secondary mb-0">Organization</p>
-                                                </td>
-                                                <td class="align-middle text-center text-sm">
-                                                    <span class="badge badge-sm bg-gradient-success">Online</span>
-                                                </td>
-                                                <td class="align-middle text-center">
-                                                    <span class="text-secondary text-xs font-weight-bold">23/04/18</span>
-                                                </td>
-                                                <td class="align-middle text-center text-sm">
-                                                    <span class="badge badge-sm bg-gradient-success">Online</span>
-                                                </td>
-                                                <td class="align-middle text-center">
-                                                    <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
-                                                        Edit
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="d-flex px-2 py-1">
-                                                        <div>
-                                                            <img src="../../assets/img/team-3.jpg" class="avatar avatar-sm me-3 border-radius-lg" alt="user2">
-                                                        </div>
-                                                        <div class="d-flex flex-column justify-content-center">
-                                                            <h6 class="mb-0 text-sm">Alexa Liras</h6>
-                                                            <p class="text-xs text-secondary mb-0">alexa@creative-tim.com</p>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <p class="text-xs font-weight-bold mb-0">Programator</p>
-                                                    <p class="text-xs text-secondary mb-0">Developer</p>
-                                                </td>
-                                                <td class="align-middle text-center text-sm">
-                                                    <span class="badge badge-sm bg-gradient-secondary">Offline</span>
-                                                </td>
-                                                <td class="align-middle text-center">
-                                                    <span class="text-secondary text-xs font-weight-bold">11/01/19</span>
-                                                </td>
-                                                <td class="align-middle text-center text-sm">
-                                                    <span class="badge badge-sm bg-gradient-success">Online</span>
-                                                </td>
-                                                <td class="align-middle text-center">
-                                                    <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
-                                                        Edit
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="d-flex px-2 py-1">
-                                                        <div>
-                                                            <img src="../../assets/img/team-4.jpg" class="avatar avatar-sm me-3 border-radius-lg" alt="user3">
-                                                        </div>
-                                                        <div class="d-flex flex-column justify-content-center">
-                                                            <h6 class="mb-0 text-sm">Laurent Perrier</h6>
-                                                            <p class="text-xs text-secondary mb-0">laurent@creative-tim.com</p>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <p class="text-xs font-weight-bold mb-0">Executive</p>
-                                                    <p class="text-xs text-secondary mb-0">Projects</p>
-                                                </td>
-                                                <td class="align-middle text-center text-sm">
-                                                    <span class="badge badge-sm bg-gradient-success">Online</span>
-                                                </td>
-                                                <td class="align-middle text-center">
-                                                    <span class="text-secondary text-xs font-weight-bold">19/09/17</span>
-                                                </td>
-                                                <td class="align-middle text-center text-sm">
-                                                    <span class="badge badge-sm bg-gradient-secondary">Offline</span>
-                                                </td>
-                                                <td class="align-middle text-center">
-                                                    <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
-                                                        Edit
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="d-flex px-2 py-1">
-                                                        <div>
-                                                            <img src="../../assets/img/team-3.jpg" class="avatar avatar-sm me-3 border-radius-lg" alt="user4">
-                                                        </div>
-                                                        <div class="d-flex flex-column justify-content-center">
-                                                            <h6 class="mb-0 text-sm">Michael Levi</h6>
-                                                            <p class="text-xs text-secondary mb-0">michael@creative-tim.com</p>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <p class="text-xs font-weight-bold mb-0">Programator</p>
-                                                    <p class="text-xs text-secondary mb-0">Developer</p>
-                                                </td>
-                                                <td class="align-middle text-center text-sm">
-                                                    <span class="badge badge-sm bg-gradient-success">Online</span>
-                                                </td>
-                                                <td class="align-middle text-center">
-                                                    <span class="text-secondary text-xs font-weight-bold">24/12/08</span>
-                                                </td>
-                                                <td class="align-middle text-center text-sm">
-                                                    <span class="badge badge-sm bg-gradient-secondary">Offline</span>
-                                                </td>
-                                                <td class="align-middle text-center">
-                                                    <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
-                                                        Edit
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="d-flex px-2 py-1">
-                                                        <div>
-                                                            <img src="../../assets/img/team-2.jpg" class="avatar avatar-sm me-3 border-radius-lg" alt="user5">
-                                                        </div>
-                                                        <div class="d-flex flex-column justify-content-center">
-                                                            <h6 class="mb-0 text-sm">Richard Gran</h6>
-                                                            <p class="text-xs text-secondary mb-0">richard@creative-tim.com</p>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <p class="text-xs font-weight-bold mb-0">Manager</p>
-                                                    <p class="text-xs text-secondary mb-0">Executive</p>
-                                                </td>
-                                                <td class="align-middle text-center text-sm">
-                                                    <span class="badge badge-sm bg-gradient-secondary">Offline</span>
-                                                </td>
-                                                <td class="align-middle text-center">
-                                                    <span class="text-secondary text-xs font-weight-bold">04/10/21</span>
-                                                </td>
-                                                <td class="align-middle text-center text-sm">
-                                                    <span class="badge badge-sm bg-gradient-success">Online</span>
-                                                </td>
-                                                <td class="align-middle text-center">
-                                                    <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
-                                                        Edit
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="d-flex px-2 py-1">
-                                                        <div>
-                                                            <img src="../../assets/img/team-4.jpg" class="avatar avatar-sm me-3 border-radius-lg" alt="user6">
-                                                        </div>
-                                                        <div class="d-flex flex-column justify-content-center">
-                                                            <h6 class="mb-0 text-sm">Miriam Eric</h6>
-                                                            <p class="text-xs text-secondary mb-0">miriam@creative-tim.com</p>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <p class="text-xs font-weight-bold mb-0">Programator</p>
-                                                    <p class="text-xs text-secondary mb-0">Developer</p>
-                                                </td>
-                                                <td class="align-middle text-center text-sm">
-                                                    <span class="badge badge-sm bg-gradient-secondary">Offline</span>
-                                                </td>
-                                                <td class="align-middle text-center">
-                                                    <span class="text-secondary text-xs font-weight-bold">14/09/20</span>
-                                                </td>
-                                                <td class="align-middle text-center text-sm">
-                                                    <span class="badge badge-sm bg-gradient-success">Online</span>
-                                                </td>
-                                                <td class="align-middle text-center">
-                                                    <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
-                                                        Edit
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                        </tbody>
                                     </table>
                                 </div>
                             </div>
@@ -410,6 +244,189 @@ if ($_SESSION['role'] == "ADMINISTRATOR") {
                     </div>
                 </div>
             </div>
+
+            <!-- Add User Modal -->
+            <div class="modal fade" id="addUser" tabindex="-1" role="dialog" aria-labelledby="modal-form" aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title font-weight-normal" id="adduser-title">Add New User</h5>
+                            <button type="button" class="btn-close text-dark" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <form id="adduser_form" enctype="multipart/form-data" method="post">
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <div class="avatar-upload">
+                                            <div class="avatar-preview">
+                                                <img class="profile-user-img img-responsive img-circle w-100" id="imagePreview" src="../../image/avatar_thumbnail.png" alt="User profile picture" onerror="this.src='../../image/avatar_thumbnail.png';">
+                                            </div>
+                                            <div class="avatar-edit">
+                                                <input type='file' id="imageUpload" accept=".png, .jpg, .jpeg" name="account_avatar" id="account_avatar">
+                                                <label for="imageUpload" class="d-flex justify-content-center align-items-center text-white"><i class="fas fa-camera"></i></label>
+                                            </div>
+                                        </div>
+                                        <div class="fname">
+                                            <h4 class="fname" id="fname"></h4>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-7 ms-auto">
+                                        <div class="input-group input-group-dynamic mb-4">
+                                            <label class="form-label">Firstname</label>
+                                            <input type="text" name="firstname" id="firstname" class="form-control">
+                                        </div>
+                                        <div class="input-group input-group-dynamic mb-4">
+                                            <label class="form-label">Middlename</label>
+                                            <input type="text" name="middlename" id="middlename" class="form-control">
+                                        </div>
+                                        <div class="input-group input-group-dynamic mb-4">
+                                            <label class="form-label">Lastname</label>
+                                            <input type="text" name="lastname" id="lastname" class="form-control">
+                                        </div>
+                                        <div class="input-group input-group-static mb-4">
+                                            <label for="exampleFormControlSelect1" class="ms-0">Role</label>
+                                            <select class="form-control" name="role" id="role">
+                                                <option value="ENCODER">ENCODER</option>
+                                                <option value="CHECKER">CHECKER</option>
+                                                <option value="ADMINISTRATOR">ADMINISTRATOR</option>
+                                            </select>
+                                        </div>
+                                        <div class="input-group input-group-static mb-4">
+                                            <label for="exampleFormControlSelect1" class="ms-0">Account Status</label>
+                                            <select class="form-control" name="account_status" id="account_status">
+                                                <option value="ACTIVE">ACTIVE</option>
+                                                <option value="INACTIVE">INACTIVE</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <hr class="bg-gradient-light mt-1">
+                                    <div>
+                                        <div class="col ms-auto">
+                                            <div class="input-group input-group-dynamic mb-4">
+                                                <label class="form-label">Username</label>
+                                                <input type="text" name="username" id="username" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col ms-auto">
+                                            <div class="input-group input-group-static mb-4">
+                                                <label for="exampleFormControlSelect1" class="ms-0">Branch</label>
+                                                <select class="form-control" name="branch" id="branch">
+                                                    <option value="HEAD OFFICE">HEAD OFFICE</option>
+                                                    <option value="EVB BILLS PAYMENT & REMITTANCE SERVICES">EVB BILLS PAYMENT & REMITTANCE SERVICES</option>
+                                                    <option value="EVB LIPA BRANCH">EVB LIPA BRANCH</option>
+                                                    <option value="EVB LEMERY BRANCH">EVB LEMERY BRANCH</option>
+                                                    <option value="EVB BIÑAN BRANCH">EVB BIÑAN BRANCH</option>
+                                                    <option value="EVB TAYTAY BRANCH">EVB TAYTAY BRANCH</option>
+                                                    <option value="EVB CALAPAN BRANCH">EVB CALAPAN BRANCH</option>
+                                                    <option value="EVB CAINTA BRANCH">EVB CAINTA BRANCH</option>
+                                                    <option value="EVB INTRAMUROS BRANCH">EVB INTRAMUROS BRANCH</option>
+                                                    <option value="EVB KALIBO BRANCH">EVB KALIBO BRANCH</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col ms-auto">
+                                            <div class="input-group input-group-static mb-4">
+                                                <label for="exampleFormControlSelect1" class="ms-0">Department</label>
+                                                <select class="form-control" name="department" id="department">
+                                                    <option value="HUMAN RESOURCE DEPARTMENT">HUMAN RESOURCE DEPARTMENT</option>
+                                                    <option value="ACCOUNTING DEPARTMENT">ACCOUNTING DEPARTMENT</option>
+                                                    <option value="BOOKKEEPING DEPARTMENT">BOOKKEEPING DEPARTMENT</option>
+                                                    <option value="INTEGRATED INFORMATION AND COMMUNICATION SYSTEM">INTEGRATED INFORMATION AND COMMUNICATION SYSTEM</option>
+                                                    <option value="QUALITY CONTROL DEPARTMENT">QUALITY CONTROL DEPARTMENT</option>
+                                                    <option value="DOCUMENTATION DEPARTMENT">DOCUMENTATION DEPARTMENT</option>
+                                                    <option value="FINANCE DEPARTMENT">FINANCE DEPARTMENT</option>
+                                                    <option value="DISBURSEMENT DEPARTMENT">DISBURSEMENT DEPARTMENT</option>
+                                                    <option value="LIAISON DEPARTMENT">LIAISON DEPARTMENT</option>
+                                                    <option value="MARKETING DEPARTMENT">MARKETING DEPARTMENT</option>
+                                                    <option value="PRINTING DEPARTMENT">PRINTING DEPARTMENT</option>
+                                                    <option value="LICENSING DEPARTMENT">LICENSING DEPARTMENT</option>
+                                                    <option value="BILLS DEPARTMENT">BILLS DEPARTMENT</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <input type="submit" class="btn btn-success" value="Submit"></input>
+                                <input type="hidden" name="action" id="Addaction" value="">
+                                <input type="hidden" name="accountID" id="accountID" value="">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- View User Modal -->
+            <div class="modal fade" id="viewUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title font-weight-normal" id="exampleModalLabel">User Information</h5>
+                            <button type="button" class="btn-close text-dark" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <img id="viewUserImage" class="rounded-circle" width="150" alt="No Image Available" onerror="this.src='../../image/avatar_thumbnail.png';">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Deactivate User Modal -->
+            <div class="modal fade" id="deactivateUser" tabindex="-1" role="dialog" aria-labelledby="DeactivateModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title font-weight-normal" id="DeactivateModalLabel"></h5>
+                            <button type="button" class="btn-close text-dark" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <form id="deactivate_form" enctype="multipart/form-data">
+                            <div class="modal-body">
+                                <h5 class="text-center" id="deactivateMessage"></h5>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
+                                <input type="hidden" name="deactivateID" id="deactivateID">
+                                <input type="hidden" name="action" id="action" value="">
+                                <input type="submit" class="btn btn-success" name="action" id="deactivate" value="">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Delete User Modal -->
+            <div class="modal fade" id="deleteUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title font-weight-normal" id="exampleModalLabel">Delete User</h5>
+                            <button type="button" class="btn-close text-dark" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <form id="deleteUserForm" method="POST">
+                            <div class="modal-body">
+                                <h5 id="deleteMessage"></h5>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-danger">Delete User</button>
+                                <input type="hidden" name="action" id="deleteAction" value="">
+                                <input type="hidden" name="deleteUserID" id="deleteUserID" value="">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
             <footer class="footer py-4">
                 <div class="container-fluid">
                     <div class="row align-items-center justify-content-lg-between">
@@ -458,11 +475,25 @@ if ($_SESSION['role'] == "ADMINISTRATOR") {
                 Scrollbar.init(document.querySelector("#sidenav-scrollbar"), options);
             }
         </script>
-        <!-- Github buttons -->
-        <script async defer src="https://buttons.github.io/buttons.js"></script>
+        <!-- jQuery -->
+        <script src="../../plugins/jquery/jquery.min.js"></script>
+        <!-- DataTables  & Plugins -->
+        <script src="../../plugins/datatables/jquery.dataTables.min.js"></script>
+        <script src="../../plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+        <script src="../../plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+        <script src="../../plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+        <script src="../../plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+        <script src="../../plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+        <script src="../../plugins/jszip/jszip.min.js"></script>
+        <script src="../../plugins/pdfmake/pdfmake.min.js"></script>
+        <script src="../../plugins/pdfmake/vfs_fonts.js"></script>
+        <script src="../../plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+        <script src="../../plugins/datatables-buttons/js/buttons.print.min.js"></script>
+        <script src="../../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
         <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
         <script src="../../assets/js/material-dashboard.min.js?v=3.1.0"></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="backend/user.js"></script>
         <script src="../../backend/logout.js"></script>
     </body>
 

@@ -32,8 +32,8 @@ if (isset($_POST['Submit'])) {
             // Redirect based on user role
             if ($row["role"] == "ADMINISTRATOR") {
                 header('Location: users/administrator');
-            } elseif ($row["role"] == "USER") {
-                header('Location: users/user');
+            } elseif ($row["role"] == "ENCODER") {
+                header('Location: users/encoder');
             }
             exit; // Ensure no further code is executed after redirection
         }
@@ -65,6 +65,8 @@ if (isset($_POST['Submit'])) {
     <!--===============================================================================================-->
     <!-- SweetAlert2 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+    <!-- DATA AOS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <style>
         .showpass {
             display: flex;
@@ -397,11 +399,11 @@ if (isset($_POST['Submit'])) {
             <img src="image/EVBGOC.png" alt="EVB Logo" class="logo">
         </div>
 
-        <div class="signin">
+        <div class="signin" data-aos="flip-left" data-aos-duration="2000">
             <form class="login100-form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
                 <div class="content">
                     <div class="img-fluid">
-                        <img src="image/EVBGOC.png" alt="EVB logo" width="130px" height="115px">
+                        <img src="image/logo.png" alt="EVB logo" width="120px" height="115px">
                     </div>
                     <h2>telecommunication monitoring system</h2>
                     <div class="form">

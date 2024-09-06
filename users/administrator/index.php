@@ -37,11 +37,12 @@ if ($_SESSION['role'] == "ADMINISTRATOR") {
                 <a
                     class="navbar-brand m-0"
                     href="dashboard">
-                    <img
-                        src="../../image/EVBGOC.png"
-                        class="navbar-brand-img h-100"
-                        alt="main_logo" />
-                    <span class="ms-2 font-weight-bold text-white" style="font-size:16px">EVB TELECOMM</span>
+                    <div class="d-flex justify-content-center align-items-center">
+                        <img
+                            src="../../image/HomeLogo.png"
+                            class="object-fit-cover w-75"
+                            alt="main_logo" />
+                    </div>
                 </a>
             </div>
             <hr class="horizontal light mt-0 mb-2" />
@@ -73,6 +74,46 @@ if ($_SESSION['role'] == "ADMINISTRATOR") {
                             Network
                         </h6>
                     </li>
+                    <!-- <li class="nav-item">
+                        <a data-bs-toggle="collapse" href="#dashboardsExamples" class="nav-link text-white active collapsed" aria-controls="dashboardsExamples" role="button" aria-expanded="false">
+                            <i class="material-icons-round opacity-10">dashboard</i>
+                            <span class="nav-link-text ms-2 ps-1">Dashboards</span>
+                        </a>
+                        <div class="collapse" id="dashboardsExamples" style="">
+                            <ul class="nav ">
+                                <li class="nav-item active">
+                                    <a class="nav-link text-white active" href="../../pages/dashboards/analytics.html">
+                                        <span class="sidenav-mini-icon"> A </span>
+                                        <span class="sidenav-normal  ms-2  ps-1"> Analytics </span>
+                                    </a>
+                                </li>
+                                <li class="nav-item ">
+                                    <a class="nav-link text-white " href="../../pages/dashboards/discover.html">
+                                        <span class="sidenav-mini-icon"> D </span>
+                                        <span class="sidenav-normal  ms-2  ps-1"> Discover </span>
+                                    </a>
+                                </li>
+                                <li class="nav-item ">
+                                    <a class="nav-link text-white " href="../../pages/dashboards/sales.html">
+                                        <span class="sidenav-mini-icon"> S </span>
+                                        <span class="sidenav-normal  ms-2  ps-1"> Sales </span>
+                                    </a>
+                                </li>
+                                <li class="nav-item ">
+                                    <a class="nav-link text-white " href="../../pages/dashboards/automotive.html">
+                                        <span class="sidenav-mini-icon"> A </span>
+                                        <span class="sidenav-normal  ms-2  ps-1"> Automotive </span>
+                                    </a>
+                                </li>
+                                <li class="nav-item ">
+                                    <a class="nav-link text-white " href="../../pages/dashboards/smart-home.html">
+                                        <span class="sidenav-mini-icon"> S </span>
+                                        <span class="sidenav-normal  ms-2  ps-1"> Smart Home </span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li> -->
                     <li class="nav-item">
                         <a class="nav-link text-white" href="globe">
                             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
@@ -123,7 +164,7 @@ if ($_SESSION['role'] == "ADMINISTRATOR") {
             </div>
         </aside>
         <main
-            class="main-content position-relative max-height-vh-100 h-100 border-radius-lg">
+            class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ps ps--active-y">
             <!-- Navbar -->
             <nav class="navbar navbar-main navbar-expand-lg position-sticky mt-4 top-1 px-0 mx-4 shadow-none border-radius-xl z-index-sticky" id="navbarBlur" data-scroll="true">
                 <div class="container-fluid py-1 px-3">
@@ -135,6 +176,15 @@ if ($_SESSION['role'] == "ADMINISTRATOR") {
                         </ol>
                         <h6 class="font-weight-bolder mb-0">Dashboard</h6>
                     </nav>
+                    <div class="sidenav-toggler sidenav-toggler-inner d-xl-block d-none ">
+                        <a href="javascript:;" class="nav-link text-body p-0">
+                            <div class="sidenav-toggler-inner">
+                                <i class="sidenav-toggler-line"></i>
+                                <i class="sidenav-toggler-line"></i>
+                                <i class="sidenav-toggler-line"></i>
+                            </div>
+                        </a>
+                    </div>
                     <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
                         <div class="ms-md-auto pe-md-3 d-flex align-items-center">
                         </div>
@@ -1215,8 +1265,6 @@ if ($_SESSION['role'] == "ADMINISTRATOR") {
                 Scrollbar.init(document.querySelector("#sidenav-scrollbar"), options);
             }
         </script>
-        <!-- Github buttons -->
-        <script async defer src="https://buttons.github.io/buttons.js"></script>
         <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
         <script src="../../assets/js/material-dashboard.min.js?v=3.1.0"></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
