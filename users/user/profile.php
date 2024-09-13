@@ -2,7 +2,7 @@
 require('../../database/db_conn.php');
 session_start();
 
-if ($_SESSION['role'] == "ADMINISTRATOR") {
+if ($_SESSION['role'] == "ENCODER" || $_SESSION['role'] == "CHECKER") {
 ?>
     <!DOCTYPE html>
     <html lang="en">
@@ -60,14 +60,6 @@ if ($_SESSION['role'] == "ADMINISTRATOR") {
                                 <i class="material-icons opacity-10">dashboard</i>
                             </div>
                             <span class="nav-link-text ms-1">Dashboard</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="users">
-                            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                                <i class="material-icons opacity-10">person</i>
-                            </div>
-                            <span class="nav-link-text ms-1">Users</span>
                         </a>
                     </li>
                     <li class="nav-item mt-3">
@@ -319,11 +311,11 @@ if ($_SESSION['role'] == "ADMINISTRATOR") {
                                     </div>
                                     <div class="card-body p-3">
                                         <p class="text-sm">
-                                            Hi, I’m Alec Thompson, Decisions: If you can’t decide, the answer is no. If two equally difficult paths, choose the one more painful in the short term (pain avoidance is creating an illusion of equality).
+                                            Hi, <?php echo $_SESSION['fullname']; ?>, Decisions: If you can’t decide, the answer is no. If two equally difficult paths, choose the one more painful in the short term (pain avoidance is creating an illusion of equality).
                                         </p>
                                         <hr class="horizontal gray-light my-4">
                                         <ul class="list-group">
-                                            <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong class="text-dark">Full Name:</strong> &nbsp; Alec M. Thompson</li>
+                                            <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong class="text-dark">Full Name:</strong> &nbsp; <?php echo $_SESSION['fullname']; ?></li>
                                             <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Mobile:</strong> &nbsp; (44) 123 1234 123</li>
                                             <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Email:</strong> &nbsp; alecthompson@mail.com</li>
                                             <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Location:</strong> &nbsp; USA</li>

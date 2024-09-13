@@ -32,8 +32,10 @@ if (isset($_POST['Submit'])) {
             // Redirect based on user role
             if ($row["role"] == "ADMINISTRATOR") {
                 header('Location: users/administrator');
-            } elseif ($row["role"] == "ENCODER") {
-                header('Location: users/encoder');
+            } elseif ($row["role"] == "ENCODER" || $row["role"] == "CHECKER") {
+                header('Location: users/user');
+            } elseif ($row["role"] == "CHECKER") {
+                header('Location: users/checker');
             }
             exit; // Ensure no further code is executed after redirection
         }
@@ -66,7 +68,8 @@ if (isset($_POST['Submit'])) {
     <!-- SweetAlert2 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
     <!-- DATA AOS -->
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="assets/aos-master/aos.css">
+
     <style>
         .showpass {
             display: flex;
@@ -498,7 +501,7 @@ if (isset($_POST['Submit'])) {
         }
     });
 </script>
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script src="assets/aos-master/aos.js"></script>
 <script>
     AOS.init();
 </script>

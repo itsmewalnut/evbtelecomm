@@ -13,7 +13,6 @@ $branch = mysqli_real_escape_string($conn, $_POST['branch']);
 $department = mysqli_real_escape_string($conn, $_POST['department']);
 $username = mysqli_real_escape_string($conn, $_POST['username']);
 $role = mysqli_real_escape_string($conn, $_POST['role']);
-$account_status = mysqli_real_escape_string($conn, $_POST['account_status']);
 
 $fullname = $last_name . ', ' . $first_name . " " . $middle_name;
 
@@ -52,12 +51,24 @@ if (!empty($_FILES['account_avatar']['name'])) {
 }
 
 if ($action == "AddUser") {
-    mysqli_query($conn, "INSERT INTO user_account (fullname, firstname, middlename, lastname, branch, department, username, password, avatar, role, account_status) VALUES ('$fullname', '$first_name', '$middle_name', '$last_name', '$branch', '$department', '$username', 'Evbgroup123', '$directory', '$role', '$account_status')");
+    mysqli_query($conn, "INSERT INTO user_account (fullname, firstname, middlename, lastname, branch, department, username, password, avatar, role, account_status) VALUES ('$fullname', '$first_name', '$middle_name', '$last_name', '$branch', '$department', '$username', 'Evbgroup123', '$directory', '$role', 'INACTIVE')");
 } else if ($action == "updateUser") {
-    mysqli_query(
-        $conn,
-        "UPDATE user_account SET fullname = '$fullname', firstname = '$first_name', middlename = '$middle_name', lastname = '$last_name', branch = '$branch', department = '$department', username = '$username', avatar = '$directory', role = '$role', account_status = '$account_status' WHERE user_id = '$accountID'"
-    );
+
+    $status_query = mysqli_query($conn, "SELECT account_status FROM user_account WHERE user_id = '$accountID'");
+    $status_row = mysqli_fetch_assoc($status_query);
+    $account_status = $status_row['account_status'];
+
+    if ($account_status == "ACTIVE") {
+        mysqli_query(
+            $conn,
+            "UPDATE user_account SET fullname = '$fullname', firstname = '$first_name', middlename = '$middle_name', lastname = '$last_name', branch = '$branch', department = '$department', username = '$username', avatar = '$directory', role = '$role', account_status = 'ACTIVE' WHERE user_id = '$accountID'"
+        );
+    } else {
+        mysqli_query(
+            $conn,
+            "UPDATE user_account SET fullname = '$fullname', firstname = '$first_name', middlename = '$middle_name', lastname = '$last_name', branch = '$branch', department = '$department', username = '$username', avatar = '$directory', role = '$role', account_status = 'INACTIVE' WHERE user_id = '$accountID'"
+        );
+    }
 } else if ($action == "Deactivate") {
     mysqli_query(
         $conn,

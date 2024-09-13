@@ -2,7 +2,7 @@
 require('../../database/db_conn.php');
 session_start();
 
-if ($_SESSION['role'] == "ENCODER") {
+if ($_SESSION['role'] == "ENCODER" || $_SESSION['role'] == "CHECKER") {
 ?>
     <!DOCTYPE html>
     <html lang="en">
@@ -66,6 +66,46 @@ if ($_SESSION['role'] == "ENCODER") {
                             Network
                         </h6>
                     </li>
+                    <!-- <li class="nav-item">
+                        <a data-bs-toggle="collapse" href="#dashboardsExamples" class="nav-link text-white active collapsed" aria-controls="dashboardsExamples" role="button" aria-expanded="false">
+                            <i class="material-icons-round opacity-10">dashboard</i>
+                            <span class="nav-link-text ms-2 ps-1">Dashboards</span>
+                        </a>
+                        <div class="collapse" id="dashboardsExamples" style="">
+                            <ul class="nav ">
+                                <li class="nav-item active">
+                                    <a class="nav-link text-white active" href="../../pages/dashboards/analytics.html">
+                                        <span class="sidenav-mini-icon"> A </span>
+                                        <span class="sidenav-normal  ms-2  ps-1"> Analytics </span>
+                                    </a>
+                                </li>
+                                <li class="nav-item ">
+                                    <a class="nav-link text-white " href="../../pages/dashboards/discover.html">
+                                        <span class="sidenav-mini-icon"> D </span>
+                                        <span class="sidenav-normal  ms-2  ps-1"> Discover </span>
+                                    </a>
+                                </li>
+                                <li class="nav-item ">
+                                    <a class="nav-link text-white " href="../../pages/dashboards/sales.html">
+                                        <span class="sidenav-mini-icon"> S </span>
+                                        <span class="sidenav-normal  ms-2  ps-1"> Sales </span>
+                                    </a>
+                                </li>
+                                <li class="nav-item ">
+                                    <a class="nav-link text-white " href="../../pages/dashboards/automotive.html">
+                                        <span class="sidenav-mini-icon"> A </span>
+                                        <span class="sidenav-normal  ms-2  ps-1"> Automotive </span>
+                                    </a>
+                                </li>
+                                <li class="nav-item ">
+                                    <a class="nav-link text-white " href="../../pages/dashboards/smart-home.html">
+                                        <span class="sidenav-mini-icon"> S </span>
+                                        <span class="sidenav-normal  ms-2  ps-1"> Smart Home </span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li> -->
                     <li class="nav-item">
                         <a class="nav-link text-white" href="globe">
                             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
@@ -96,7 +136,7 @@ if ($_SESSION['role'] == "ENCODER") {
                         </h6>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="#">
+                        <a class="nav-link text-white" href="profile">
                             <div
                                 class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                                 <i class="material-icons opacity-10">person</i>
@@ -116,7 +156,7 @@ if ($_SESSION['role'] == "ENCODER") {
             </div>
         </aside>
         <main
-            class="main-content position-relative max-height-vh-100 h-100 border-radius-lg">
+            class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ps ps--active-y">
             <!-- Navbar -->
             <nav class="navbar navbar-main navbar-expand-lg position-sticky mt-4 top-1 px-0 mx-4 shadow-none border-radius-xl z-index-sticky" id="navbarBlur" data-scroll="true">
                 <div class="container-fluid py-1 px-3">
@@ -432,7 +472,7 @@ if ($_SESSION['role'] == "ENCODER") {
                                                     <div class="d-flex px-2 py-1">
                                                         <div>
                                                             <img
-                                                                src="../assets/img/small-logos/logo-xd.svg"
+                                                                src="../../assets/img/small-logos/logo-xd.svg"
                                                                 class="avatar avatar-sm me-3"
                                                                 alt="xd" />
                                                         </div>
@@ -450,7 +490,7 @@ if ($_SESSION['role'] == "ENCODER") {
                                                             data-bs-toggle="tooltip"
                                                             data-bs-placement="bottom"
                                                             title="Ryan Tompson">
-                                                            <img src="../assets/img/team-1.jpg" alt="team1" />
+                                                            <img src="../../assets/img/team-1.jpg" alt="team1" />
                                                         </a>
                                                         <a
                                                             href="javascript:;"
@@ -458,7 +498,7 @@ if ($_SESSION['role'] == "ENCODER") {
                                                             data-bs-toggle="tooltip"
                                                             data-bs-placement="bottom"
                                                             title="Romina Hadid">
-                                                            <img src="../assets/img/team-2.jpg" alt="team2" />
+                                                            <img src="../../assets/img/team-2.jpg" alt="team2" />
                                                         </a>
                                                         <a
                                                             href="javascript:;"
@@ -466,7 +506,7 @@ if ($_SESSION['role'] == "ENCODER") {
                                                             data-bs-toggle="tooltip"
                                                             data-bs-placement="bottom"
                                                             title="Alexander Smith">
-                                                            <img src="../assets/img/team-3.jpg" alt="team3" />
+                                                            <img src="../../assets/img/team-3.jpg" alt="team3" />
                                                         </a>
                                                         <a
                                                             href="javascript:;"
@@ -474,7 +514,7 @@ if ($_SESSION['role'] == "ENCODER") {
                                                             data-bs-toggle="tooltip"
                                                             data-bs-placement="bottom"
                                                             title="Jessica Doe">
-                                                            <img src="../assets/img/team-4.jpg" alt="team4" />
+                                                            <img src="../../assets/img/team-4.jpg" alt="team4" />
                                                         </a>
                                                     </div>
                                                 </td>
@@ -506,7 +546,7 @@ if ($_SESSION['role'] == "ENCODER") {
                                                     <div class="d-flex px-2 py-1">
                                                         <div>
                                                             <img
-                                                                src="../assets/img/small-logos/logo-atlassian.svg"
+                                                                src="../../assets/img/small-logos/logo-atlassian.svg"
                                                                 class="avatar avatar-sm me-3"
                                                                 alt="atlassian" />
                                                         </div>
@@ -524,7 +564,7 @@ if ($_SESSION['role'] == "ENCODER") {
                                                             data-bs-toggle="tooltip"
                                                             data-bs-placement="bottom"
                                                             title="Romina Hadid">
-                                                            <img src="../assets/img/team-2.jpg" alt="team5" />
+                                                            <img src="../../assets/img/team-2.jpg" alt="team5" />
                                                         </a>
                                                         <a
                                                             href="javascript:;"
@@ -532,7 +572,7 @@ if ($_SESSION['role'] == "ENCODER") {
                                                             data-bs-toggle="tooltip"
                                                             data-bs-placement="bottom"
                                                             title="Jessica Doe">
-                                                            <img src="../assets/img/team-4.jpg" alt="team6" />
+                                                            <img src="../../assets/img/team-4.jpg" alt="team6" />
                                                         </a>
                                                     </div>
                                                 </td>
@@ -562,7 +602,7 @@ if ($_SESSION['role'] == "ENCODER") {
                                                     <div class="d-flex px-2 py-1">
                                                         <div>
                                                             <img
-                                                                src="../assets/img/small-logos/logo-slack.svg"
+                                                                src="../../assets/img/small-logos/logo-slack.svg"
                                                                 class="avatar avatar-sm me-3"
                                                                 alt="team7" />
                                                         </div>
@@ -580,7 +620,7 @@ if ($_SESSION['role'] == "ENCODER") {
                                                             data-bs-toggle="tooltip"
                                                             data-bs-placement="bottom"
                                                             title="Romina Hadid">
-                                                            <img src="../assets/img/team-3.jpg" alt="team8" />
+                                                            <img src="../../assets/img/team-3.jpg" alt="team8" />
                                                         </a>
                                                         <a
                                                             href="javascript:;"
@@ -588,7 +628,7 @@ if ($_SESSION['role'] == "ENCODER") {
                                                             data-bs-toggle="tooltip"
                                                             data-bs-placement="bottom"
                                                             title="Jessica Doe">
-                                                            <img src="../assets/img/team-1.jpg" alt="team9" />
+                                                            <img src="../../assets/img/team-1.jpg" alt="team9" />
                                                         </a>
                                                     </div>
                                                 </td>
@@ -620,7 +660,7 @@ if ($_SESSION['role'] == "ENCODER") {
                                                     <div class="d-flex px-2 py-1">
                                                         <div>
                                                             <img
-                                                                src="../assets/img/small-logos/logo-spotify.svg"
+                                                                src="../../assets/img/small-logos/logo-spotify.svg"
                                                                 class="avatar avatar-sm me-3"
                                                                 alt="spotify" />
                                                         </div>
@@ -640,7 +680,7 @@ if ($_SESSION['role'] == "ENCODER") {
                                                             data-bs-toggle="tooltip"
                                                             data-bs-placement="bottom"
                                                             title="Ryan Tompson">
-                                                            <img src="../assets/img/team-4.jpg" alt="user1" />
+                                                            <img src="../../assets/img/team-4.jpg" alt="user1" />
                                                         </a>
                                                         <a
                                                             href="javascript:;"
@@ -648,7 +688,7 @@ if ($_SESSION['role'] == "ENCODER") {
                                                             data-bs-toggle="tooltip"
                                                             data-bs-placement="bottom"
                                                             title="Romina Hadid">
-                                                            <img src="../assets/img/team-3.jpg" alt="user2" />
+                                                            <img src="../../assets/img/team-3.jpg" alt="user2" />
                                                         </a>
                                                         <a
                                                             href="javascript:;"
@@ -656,7 +696,7 @@ if ($_SESSION['role'] == "ENCODER") {
                                                             data-bs-toggle="tooltip"
                                                             data-bs-placement="bottom"
                                                             title="Alexander Smith">
-                                                            <img src="../assets/img/team-4.jpg" alt="user3" />
+                                                            <img src="../../assets/img/team-4.jpg" alt="user3" />
                                                         </a>
                                                         <a
                                                             href="javascript:;"
@@ -664,7 +704,7 @@ if ($_SESSION['role'] == "ENCODER") {
                                                             data-bs-toggle="tooltip"
                                                             data-bs-placement="bottom"
                                                             title="Jessica Doe">
-                                                            <img src="../assets/img/team-1.jpg" alt="user4" />
+                                                            <img src="../../assets/img/team-1.jpg" alt="user4" />
                                                         </a>
                                                     </div>
                                                 </td>
@@ -696,7 +736,7 @@ if ($_SESSION['role'] == "ENCODER") {
                                                     <div class="d-flex px-2 py-1">
                                                         <div>
                                                             <img
-                                                                src="../assets/img/small-logos/logo-jira.svg"
+                                                                src="../../assets/img/small-logos/logo-jira.svg"
                                                                 class="avatar avatar-sm me-3"
                                                                 alt="jira" />
                                                         </div>
@@ -716,7 +756,7 @@ if ($_SESSION['role'] == "ENCODER") {
                                                             data-bs-toggle="tooltip"
                                                             data-bs-placement="bottom"
                                                             title="Ryan Tompson">
-                                                            <img src="../assets/img/team-4.jpg" alt="user5" />
+                                                            <img src="../../assets/img/team-4.jpg" alt="user5" />
                                                         </a>
                                                     </div>
                                                 </td>
@@ -746,7 +786,7 @@ if ($_SESSION['role'] == "ENCODER") {
                                                     <div class="d-flex px-2 py-1">
                                                         <div>
                                                             <img
-                                                                src="../assets/img/small-logos/logo-invision.svg"
+                                                                src="../../assets/img/small-logos/logo-invision.svg"
                                                                 class="avatar avatar-sm me-3"
                                                                 alt="invision" />
                                                         </div>
@@ -766,7 +806,7 @@ if ($_SESSION['role'] == "ENCODER") {
                                                             data-bs-toggle="tooltip"
                                                             data-bs-placement="bottom"
                                                             title="Ryan Tompson">
-                                                            <img src="../assets/img/team-1.jpg" alt="user6" />
+                                                            <img src="../../assets/img/team-1.jpg" alt="user6" />
                                                         </a>
                                                         <a
                                                             href="javascript:;"
@@ -774,7 +814,7 @@ if ($_SESSION['role'] == "ENCODER") {
                                                             data-bs-toggle="tooltip"
                                                             data-bs-placement="bottom"
                                                             title="Jessica Doe">
-                                                            <img src="../assets/img/team-4.jpg" alt="user7" />
+                                                            <img src="../../assets/img/team-4.jpg" alt="user7" />
                                                         </a>
                                                     </div>
                                                 </td>

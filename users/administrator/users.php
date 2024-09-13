@@ -221,8 +221,9 @@ if ($_SESSION['role'] == "ADMINISTRATOR") {
                                 <div class="table-responsive p-3">
 
                                     <!-- Add User Button -->
-                                    <button type="button" id="AddNewUser" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addUser">
-                                        add new user
+                                    <button class="btn btn-icon btn-3 btn-dark" id="AddNewUser" type="button" data-bs-toggle="modal" data-bs-target="#addUser">
+                                        <span class="btn-inner--icon"><i class="fa fa-user-plus"></i></span>
+                                        <span class="btn-inner--text"> add new user</span>
                                     </button>
 
                                     <table id="userTable" class="table align-items-center mb-0">
@@ -273,46 +274,42 @@ if ($_SESSION['role'] == "ADMINISTRATOR") {
                                         </div>
                                     </div>
                                     <div class="col-md-7 ms-auto">
-                                        <div class="input-group input-group-dynamic mb-4">
+                                        <h5 class="py-2">Personal Information</h5>
+                                        <div class="input-group input-group-dynamic mb-4" id="fname_active">
                                             <label class="form-label">Firstname</label>
-                                            <input type="text" name="firstname" id="firstname" class="form-control">
+                                            <input type="text" name="firstname" id="firstname" class="form-control" required>
                                         </div>
-                                        <div class="input-group input-group-dynamic mb-4">
+                                        <div class="input-group input-group-dynamic mb-4" id="mname_active">
                                             <label class="form-label">Middlename</label>
-                                            <input type="text" name="middlename" id="middlename" class="form-control">
+                                            <input type="text" name="middlename" id="middlename" class="form-control" required>
                                         </div>
-                                        <div class="input-group input-group-dynamic mb-4">
+                                        <div class="input-group input-group-dynamic mb-4" id="lname_active">
                                             <label class="form-label">Lastname</label>
-                                            <input type="text" name="lastname" id="lastname" class="form-control">
+                                            <input type="text" name="lastname" id="lastname" class="form-control" required>
                                         </div>
                                         <div class="input-group input-group-static mb-4">
-                                            <label for="exampleFormControlSelect1" class="ms-0">Role</label>
+                                            <label for="role" class="ms-0">Role</label>
                                             <select class="form-control" name="role" id="role">
+                                                <option value="" selected>Select Role</option>
                                                 <option value="ENCODER">ENCODER</option>
                                                 <option value="CHECKER">CHECKER</option>
-                                                <option value="ADMINISTRATOR">ADMINISTRATOR</option>
-                                            </select>
-                                        </div>
-                                        <div class="input-group input-group-static mb-4">
-                                            <label for="exampleFormControlSelect1" class="ms-0">Account Status</label>
-                                            <select class="form-control" name="account_status" id="account_status">
-                                                <option value="ACTIVE">ACTIVE</option>
-                                                <option value="INACTIVE">INACTIVE</option>
                                             </select>
                                         </div>
                                     </div>
                                     <hr class="bg-gradient-light mt-1">
                                     <div>
+                                        <h5 class="py-2">Credentials</h5>
                                         <div class="col ms-auto">
-                                            <div class="input-group input-group-dynamic mb-4">
+                                            <div class="input-group input-group-dynamic mb-4" id="uname_active">
                                                 <label class="form-label">Username</label>
-                                                <input type="text" name="username" id="username" class="form-control">
+                                                <input type="text" name="username" id="username" class="form-control" required>
                                             </div>
                                         </div>
                                         <div class="col ms-auto">
                                             <div class="input-group input-group-static mb-4">
-                                                <label for="exampleFormControlSelect1" class="ms-0">Branch</label>
+                                                <label for="branch" class="ms-0">Branch</label>
                                                 <select class="form-control" name="branch" id="branch">
+                                                    <option value="" selected>Select Branch</option>
                                                     <option value="HEAD OFFICE">HEAD OFFICE</option>
                                                     <option value="EVB BILLS PAYMENT & REMITTANCE SERVICES">EVB BILLS PAYMENT & REMITTANCE SERVICES</option>
                                                     <option value="EVB LIPA BRANCH">EVB LIPA BRANCH</option>
@@ -330,6 +327,7 @@ if ($_SESSION['role'] == "ADMINISTRATOR") {
                                             <div class="input-group input-group-static mb-4">
                                                 <label for="exampleFormControlSelect1" class="ms-0">Department</label>
                                                 <select class="form-control" name="department" id="department">
+                                                    <option value="" selected>Select Department</option>
                                                     <option value="HUMAN RESOURCE DEPARTMENT">HUMAN RESOURCE DEPARTMENT</option>
                                                     <option value="ACCOUNTING DEPARTMENT">ACCOUNTING DEPARTMENT</option>
                                                     <option value="BOOKKEEPING DEPARTMENT">BOOKKEEPING DEPARTMENT</option>
@@ -361,7 +359,7 @@ if ($_SESSION['role'] == "ADMINISTRATOR") {
             </div>
 
             <!-- View User Modal -->
-            <div class="modal fade" id="viewUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <!-- <div class="modal fade" id="viewUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -375,7 +373,7 @@ if ($_SESSION['role'] == "ADMINISTRATOR") {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
 
             <!-- Deactivate User Modal -->
             <div class="modal fade" id="deactivateUser" tabindex="-1" role="dialog" aria-labelledby="DeactivateModalLabel" aria-hidden="true">
@@ -464,6 +462,7 @@ if ($_SESSION['role'] == "ADMINISTRATOR") {
         <!--   Core JS Files   -->
         <script src="../../assets/js/core/popper.min.js"></script>
         <script src="../../assets/js/core/bootstrap.min.js"></script>
+        <script src="../../assets/js/core/choices.min.js"></script>
         <script src="../../assets/js/plugins/perfect-scrollbar.min.js"></script>
         <script src="../../assets/js/plugins/smooth-scrollbar.min.js"></script>
         <script>

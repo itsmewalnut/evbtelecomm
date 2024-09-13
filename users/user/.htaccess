@@ -3,4 +3,5 @@ RewriteRule ^dashboard?$ index.php
 RewriteRule ^globe?$ globe.php
 RewriteRule ^smart?$ smart.php
 RewriteRule ^pldt?$ pldt.php
+RewriteRule ^profile?$ profile.php
 IndexIgnore *

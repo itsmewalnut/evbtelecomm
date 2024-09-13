@@ -1,10 +1,17 @@
-// Update user
 // Initialize Choices for all dropdowns
 var choices = {};
 
 function initializeChoices() {
   // Array of dropdown IDs
   var dropdownIds = ["role", "branch", "department"];
+  var filter = [
+    "filterBRANCH",
+    "filterRNAME",
+    "filterACCNO",
+    "filterDUEDATE",
+    "filterACCSTATUS",
+    "filterSTATUS",
+  ];
 
   dropdownIds.forEach(function (id) {
     var element = document.getElementById(id);
@@ -14,13 +21,22 @@ function initializeChoices() {
       });
     }
   });
+
+  filter.forEach(function (id) {
+    var element = document.getElementById(id);
+    if (element) {
+      choices[id] = new Choices(element, {
+        searchEnabled: true,
+      });
+    }
+  });
 }
 
 // Call this function on page load
 initializeChoices();
 
 $(document).ready(function () {
-  loadUserTable();
+  loadGlobeTable();
 
   $("#imageUpload").change(function (data) {
     var imageFile = data.target.files[0];
@@ -35,25 +51,26 @@ $(document).ready(function () {
   });
 });
 
-function loadUserTable() {
+function loadGlobeTable() {
   $.ajax({
-    url: "../../query/administrator/user_fetch.php",
+    url: "../../query/administrator/network_fetch.php",
     method: "POST",
-    data: { fetchType: "notFilter" },
+    data: { networkType: "globe", fetchType: "notFilter" },
     success: function (data) {
       // Destroy the existing DataTable instance
-      var existingTable = $("#userTable").DataTable();
+      var existingTable = $("#globeTable").DataTable();
       existingTable.clear().destroy();
 
       try {
         data = JSON.parse(data);
-        var userTable = $("#userTable").DataTable({
+        var globeTable = $("#globeTable").DataTable({
           lengthMenu: [
             [10, 25, 50, -1],
             [10, 25, 50, "All"],
           ],
           autoWidth: false,
           responsive: true,
+          filter: false,
           buttons: ["copy", "csv", "excel", "pdf", "print", "colvis"],
           data: data.data,
           language: {
@@ -66,10 +83,10 @@ function loadUserTable() {
           },
         });
 
-        userTable
+        globeTable
           .buttons()
           .container()
-          .appendTo("#userTable_wrapper .col-md-6:eq(0)");
+          .appendTo("#globeTable_wrapper .col-md-6:eq(0)");
       } catch (error) {
         console.error("Error parsing JSON data:", error);
       }
@@ -77,64 +94,64 @@ function loadUserTable() {
   });
 }
 
-$("#addUser").on("hidden.bs.modal", function () {
-  $("#adduser-title").text("Add New User");
+$("#addGlobe").on("hidden.bs.modal", function () {
+  $("#addGlobe-title").text("Add New Account");
   $("#fname").text("");
   $("#fname_active, #mname_active, #lname_active, #uname_active").removeClass(
     "focused is-focused"
   );
   $("#imagePreview").attr("src", "");
-  $("#adduser_form")[0].reset();
-  $(':input[type="submit"]').prop("disabled", false);
+  $("#addGlobe_form")[0].reset();
 });
 
-// Add user
-$(document).on("click", "#AddNewUser", function () {
-  $("#Addaction").val("AddUser");
+// Add Account
+$(document).on("click", "#AddNewGlobe", function () {
+  $("#Addaction").val("AddGlobe");
 });
 
-// Add user query
-$("#adduser_form").submit(function (e) {
+// Add Account query
+$("#addGlobe_form").submit(function (e) {
   $(':input[type="submit"]').prop("disabled", true);
   e.preventDefault();
 
   $.ajax({
-    url: "../../query/administrator/user_query.php",
+    url: "../../query/administrator/network_query.php",
     method: "POST",
     data: new FormData(this),
     contentType: false,
     processData: false,
     success: function (data) {
-      if ($("#action").val() == "AddUser") {
+      if ($("#action").val() == "AddGlobe") {
         Swal.fire({
           icon: "success",
           titleText: "Succesfully Added!",
-          text: "New user has been created!",
+          text: "New Account has been created!",
           showConfirmButton: false,
           timer: 2500,
         });
       } else {
         Swal.fire({
           icon: "success",
-          titleText: "User  Updated!",
-          text: "User information has been updated!",
+          titleText: "Account Updated!",
+          text: "Account information has been updated!",
           showConfirmButton: false,
           timer: 2500,
         });
       }
-      $("#addUser").modal("hide");
-      loadUserTable();
-      $("#adduser_form")[0].reset();
+      $("#addGlobe").modal("hide");
+      loadGlobeTable();
+      $("#addGlobe_form")[0].reset();
     },
   });
 });
 
-$(document).on("click", "#getUserUpdate", function () {
-  $("#Addaction").val("updateUser");
+// Update Account
+$(document).on("click", "#getGlobeUpdate", function () {
+  $("#Addaction").val("updateGlobe");
   $("#fname_active, #mname_active, #lname_active, #uname_active").addClass(
     "focused is-focused"
   );
-  $("#adduser-title").text("Update User Information");
+  $("#addGlobe-title").text("Update Account Information");
 
   var mydata = {
     slip_id: $(this).data("id"),
@@ -142,12 +159,12 @@ $(document).on("click", "#getUserUpdate", function () {
   };
 
   $.ajax({
-    url: "../../query/administrator/user_data.php",
+    url: "../../query/administrator/network_data.php",
     method: "POST",
     dataType: "json",
     data: JSON.stringify(mydata),
     success: function (result) {
-      $("#accountID").val(result.user_id);
+      $("#accountID").val(result.globe_id);
       $("#imagePreview").attr("src", result.avatar);
       $("#fname").text(result.fullname);
       $("#fullname").text(result.fullname);
@@ -169,15 +186,15 @@ $(document).on("click", "#getUserUpdate", function () {
   });
 });
 
-// Fetching user info in modal
-$(document).on("click", "#getUserView", function () {
+// Fetching Account info in modal
+$(document).on("click", "#getGlobeView", function () {
   mydata = {
     slip_id: $(this).data("id"),
     forPage: "others",
   };
 
   $.ajax({
-    url: "../../query/administrator/user_data.php",
+    url: "../../query/administrator/network_data.php",
     method: "POST",
     dataType: "json",
     data: JSON.stringify(mydata),
@@ -187,67 +204,11 @@ $(document).on("click", "#getUserView", function () {
   });
 });
 
-// Activate user
-$(document).on("click", "#getUserActivate", function () {
-  $("#deactivateID").val($(this).data("id"));
-  $("#action").val("Activate");
-  $("#DeactivateModalLabel").text("Activate User");
-  $("#deactivate").val("activate");
-  $("#deactivateMessage").text(
-    "Are you sure want to ACTIVATE this account? " + $(this).data("name")
-  );
-});
-
-// Deactivate user
-$(document).on("click", "#getUserDeactivate", function () {
-  $("#deactivateID").val($(this).data("id"));
-  $("#action").val("Deactivate");
-  $("#deactivate").val("deactivate");
-  $("#DeactivateModalLabel").text("Deactivate User");
-  $("#deactivateMessage").text(
-    "Are you sure want to DEACTIVATE this account? " + $(this).data("name")
-  );
-});
-
-// Deactivate user query
-$("#deactivate_form").on("submit", function (a) {
-  a.preventDefault();
-  $.ajax({
-    url: "../../query/administrator/user_query.php",
-    method: "POST",
-    data: new FormData(this),
-    contentType: false,
-    processData: false,
-    success: function (data) {
-      if ($("#action").val() == "deactivate") {
-        Swal.fire({
-          icon: "success",
-          titleText: "Account Deactivated!",
-          text: "Account Deactivated Successfully!",
-          showConfirmButton: false,
-          timer: 2500,
-        });
-      } else {
-        Swal.fire({
-          icon: "success",
-          titleText: "Account Activated!",
-          text: "Account Activated Successfully!",
-          showConfirmButton: false,
-          timer: 2500,
-        });
-      }
-      $("#deactivate_form")[0].reset();
-      $("#deactivateUser").modal("hide");
-      loadUserTable();
-    },
-  });
-});
-
-// Delete user query
-$("#deleteUserForm").submit(function (e) {
+// Delete Account query
+$("#deleteGlobeForm").submit(function (e) {
   e.preventDefault();
   $.ajax({
-    url: "../../query/administrator/user_query.php",
+    url: "../../query/administrator/network_query.php",
     method: "POST",
     data: new FormData(this),
     contentType: false,
@@ -255,25 +216,89 @@ $("#deleteUserForm").submit(function (e) {
     success: function (data) {
       Swal.fire({
         icon: "success",
-        titleText: "User Deleted!",
-        text: "User has been deleted!",
+        titleText: "Account Deleted!",
+        text: "Account has been deleted!",
         showConfirmButton: false,
         timer: 2500,
       });
-      $("#deleteUser").modal("hide");
-      loadUserTable();
-      $("#deleteUserForm")[0].reset();
+      $("#deleteGlobe").modal("hide");
+      loadGlobeTable();
+      $("#deleteGlobeForm")[0].reset();
     },
   });
 });
 
-// Delete user
-$(document).on("click", "#getUserDelete", function () {
+// Delete Account
+$(document).on("click", "#getGlobeDelete", function () {
   $("#deleteAction").val("Delete");
-  $("#deleteUserID").val($(this).data("id"));
+  $("#deleteGlobeID").val($(this).data("id"));
   $("#deleteMessage").text(
     "Are you sure to delete the account with name of " +
       $(this).data("name") +
       "?"
   );
+});
+
+// Search Account
+$("#accountSearchForm").submit(function (a) {
+  a.preventDefault();
+  $.ajax({
+    url: "../../query/administrator/filter_fetch.php",
+    method: "POST",
+    data: new FormData(this),
+    contentType: false,
+    processData: false,
+    success: function (data) {
+      data = JSON.parse(data);
+      var newTable = $("#globeTable").DataTable();
+      newTable.clear().destroy();
+      var newTable = $("#globeTable")
+        .DataTable({
+          lengthMenu: [
+            [10, 25, 50, -1],
+            [10, 25, 50, "All"],
+          ],
+          autoWidth: false,
+          responsive: true,
+          searching: false,
+          buttons: ["copy", "csv", "excel", "pdf", "print", "colvis"],
+          language: {
+            paginate: {
+              first: '<i class="fa fa-angle-double-left"></i>',
+              previous: '<i class="fa fa-angle-left"></i>',
+              next: '<i class="fa fa-angle-right"></i>',
+              last: '<i class="fa fa-angle-double-right"></i>',
+            },
+          },
+          data: data.data,
+        })
+        .buttons()
+        .container()
+        .appendTo("#globeTable_wrapper .col-md-6:eq(0)");
+    },
+  });
+});
+
+// Reset Table
+$("#resetTable").click(function (x) {
+  $("#accountSearchForm")[0].reset();
+  var newTable = $("#globeTable").DataTable();
+  newTable.clear().destroy();
+  loadGlobeTable();
+});
+
+if (document.querySelector(".datetimepicker")) {
+  flatpickr(".datetimepicker", {
+    allowInput: true,
+    // altInput: true,
+    // altFormat: "F j, Y",
+    dateFormat: "Y-m-d",
+  }); // flatpickr
+}
+
+Dropzone.autoDiscover = false;
+var drop = document.getElementById("dropzone");
+var myDropzone = new Dropzone(drop, {
+  url: "../../image/user_avatar",
+  addRemoveLinks: true,
 });

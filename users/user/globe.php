@@ -7,7 +7,7 @@ $globe_RNAME = mysqli_query($conn, "SELECT DISTINCT register_name from globe_tab
 $globe_ACCNO = mysqli_query($conn, "SELECT DISTINCT account_no from globe_table");
 $globe_DUEDATE = mysqli_query($conn, "SELECT DISTINCT duedate from globe_table");
 
-if ($_SESSION['role'] == "ADMINISTRATOR") {
+if ($_SESSION['role'] == "ENCODER" || $_SESSION['role'] == "CHECKER") {
 ?>
     <!DOCTYPE html>
     <html lang="en">
@@ -33,10 +33,6 @@ if ($_SESSION['role'] == "ADMINISTRATOR") {
         <link rel="stylesheet" href="../../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
         <link rel="stylesheet" href="../../plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
         <link rel="stylesheet" href="../../plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
-        <!-- daterange picker -->
-        <link rel="stylesheet" href="../../plugins/daterangepicker/daterangepicker.css">
-        <!-- Tempusdominus Bootstrap 4 -->
-        <link rel="stylesheet" href="../../plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
     </head>
 
     <body class="g-sidenav-show bg-gray-200">
@@ -73,14 +69,6 @@ if ($_SESSION['role'] == "ADMINISTRATOR") {
                                 <i class="material-icons opacity-10">dashboard</i>
                             </div>
                             <span class="nav-link-text ms-1">Dashboard</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="users">
-                            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                                <i class="material-icons opacity-10">person</i>
-                            </div>
-                            <span class="nav-link-text ms-1">Users</span>
                         </a>
                     </li>
                     <li class="nav-item mt-3">
@@ -185,7 +173,7 @@ if ($_SESSION['role'] == "ADMINISTRATOR") {
                                     </div>
                                     <hr class="horizontal light mt-0 mb-" />
                                     <li class="mb-2">
-                                        <a class="dropdown-item border-radius-md" href="javascript:;">
+                                        <a class="dropdown-item border-radius-md" href="#">
                                             <div class="d-flex align-items-center py-1">
                                                 <div class="my-auto">
                                                     <span class="material-icons">person</span>
@@ -197,7 +185,7 @@ if ($_SESSION['role'] == "ADMINISTRATOR") {
                                         </a>
                                     </li>
                                     <li class="mb-2">
-                                        <a class="dropdown-item border-radius-md" href="javascript:;">
+                                        <a class="dropdown-item border-radius-md" href="#">
                                             <div class="d-flex align-items-center">
                                                 <div class="my-auto">
                                                     <span class="material-icons">settings</span>
@@ -228,6 +216,17 @@ if ($_SESSION['role'] == "ADMINISTRATOR") {
                             </div>
                             <div class="card-body px-0 pb-2">
                                 <div class="table-responsive p-3">
+
+                                    <!-- Add New Account Button -->
+                                    <?php
+                                    if ($_SESSION["role"] == "ENCODER") {
+                                        echo '<button class="btn btn-icon btn-3 btn-info" id="AddNewGlobe" type="button" data-bs-toggle="modal" data-bs-target="#addGlobe">
+                                        <span class="btn-inner--icon"><i class="fa fa-user-plus"></i></span>
+                                        <span class="btn-inner--text"> add new account</span>
+                                    </button>';
+                                    } else {
+                                    }
+                                    ?>
 
                                     <!-- Filterting -->
                                     <form id="accountSearchForm" method="POST">
@@ -305,7 +304,7 @@ if ($_SESSION['role'] == "ADMINISTRATOR") {
                                         <!-- Search Button -->
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <button type="submit" class="btn btn-icon btn-3 btn-success w-100">
+                                                <button type="submit" id="filterTable" class="btn btn-icon btn-3 btn-success w-100">
                                                     <span class="btn-inner--icon"><i class="fa fa-search"></i></span>
                                                     <span class="btn-inner--text"> search</span>
                                                 </button>
@@ -343,6 +342,47 @@ if ($_SESSION['role'] == "ADMINISTRATOR") {
                 </div>
             </div>
 
+            <!-- Add Account Modal -->
+            <div class="modal fade" id="addGlobe" tabindex="-1" role="dialog" aria-labelledby="modal-form" aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title font-weight-normal" id="addGlobe-title">Add New Account</h5>
+                            <button type="button" class="btn-close text-dark" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <form id="addGlobe_form" enctype="multipart/form-data" method="post">
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="input-group input-group-static">
+                                            <label>Start Date</label>
+                                            <input class="form-control datetimepicker" type="text" data-input>
+                                        </div>
+                                        <div class="dropzone mt-3" id="dropzone">
+                                            <label class="form-label">Upload attachment here</label>
+                                            <div class="input-group input-group-dynamic mt-4">
+                                                <div class="fallback">
+                                                    <input name="file" type="file" multiple />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <input type="submit" class="btn btn-success" value="Submit"></input>
+                                <input type="hidden" name="action" id="Addaction" value="">
+                                <input type="hidden" name="accountID" id="accountID" value="">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
             <!-- View Account Modal -->
             <div class="modal fade" id="viewGlobe" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg" role="document">
@@ -356,31 +396,6 @@ if ($_SESSION['role'] == "ADMINISTRATOR") {
                         <div class="modal-body">
                             <img id="viewUserImage" class="rounded-circle" width="150" alt="No Image Available" onerror="this.src='../../image/avatar_thumbnail.png';">
                         </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Delete Account Modal -->
-            <div class="modal fade" id="deleteGlobe" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title font-weight-normal" id="exampleModalLabel">Delete Account</h5>
-                            <button type="button" class="btn-close text-dark" data-bs-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <form id="deleteGlobeForm" method="POST">
-                            <div class="modal-body">
-                                <h5 id="deleteMessage"></h5>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-danger">Delete Account</button>
-                                <input type="hidden" name="action" id="deleteAction" value="">
-                                <input type="hidden" name="deleteGlobeID" id="deleteGlobeID" value="">
-                            </div>
-                        </form>
                     </div>
                 </div>
             </div>
@@ -423,6 +438,9 @@ if ($_SESSION['role'] == "ADMINISTRATOR") {
         <script src="../../assets/js/core/popper.min.js"></script>
         <script src="../../assets/js/core/bootstrap.min.js"></script>
         <script src="../../assets/js/core/choices.min.js"></script>
+        <script src="../../assets/js/core/quill.min.js"></script>
+        <script src="../../assets/js/core/flatpickr.min.js"></script>
+        <script src="../../plugins/dropzone/dropzone.js"></script>
         <script src="../../assets/js/plugins/perfect-scrollbar.min.js"></script>
         <script src="../../assets/js/plugins/smooth-scrollbar.min.js"></script>
         <script>
@@ -436,8 +454,6 @@ if ($_SESSION['role'] == "ADMINISTRATOR") {
         </script>
         <!-- jQuery -->
         <script src="../../plugins/jquery/jquery.min.js"></script>
-        <!-- Select2 -->
-        <script src="../../plugins/select2/js/select2.full.min.js"></script>
         <!-- DataTables  & Plugins -->
         <script src="../../plugins/datatables/jquery.dataTables.min.js"></script>
         <script src="../../plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
@@ -451,12 +467,6 @@ if ($_SESSION['role'] == "ADMINISTRATOR") {
         <script src="../../plugins/datatables-buttons/js/buttons.html5.min.js"></script>
         <script src="../../plugins/datatables-buttons/js/buttons.print.min.js"></script>
         <script src="../../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
-        <!-- InputMask -->
-        <script src="../../plugins/moment/moment.min.js"></script>
-        <!-- date-range-picker -->
-        <script src="../../plugins/daterangepicker/daterangepicker.js"></script>
-        <!-- Tempusdominus Bootstrap 4 -->
-        <script src="../../plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
         <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
         <script src="../../assets/js/material-dashboard.min.js?v=3.1.0"></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -470,13 +480,3 @@ if ($_SESSION['role'] == "ADMINISTRATOR") {
     header("Location: ../../logout.php");
 }
 ?>
-
-<script>
-    $(function() {
-        $('.select2').select2()
-
-        $('#searchDateHiredFrom, #searchDateHiredTo').datetimepicker({
-            format: 'YYYY-MM-DD'
-        });
-    });
-</script>
