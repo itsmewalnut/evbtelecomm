@@ -86,6 +86,17 @@ $("#addUser").on("hidden.bs.modal", function () {
   $("#imagePreview").attr("src", "");
   $("#adduser_form")[0].reset();
   $(':input[type="submit"]').prop("disabled", false);
+
+  // Update Choices values
+  if (choices["role"]) {
+    choices["role"].setChoiceByValue("");
+  }
+  if (choices["branch"]) {
+    choices["branch"].setChoiceByValue("");
+  }
+  if (choices["department"]) {
+    choices["department"].setChoiceByValue("");
+  }
 });
 
 // Add user
@@ -158,9 +169,11 @@ $(document).on("click", "#getUserUpdate", function () {
       // Update Choices values
       if (choices["role"]) {
         choices["role"].setChoiceByValue(result.role);
-      } else if (choices["branch"]) {
+      }
+      if (choices["branch"]) {
         choices["branch"].setChoiceByValue(result.branch);
-      } else if (choices["department"]) {
+      }
+      if (choices["department"]) {
         choices["department"].setChoiceByValue(result.department);
       }
 
