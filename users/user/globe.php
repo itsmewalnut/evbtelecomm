@@ -2,10 +2,10 @@
 require('../../database/db_conn.php');
 session_start();
 
-$globe_BRANCH = mysqli_query($conn, "SELECT DISTINCT branch from globe_table");
-$globe_RNAME = mysqli_query($conn, "SELECT DISTINCT register_name from globe_table");
-$globe_ACCNO = mysqli_query($conn, "SELECT DISTINCT account_no from globe_table");
-$globe_DUEDATE = mysqli_query($conn, "SELECT DISTINCT duedate from globe_table");
+$globe_BRANCH = mysqli_query($conn, "SELECT DISTINCT branch FROM globe_table");
+$globe_RNAME = mysqli_query($conn, "SELECT DISTINCT register_name FROM globe_table");
+$globe_ACCNO = mysqli_query($conn, "SELECT DISTINCT account_no FROM globe_table");
+$globe_DUEDATE = mysqli_query($conn, "SELECT DISTINCT duedate FROM globe_table");
 
 if ($_SESSION['role'] == "ENCODER" || $_SESSION['role'] == "CHECKER") {
 ?>
@@ -344,7 +344,7 @@ if ($_SESSION['role'] == "ENCODER" || $_SESSION['role'] == "CHECKER") {
 
             <!-- Add Account Modal -->
             <div class="modal fade" id="addGlobe" tabindex="-1" role="dialog" aria-labelledby="modal-form" aria-hidden="true">
-                <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-dialog modal-dialog-scrollable modal-xl" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title font-weight-normal" id="addGlobe-title">Add New Account</h5>
@@ -352,32 +352,186 @@ if ($_SESSION['role'] == "ENCODER" || $_SESSION['role'] == "CHECKER") {
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <form id="addGlobe_form" enctype="multipart/form-data" method="post">
-                            <div class="modal-body">
-                                <div class="row">
-                                    <div class="col">
-                                        <div class="input-group input-group-static">
-                                            <label>Start Date</label>
-                                            <input class="form-control datetimepicker" type="text" data-input>
-                                        </div>
-                                        <div class="dropzone mt-3" id="dropzone">
-                                            <label class="form-label">Upload attachment here</label>
-                                            <div class="input-group input-group-dynamic mt-4">
-                                                <div class="fallback">
-                                                    <input name="file" type="file" multiple />
+                        <div class="modal-body">
+                            <form id="addGlobe_form" enctype="multipart/form-data" method="post">
+                                <div class="row mt-4">
+                                    <div class="mx-auto position-relative">
+                                        <div class="card">
+                                            <div class="card-header p-0 position-relative mt-n4 mx-2 z-index-2">
+                                                <div class="bg-gradient-info shadow-info border-radius-lg py-2 pe-1">
+                                                    <h5 class="text-white font-weight-bolder px-3 mt-2">Account Information</h5>
+                                                </div>
+                                            </div>
+                                            <div class="card-body pt-2">
+                                                <div class="row mt-4">
+                                                    <div class="col-md-12">
+                                                        <div class="input-group input-group-static mb-4">
+                                                            <label for="acc_Branch" class="ms-0">Branch</label>
+                                                            <select class="form-control" name="acc_Branch" id="acc_Branch">
+                                                                <option value="" selected>Select Branch</option>
+                                                                <option value="HEAD OFFICE">HEAD OFFICE</option>
+                                                                <option value="EVB BILLS PAYMENT & REMITTANCE SERVICES">EVB BILLS PAYMENT & REMITTANCE SERVICES</option>
+                                                                <option value="EVB LIPA BRANCH">EVB LIPA BRANCH</option>
+                                                                <option value="EVB LEMERY BRANCH">EVB LEMERY BRANCH</option>
+                                                                <option value="EVB BIÑAN BRANCH">EVB BIÑAN BRANCH</option>
+                                                                <option value="EVB TAYTAY BRANCH">EVB TAYTAY BRANCH</option>
+                                                                <option value="EVB CALAPAN BRANCH">EVB CALAPAN BRANCH</option>
+                                                                <option value="EVB CAINTA BRANCH">EVB CAINTA BRANCH</option>
+                                                                <option value="EVB INTRAMUROS BRANCH">EVB INTRAMUROS BRANCH</option>
+                                                                <option value="EVB KALIBO BRANCH">EVB KALIBO BRANCH</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="input-group input-group-static mb-4 textive">
+                                                            <label>Account No</label>
+                                                            <input type="number" name="accountNO" id="accountNO" class="form-control" autocomplete="off" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="input-group input-group-static mb-4 textive">
+                                                            <label>Register No</label>
+                                                            <input type="number" name="registerNO" id="registerNO" class="form-control" autocomplete="off" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="input-group input-group-static mb-4 textive">
+                                                            <label>Register Name</label>
+                                                            <input type="text" name="registerName" id="registerName" class="form-control" autocomplete="off" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6 mb-4">
+                                                        <div class="input-group input-group-static">
+                                                            <label for="accountStatus" class="ms-0">Account Status</label>
+                                                            <select class="form-control" name="accountStatus" id="accountStatus">
+                                                                <option value="" selected>Select Account Status</option>
+                                                                <option value="ACTIVE">ACTIVE</option>
+                                                                <option value="INACTIVE">INACTIVE</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <!-- <div class="col-md-4 mb-4">
+                                                        <div class="input-group input-group-static">
+                                                            <label for="finalStatus" class="ms-0">Final Status</label>
+                                                            <select class="form-control" name="finalStatus" id="finalStatus">
+                                                                <option value="" selected>Select Final Status</option>
+                                                                <option value="UNPAID">UNPAID</option>
+                                                                <option value="TRANSMITTED">TRANSMITTED</option>
+                                                                <option value="PAID">PAID</option>
+                                                            </select>
+                                                        </div>
+                                                    </div> -->
+                                                    <div class="col-md-6 mb-4">
+                                                        <div class="input-group input-group-static">
+                                                            <label for="acc_type" class="ms-0">Types of Account</label>
+                                                            <select class="form-control" name="acc_type" id="acc_type">
+                                                                <option value="" selected>Select Account Type</option>
+                                                                <option value="POSTPAID">POSTPAID</option>
+                                                                <option value="PREPAID">PREPAID</option>
+                                                                <option value="LANDLINE">LANDLINE</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="input-group input-group-static textive">
+                                                            <label>Due Date</label>
+                                                            <input class="form-control datetimepicker" name="dueDate" id="dueDate" type="text" autocomplete="off" data-input>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="input-group input-group-static textive">
+                                                            <label>Acquisition Date</label>
+                                                            <input class="form-control datetimepicker" name="acqui_date" id="acqui_date" type="text" autocomplete="off" data-input>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+
+                                    <div class="mx-auto position-relative mt-5 mb-4">
+                                        <div class="card">
+                                            <div class="card-header p-0 position-relative mt-n4 mx-2 z-index-2">
+                                                <div class="bg-gradient-info shadow-info border-radius-lg py-2 pe-1">
+                                                    <h5 class="text-white font-weight-bolder px-3 mt-2">Other Details</h5>
+                                                </div>
+                                            </div>
+                                            <div class="card-body pt-2">
+                                                <div class="row mt-4">
+                                                    <div class="col-md-4">
+                                                        <div class="input-group input-group-static mb-4 textive">
+                                                            <label>Register Address</label>
+                                                            <input type="text" name="register_add" id="register_add" class="form-control" autocomplete="off" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="input-group input-group-static mb-4 textive">
+                                                            <label>Username</label>
+                                                            <input type="text" name="globe_username" id="globe_username" class="form-control" autocomplete="off" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="input-group input-group-static mb-4 textive">
+                                                            <label>Password</label>
+                                                            <input type="text" name="globe_password" id="globe_password" class="form-control" autocomplete="off" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="input-group input-group-static mb-4 textive">
+                                                            <label>Monthly</label>
+                                                            <input type="number" name="accMonthly" id="accMonthly" class="form-control" autocomplete="off" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="input-group input-group-static mb-4 textive">
+                                                            <label>Email</label>
+                                                            <input type="email" name="accEmail" id="accEmail" class="form-control" autocomplete="off" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="input-group input-group-static mb-4 textive">
+                                                            <label>Phone</label>
+                                                            <input type="text" name="accPhone" id="accPhone" class="form-control" autocomplete="off" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="input-group input-group-static textive">
+                                                            <label>Serial No</label>
+                                                            <input type="text" name="acc_serialno" id="acc_serialno" class="form-control" autocomplete="off" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="input-group input-group-static textive">
+                                                            <label>IMEI 1</label>
+                                                            <input type="number" name="accImei1" id="accImei1" class="form-control" autocomplete="off" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="input-group input-group-static textive">
+                                                            <label>IMEI 2</label>
+                                                            <input type="number" name="accImei2" id="accImei2" class="form-control" autocomplete="off" required>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- <div class="col-md-12">
+                                        <h5>Remarks</h5>
+                                        <div class="input-group input-group-dynamic">
+                                            <textarea class="multisteps-form__textarea form-control" rows="3" placeholder="Say a few words about your remarks"></textarea>
+                                        </div>
+                                    </div> -->
                                 </div>
 
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <input type="submit" class="btn btn-success" value="Submit"></input>
-                                <input type="hidden" name="action" id="Addaction" value="">
-                                <input type="hidden" name="accountID" id="accountID" value="">
-                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <input type="submit" class="btn btn-success" value="Submit"></input>
+                            <input type="hidden" name="networkType" id="networkType" value="Globe">
+                            <input type="hidden" name="action" id="action" value="">
+                            <input type="hidden" name="networkID" id="networkID" value="">
+                        </div>
                         </form>
                     </div>
                 </div>
@@ -385,20 +539,344 @@ if ($_SESSION['role'] == "ENCODER" || $_SESSION['role'] == "CHECKER") {
 
             <!-- View Account Modal -->
             <div class="modal fade" id="viewGlobe" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-dialog modal-xl" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title font-weight-normal" id="exampleModalLabel">Account Information</h5>
+                            <h5 class="modal-title font-weight-normal" id="viewGlobe_title">Account Information</h5>
                             <button type="button" class="btn-close text-dark" data-bs-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div class="modal-body">
-                            <img id="viewUserImage" class="rounded-circle" width="150" alt="No Image Available" onerror="this.src='../../image/avatar_thumbnail.png';">
+                            <div class="row">
+                                <div class="col-xl-5 col-lg-6 text-center">
+                                    <div class="pdf" id="attachment_container"></div>
+                                </div>
+                                <div class="col-lg-6 mx-auto">
+                                    <div class="d-flex gap-2">
+                                        <h3 class="mt-lg-0 mt-4" id="acc_name"></h3>
+                                        <span class="badge my-auto" id="acc_status"></span>
+                                    </div>
+                                    <div class="rating">
+                                        <h6 class="opacity-8 text-sm" id="acc_branch"></h6>
+                                    </div>
+                                    <h6 class="mb-0 mt-4">Duedate:</h6>
+                                    <h5 id="acc_duedate"></h5>
+                                    <h6 class="mt-4">Remarks:</h6>
+                                    <h6 class="mb-0" id="acc_remarks"></h6>
+                                    <div class="row mt-4">
+                                        <div class="overflow-hidden position-relative border-radius-xl">
+                                            <img src="../../assets/img/illustrations/pattern-tree.svg" class="position-absolute opacity-2 start-0 top-0 w-100 z-index-1 h-100" alt="pattern-tree">
+                                            <span class="mask bg-gradient-dark opacity-10"></span>
+                                            <div class="card-body position-relative z-index-1 p-3">
+                                                <i class="material-icons text-white p-2">wifi</i>
+                                                <div class="d-flex mt-3">
+                                                    <div class="me-6">
+                                                        <p class="text-white text-sm opacity-8 mb-0">Paid Amount</p>
+                                                        <h6 class="text-white mb-0" id="acc_amount"></h6>
+                                                    </div>
+                                                    <div class="ms-1">
+                                                        <p class="text-white text-sm opacity-8 mb-0">Payment Plan</p>
+                                                        <h6 class="text-white mb-0" id="acc_billing"></h6>
+                                                    </div>
+                                                </div>
+                                                <div class="d-flex mt-3">
+                                                    <div class="me-5">
+                                                        <p class="text-white text-sm opacity-8 mb-0">Date of Paid</p>
+                                                        <h6 class="text-white mb-0" id="acc_datepaid"></h6>
+                                                    </div>
+                                                    <div class="ms-3">
+                                                        <p class="text-white text-sm opacity-8 mb-0">Status</p>
+                                                        <h6 class="text-white mb-0" id="acc_finalstatus"></h6>
+                                                    </div>
+                                                    <div class="ms-auto w-20 d-flex align-items-end justify-content-end">
+                                                        <img class="w-60 mt-2" src="../../assets/img/logos/mastercard.png" alt="logo">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Paid Button -->
+                                    <?php
+
+                                    if ($_SESSION["role"] == "ENCODER") {
+                                        echo '<div class="row mt-4" id="PAID_BUTTON">
+                                                <div class="col-lg-5">
+                                                    <button class="btn bg-gradient-warning mb-0 mt-lg-auto w-100" type="button" id="payButton" name="button" data-bs-toggle="modal" data-bs-target="#paymentModal">
+                                                        <span class="btn-inner--icon"><i class="material-icons">payments</i>
+                                                        </span> paid
+                                                    </button>
+                                                </div>
+                                            </div>';
+                                    } else {
+                                    }
+                                    ?>
+                                    <!------------->
+
+                                    <!-- TRANSMIT Button -->
+                                    <?php
+
+                                    if ($_SESSION["role"] == "ENCODER") {
+                                        echo '<div class="row mt-4" id="TRANSMIT_BUTTON">
+                                                <div class="col-lg-5">
+                                                    <button class="btn bg-gradient-success mb-0 mt-lg-auto w-100" type="button" id="transmitButton" name="button" data-bs-toggle="modal" data-bs-target="#transmitModal">
+                                                        <span class="btn-inner--icon"><i class="material-icons">inventory</i>
+                                                        </span> transmit
+                                                    </button>
+                                                </div>
+                                            </div>';
+                                    } else {
+                                    }
+                                    ?>
+                                    <!------------->
+
+                                </div>
+                            </div>
+                            <div class="row mt-5">
+                                <div class="col-md-12">
+                                    <div class="card h-100">
+                                        <div class="card-header pb-0 p-3">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <h6 class="mb-0">Other Details</h6>
+                                                </div>
+                                                <div class="col-md-6 d-flex justify-content-end align-items-center">
+                                                    <i class="material-icons me-2 text-lg">date_range</i>
+                                                    <small id="acc_acqdate"></small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            <ul class="list-group">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <li class="list-group-item border-0 justify-content-between ps-0 pb-0 border-radius-lg">
+                                                            <div class="d-flex">
+                                                                <div class="d-flex align-items-center">
+                                                                    <button class="btn btn-icon-only btn-rounded bg-gradient-info mb-0 me-3 p-3 btn-sm d-flex align-items-center justify-content-center"><i class="material-icons text-lg">person</i></button>
+                                                                    <div class="d-flex flex-column">
+                                                                        <h6 class="mb-1 text-dark text-sm">Account No</h6>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="d-flex align-items-center text-sm font-weight-bold ms-auto" id="acc_no"></div>
+                                                            </div>
+                                                            <hr class="horizontal dark mt-3 mb-2" />
+                                                        </li>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <li class="list-group-item border-0 justify-content-between ps-0 border-radius-lg">
+                                                            <div class="d-flex">
+                                                                <div class="d-flex align-items-center">
+                                                                    <button class="btn btn-icon-only btn-rounded bg-gradient-info mb-0 me-3 p-3 btn-sm d-flex align-items-center justify-content-center"><i class="material-icons text-lg">mail</i></button>
+                                                                    <div class="d-flex flex-column">
+                                                                        <h6 class="mb-1 text-dark text-sm">Email</h6>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="d-flex align-items-center text-sm font-weight-bold ms-auto" id="acc_email"></div>
+                                                            </div>
+                                                            <hr class="horizontal dark mt-3 mb-2" />
+                                                        </li>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <li class="list-group-item border-0 justify-content-between ps-0 pb-0 border-radius-lg">
+                                                            <div class="d-flex">
+                                                                <div class="d-flex align-items-center">
+                                                                    <button class="btn btn-icon-only btn-rounded bg-gradient-info mb-0 me-3 p-3 btn-sm d-flex align-items-center justify-content-center"><i class="material-icons text-lg">call</i></button>
+                                                                    <div class="d-flex flex-column">
+                                                                        <h6 class="mb-1 text-dark text-sm">Register No</h6>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="d-flex align-items-center text-sm font-weight-bold ms-auto" id="acc_rno"></div>
+                                                            </div>
+                                                            <hr class="horizontal dark mt-3 mb-2" />
+                                                        </li>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <li class="list-group-item border-0 justify-content-between ps-0 border-radius-lg">
+                                                            <div class="d-flex">
+                                                                <div class="d-flex align-items-center">
+                                                                    <button class="btn btn-icon-only btn-rounded bg-gradient-info mb-0 me-3 p-3 btn-sm d-flex align-items-center justify-content-center"><i class="material-icons text-lg">person_pin_circle</i></button>
+                                                                    <div class="d-flex flex-column">
+                                                                        <h6 class="mb-1 text-dark text-sm">Register Address</h6>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="d-flex align-items-center text-sm font-weight-bold ms-auto" id="acc_address"></div>
+                                                            </div>
+                                                            <hr class="horizontal dark mt-3 mb-2" />
+                                                        </li>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <li class="list-group-item border-0 justify-content-between ps-0 border-radius-lg">
+                                                            <div class="d-flex">
+                                                                <div class="d-flex align-items-center">
+                                                                    <button class="btn btn-icon-only btn-rounded bg-gradient-info mb-0 me-3 p-3 btn-sm d-flex align-items-center justify-content-center"><i class="material-icons text-lg">account_circle</i></button>
+                                                                    <div class="d-flex flex-column">
+                                                                        <h6 class="mb-1 text-dark text-sm">Username</h6>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="d-flex align-items-center text-sm font-weight-bold ms-auto" id="acc_username"></div>
+                                                            </div>
+                                                            <hr class="horizontal dark mt-3 mb-2" />
+                                                        </li>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <li class="list-group-item border-0 justify-content-between ps-0 border-radius-lg">
+                                                            <div class="d-flex">
+                                                                <div class="d-flex align-items-center">
+                                                                    <button class="btn btn-icon-only btn-rounded bg-gradient-info mb-0 me-3 p-3 btn-sm d-flex align-items-center justify-content-center"><i class="material-icons text-lg">lock</i></button>
+                                                                    <div class="d-flex flex-column">
+                                                                        <h6 class="mb-1 text-dark text-sm">Password</h6>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="d-flex align-items-center text-sm font-weight-bold ms-auto" id="acc_password"></div>
+                                                            </div>
+                                                            <hr class="horizontal dark mt-3 mb-2" />
+                                                        </li>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <li class="list-group-item border-0 justify-content-between ps-0 border-radius-lg">
+                                                            <div class="d-flex">
+                                                                <div class="d-flex align-items-center">
+                                                                    <button class="btn btn-icon-only btn-rounded bg-gradient-info mb-0 me-3 p-3 btn-sm d-flex align-items-center justify-content-center"><i class="material-icons text-lg">phone_iphone</i></button>
+                                                                    <div class="d-flex flex-column">
+                                                                        <h6 class="mb-1 text-dark text-sm">Phone</h6>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="d-flex align-items-center text-sm font-weight-bold ms-auto" id="acc_phone"></div>
+                                                            </div>
+                                                            <hr class="horizontal dark mt-3 mb-2" />
+                                                        </li>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <li class="list-group-item border-0 justify-content-between ps-0 border-radius-lg">
+                                                            <div class="d-flex">
+                                                                <div class="d-flex align-items-center">
+                                                                    <button class="btn btn-icon-only btn-rounded bg-gradient-info mb-0 me-3 p-3 btn-sm d-flex align-items-center justify-content-center"><i class="material-icons text-lg">dialpad</i></button>
+                                                                    <div class="d-flex flex-column">
+                                                                        <h6 class="mb-1 text-dark text-sm">Serial No</h6>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="d-flex align-items-center text-sm font-weight-bold ms-auto" id="acc_sno"></div>
+                                                            </div>
+                                                            <hr class="horizontal dark mt-3" />
+                                                        </li>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <li class="list-group-item border-0 justify-content-between ps-0 border-radius-lg">
+                                                            <div class="d-flex">
+                                                                <div class="d-flex align-items-center">
+                                                                    <button class="btn btn-icon-only btn-rounded bg-gradient-info mb-0 me-3 p-3 btn-sm d-flex align-items-center justify-content-center"><i class="material-icons text-lg">tag</i></button>
+                                                                    <div class="d-flex flex-column">
+                                                                        <h6 class="mb-1 text-dark text-sm">IMEI 1</h6>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="d-flex align-items-center text-sm font-weight-bold ms-auto" id="acc_imei1"></div>
+                                                            </div>
+                                                            <hr class="horizontal dark mt-3" />
+                                                        </li>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <li class="list-group-item border-0 justify-content-between ps-0 border-radius-lg">
+                                                            <div class="d-flex">
+                                                                <div class="d-flex align-items-center">
+                                                                    <button class="btn btn-icon-only btn-rounded bg-gradient-info mb-0 me-3 p-3 btn-sm d-flex align-items-center justify-content-center"><i class="material-icons text-lg">tag</i></button>
+                                                                    <div class="d-flex flex-column">
+                                                                        <h6 class="mb-1 text-dark text-sm">EMEI 2</h6>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="d-flex align-items-center text-sm font-weight-bold ms-auto" id="acc_imei2"></div>
+                                                            </div>
+                                                            <hr class="horizontal dark mt-3" />
+                                                        </li>
+                                                    </div>
+                                                </div>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <!----------------------------------------Payment Modal------------------------------------->
+            <div class="modal fade" id="paymentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title font-weight-normal" id="exampleModalLabel2">Payment Transaction</h5>
+                            <button type="button" class="btn-close text-dark" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <form id="payment_form" enctype="multipart/form-data" method="post">
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="input-group input-group-static">
+                                            <label>Date of Paid</label>
+                                            <input class="form-control datetimepicker" name="paid_date" id="paid_date" type="text" autocomplete="off" required data-input>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="input-group input-group-static mb-4 textive">
+                                            <label>Paid Amount</label>
+                                            <input type="number" name="paid_amount" id="paid_amount" class="form-control" autocomplete="off" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <h5>Attachments</h5>
+                                <div class="dropzone" id="dropzone">
+                                    <div class="input-group input-group-dynamic">
+                                        <div class="fallback">
+                                            <input type="file" name="attachment[]" multiple="true" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <h5 class="mt-3">Remarks</h5>
+                                <div class="input-group input-group-dynamic">
+                                    <textarea class="multisteps-form__textarea form-control" rows="3" name="paid_remarks" id="paid_remarks" placeholder="Say a few words about your remarks"></textarea>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn bg-gradient-secondary" data-bs-target="#viewGlobe" data-bs-toggle="modal">Back</button>
+                                <button type="submit" id="submit_payment" class="btn bg-gradient-warning">Paid</button>
+                                <input type="hidden" name="paid_type" id="paid_type" value="paidGlobe">
+                                <input type="hidden" name="paid_ID" id="paid_ID">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!----------------------------------------End Payment Modal------------------------------------->
+
+            <!----------------------------------------Transmit Modal------------------------------------->
+            <div class="modal fade" id="transmitModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title font-weight-normal" id="exampleModalLabel">Transmit Account</h5>
+                            <button type="button" class="btn-close text-dark" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <form id="TransmitForm" enctype="multipart/form-data" method="POST">
+                            <div class="modal-body">
+                                <h5 id="transmitMessage"></h5>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn bg-gradient-secondary" data-bs-target="#viewGlobe" data-bs-toggle="modal">Back</button>
+                                <button type="submit" class="btn btn-success">Transmit</button>
+                                <input type="hidden" name="transmitType" id="transmitType">
+                                <input type="hidden" name="transmitGlobeID" id="transmitGlobeID">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!----------------------------------------End Transmit Modal------------------------------------->
 
             <footer class="footer py-4">
                 <div class="container-fluid">
@@ -443,15 +921,8 @@ if ($_SESSION['role'] == "ENCODER" || $_SESSION['role'] == "CHECKER") {
         <script src="../../plugins/dropzone/dropzone.js"></script>
         <script src="../../assets/js/plugins/perfect-scrollbar.min.js"></script>
         <script src="../../assets/js/plugins/smooth-scrollbar.min.js"></script>
-        <script>
-            var win = navigator.platform.indexOf("Win") > -1;
-            if (win && document.querySelector("#sidenav-scrollbar")) {
-                var options = {
-                    damping: "0.5",
-                };
-                Scrollbar.init(document.querySelector("#sidenav-scrollbar"), options);
-            }
-        </script>
+        <script src="../../assets/js/plugins/photoswipe.min.js"></script>
+        <script src="../../assets/js/plugins/photoswipe-ui-default.min.js"></script>
         <!-- jQuery -->
         <script src="../../plugins/jquery/jquery.min.js"></script>
         <!-- DataTables  & Plugins -->
@@ -472,7 +943,19 @@ if ($_SESSION['role'] == "ENCODER" || $_SESSION['role'] == "CHECKER") {
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script src="backend/globe.js"></script>
         <script src="../../backend/logout.js"></script>
+        <script src="../../backend/EZView.js"></script>
+        <script src="../../backend/draggable.js"></script>
     </body>
+
+    <script>
+        var win = navigator.platform.indexOf("Win") > -1;
+        if (win && document.querySelector("#sidenav-scrollbar")) {
+            var options = {
+                damping: "0.5",
+            };
+            Scrollbar.init(document.querySelector("#sidenav-scrollbar"), options);
+        }
+    </script>
 
     </html>
 <?php

@@ -3,7 +3,7 @@ var choices = {};
 
 function initializeChoices() {
   // Array of dropdown IDs
-  var dropdownIds = ["role", "branch", "department"];
+  var dropdownIds = ["acc_Branch", "accountStatus", "finalStatus", "acc_type"];
   var filter = [
     "filterBRANCH",
     "filterRNAME",
@@ -73,6 +73,29 @@ function loadGlobeTable() {
           filter: false,
           buttons: ["copy", "csv", "excel", "pdf", "print", "colvis"],
           data: data.data,
+          createdRow: function (row, data, dataIndex) {
+            const dueDateString = data[5]; // Assuming data[5] contains the due date string
+            const dueDate = new Date(dueDateString); // Convert due date string to Date object
+            const currentDate = new Date(); // Current date
+
+            // Calculate five days before the due date
+            const fiveDaysBefore = new Date(dueDate);
+            fiveDaysBefore.setDate(dueDate.getDate() - 5);
+
+            // Check if current date is within the 5 days before due date
+            if (
+              data[7] === '<span class="badge bg-gradient-warning">PAID</span>'
+            ) {
+              $(row).removeClass(
+                "bg-gradient-danger text-white border-radius-lg"
+              );
+            } else if (currentDate >= fiveDaysBefore && currentDate < dueDate) {
+              $(row)
+                .find("td")
+                .eq(5)
+                .addClass("bg-gradient-danger text-white border-radius-lg");
+            }
+          },
           language: {
             paginate: {
               first: '<i class="fa fa-angle-double-left"></i>',
@@ -95,18 +118,18 @@ function loadGlobeTable() {
 }
 
 $("#addGlobe").on("hidden.bs.modal", function () {
+  $(':input[type="submit"]').prop("disabled", false);
   $("#addGlobe-title").text("Add New Account");
   $("#fname").text("");
-  $("#fname_active, #mname_active, #lname_active, #uname_active").removeClass(
-    "focused is-focused"
-  );
+  $(".textive").removeClass("focused is-focused");
   $("#imagePreview").attr("src", "");
   $("#addGlobe_form")[0].reset();
 });
 
 // Add Account
 $(document).on("click", "#AddNewGlobe", function () {
-  $("#Addaction").val("AddGlobe");
+  $("#action").val("AddGlobe");
+  $(".main-content").removeClass("ps ps--scrolling-y");
 });
 
 // Add Account query
@@ -130,6 +153,7 @@ $("#addGlobe_form").submit(function (e) {
           timer: 2500,
         });
       } else {
+        console.log(data);
         Swal.fire({
           icon: "success",
           titleText: "Account Updated!",
@@ -147,15 +171,13 @@ $("#addGlobe_form").submit(function (e) {
 
 // Update Account
 $(document).on("click", "#getGlobeUpdate", function () {
-  $("#Addaction").val("updateGlobe");
-  $("#fname_active, #mname_active, #lname_active, #uname_active").addClass(
-    "focused is-focused"
-  );
-  $("#addGlobe-title").text("Update Account Information");
+  $("#action").val("updateGlobe");
+  $(".textive").addClass("focused is-focused");
+  $(".main-content").removeClass("ps ps--scrolling-y");
 
   var mydata = {
     slip_id: $(this).data("id"),
-    forPage: "others",
+    slip_type: "globe",
   };
 
   $.ajax({
@@ -164,21 +186,37 @@ $(document).on("click", "#getGlobeUpdate", function () {
     dataType: "json",
     data: JSON.stringify(mydata),
     success: function (result) {
-      $("#accountID").val(result.globe_id);
-      $("#imagePreview").attr("src", result.avatar);
-      $("#fname").text(result.fullname);
-      $("#fullname").text(result.fullname);
-      $("#firstname").val(result.firstname);
-      $("#middlename").val(result.middlename);
-      $("#lastname").val(result.lastname);
+      $("#addGlobe-title").text(
+        "Update " + result.register_name + " of " + result.branch
+      );
+      $("#networkID").val(result.globe_id);
+      $("#accountNO").val(result.account_no);
+      $("#registerNO").val(result.register_no);
+      $("#registerName").val(result.register_name);
+      $("#dueDate").val(result.duedate);
+      $("#acqui_date").val(result.acquisition_date);
+      $("#register_add").val(result.register_address);
+      $("#globe_username").val(result.username);
+      $("#globe_password").val(result.password);
+      $("#accMonthly").val(result.monthly);
+      $("#accEmail").val(result.email);
+      $("#accPhone").val(result.phone);
+      $("#acc_serialno").val(result.serial_no);
+      $("#accImei1").val(result.imei1);
+      $("#accImei2").val(result.imei2);
 
       // Update Choices values
-      if (choices["role"]) {
-        choices["role"].setChoiceByValue(result.role);
-      } else if (choices["branch"]) {
-        choices["branch"].setChoiceByValue(result.branch);
-      } else if (choices["department"]) {
-        choices["department"].setChoiceByValue(result.department);
+      if (choices["acc_Branch"]) {
+        choices["acc_Branch"].setChoiceByValue(result.branch);
+      }
+      if (choices["accountStatus"]) {
+        choices["accountStatus"].setChoiceByValue(result.account_status);
+      }
+      if (choices["finalStatus"]) {
+        choices["finalStatus"].setChoiceByValue(result.final_status);
+      }
+      if (choices["acc_type"]) {
+        choices["acc_type"].setChoiceByValue(result.account_type);
       }
 
       $("#username").val(result.username);
@@ -188,9 +226,10 @@ $(document).on("click", "#getGlobeUpdate", function () {
 
 // Fetching Account info in modal
 $(document).on("click", "#getGlobeView", function () {
-  mydata = {
+  $(".main-content").removeClass("ps ps--scrolling-y");
+  const mydata = {
     slip_id: $(this).data("id"),
-    forPage: "others",
+    slip_type: "globe",
   };
 
   $.ajax({
@@ -199,16 +238,134 @@ $(document).on("click", "#getGlobeView", function () {
     dataType: "json",
     data: JSON.stringify(mydata),
     success: function (result) {
-      $("#viewUserImage").attr("src", result.avatar);
+      // Set values in the modal
+      $("#viewGlobe_title").text(`${result.register_name} Information`);
+      $("#acc_name").text(result.register_name);
+      $("#acc_branch").text(result.branch);
+      $("#acc_billing").text(result.account_type);
+      $("#acc_datepaid").text(result.date_paid || "-");
+      $("#acc_no").text(result.account_no);
+      $("#acc_email").text(result.email);
+      $("#acc_rno").text(result.register_no);
+      $("#acc_address").text(result.register_address);
+      $("#acc_username").text(result.username);
+      $("#acc_password").text(result.password);
+      $("#acc_phone").text(result.phone);
+      $("#acc_sno").text(result.serial_no);
+      $("#acc_imei1").text(result.imei1);
+      $("#acc_imei2").text(result.imei2);
+      $("#acc_amount").text(result.paid_amount || "-");
+      $("#acc_remarks").text(result.remarks || "Encoder has no remarks!");
+
+      // Final status handling
+      if (result.final_status == "TRANSMITTED") {
+        $("#acc_finalstatus").text(result.final_status);
+        $("#PAID_BUTTON").show();
+        $("#TRANSMIT_BUTTON").hide();
+      } else if (result.final_status == "PAID") {
+        $("#acc_finalstatus").text(result.final_status);
+        $("#PAID_BUTTON").hide();
+        $("#TRANSMIT_BUTTON").hide();
+      } else {
+        $("#acc_finalstatus").text(result.final_status);
+        $("#PAID_BUTTON").hide();
+        $("#TRANSMIT_BUTTON").show();
+      }
+
+      // Format dates
+      const formatDate = (date) =>
+        new Date(date).toLocaleDateString("en-US", {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        });
+      $("#acc_duedate").text(formatDate(result.duedate));
+      $("#acc_acqdate").text(formatDate(result.acquisition_date));
+
+      // Account status styling
+      const $accStatus = $("#acc_status");
+      $accStatus
+        .removeClass("bg-gradient-success bg-gradient-secondary")
+        .addClass(
+          result.account_status === "ACTIVE"
+            ? "bg-gradient-success"
+            : "bg-gradient-secondary"
+        )
+        .text(result.account_status);
+
+      const id = result.globe_id;
+      const slipType = "globe";
+      $.ajax({
+        url: "../../query/administrator/view_attachment.php",
+        type: "POST",
+        data: { id: id, slipType: slipType },
+        success: function (response) {
+          $("#attachment_container").html(response);
+          $("#view_attachment").EZView();
+        },
+      });
+
+      // Pay Button handling
+      $(document).on("click", "#payButton", function () {
+        $("#paid_ID").val(result.globe_id);
+      });
+
+      // Transmit Button handling
+      $(document).on("click", "#transmitButton", function () {
+        $("#transmitGlobeID").val(result.globe_id);
+        $("#transmitType").val("paidGlobe");
+        $("#transmitMessage").text(
+          `Transmit the account with the register name of ${result.register_name}`
+        );
+      });
+    },
+    error: function (xhr, status, error) {
+      console.error("AJAX Error: ", status, error);
     },
   });
 });
 
-// Delete Account query
-$("#deleteGlobeForm").submit(function (e) {
+// PAID query
+$("#payment_form").submit(function (e) {
+  e.preventDefault(); // Prevent the default form submission
+
+  var formData = new FormData(this); // Create FormData object with the form data
+
+  // Append files from Dropzone to FormData
+  myDropzone.files.forEach(function (file) {
+    formData.append("attachment[]", file); // Append each file
+  });
+
+  $.ajax({
+    url: "../../query/administrator/paid_query.php",
+    method: "POST",
+    data: formData,
+    contentType: false,
+    processData: false,
+    success: function (data) {
+      Swal.fire({
+        icon: "success",
+        titleText: "Thank You!",
+        text: "Payment Transaction Complete!",
+        showConfirmButton: false,
+        timer: 2500,
+      });
+      $("#paymentModal").modal("hide");
+      loadGlobeTable();
+      $("#payment_form")[0].reset();
+      myDropzone.removeAllFiles(); // Clear Dropzone after submission
+    },
+    error: function (error) {
+      console.error("Submission error: ", error);
+    },
+  });
+});
+
+// Transmit Form query
+$("#TransmitForm").submit(function (e) {
   e.preventDefault();
   $.ajax({
-    url: "../../query/administrator/network_query.php",
+    url: "../../query/administrator/transmit_query.php",
     method: "POST",
     data: new FormData(this),
     contentType: false,
@@ -216,27 +373,16 @@ $("#deleteGlobeForm").submit(function (e) {
     success: function (data) {
       Swal.fire({
         icon: "success",
-        titleText: "Account Deleted!",
-        text: "Account has been deleted!",
+        titleText: "Thank You!",
+        text: "Transmitted Complete!",
         showConfirmButton: false,
         timer: 2500,
       });
-      $("#deleteGlobe").modal("hide");
+      $("#transmitModal").modal("hide");
       loadGlobeTable();
-      $("#deleteGlobeForm")[0].reset();
+      $("#TransmitForm")[0].reset();
     },
   });
-});
-
-// Delete Account
-$(document).on("click", "#getGlobeDelete", function () {
-  $("#deleteAction").val("Delete");
-  $("#deleteGlobeID").val($(this).data("id"));
-  $("#deleteMessage").text(
-    "Are you sure to delete the account with name of " +
-      $(this).data("name") +
-      "?"
-  );
 });
 
 // Search Account
@@ -252,6 +398,7 @@ $("#accountSearchForm").submit(function (a) {
       data = JSON.parse(data);
       var newTable = $("#globeTable").DataTable();
       newTable.clear().destroy();
+
       var newTable = $("#globeTable")
         .DataTable({
           lengthMenu: [
@@ -271,6 +418,27 @@ $("#accountSearchForm").submit(function (a) {
             },
           },
           data: data.data,
+          createdRow: function (row, data, dataIndex) {
+            const dueDateString = data[5]; // Assuming data[5] contains the due date string
+            const dueDate = new Date(dueDateString);
+            const currentDate = new Date();
+            const fiveDaysBefore = new Date(dueDate);
+            fiveDaysBefore.setDate(dueDate.getDate() - 5);
+
+            // Check if current date is within the 5 days before due date
+            if (
+              data[7] === '<span class="badge bg-gradient-warning">PAID</span>'
+            ) {
+              $(row).removeClass(
+                "bg-gradient-danger text-white border-radius-lg"
+              );
+            } else if (currentDate >= fiveDaysBefore && currentDate < dueDate) {
+              $(row)
+                .find("td")
+                .eq(5)
+                .addClass("bg-gradient-danger text-white border-radius-lg");
+            }
+          },
         })
         .buttons()
         .container()
@@ -289,7 +457,9 @@ $("#resetTable").click(function (x) {
 
 if (document.querySelector(".datetimepicker")) {
   flatpickr(".datetimepicker", {
-    allowInput: true,
+    allowInput: false,
+    disableMobile: true,
+    // enableTime: true,
     // altInput: true,
     // altFormat: "F j, Y",
     dateFormat: "Y-m-d",
@@ -299,6 +469,50 @@ if (document.querySelector(".datetimepicker")) {
 Dropzone.autoDiscover = false;
 var drop = document.getElementById("dropzone");
 var myDropzone = new Dropzone(drop, {
-  url: "../../image/user_avatar",
+  url: "../../query/administrator/paid_query.php",
   addRemoveLinks: true,
+  acceptedFiles: ".pdf",
+  paramName: "attachment[]",
+  params: {
+    paid_type: "paid_type",
+    paid_ID: "paid_ID",
+    paid_date: "paid_date",
+    paid_amount: "paid_amount",
+    paid_remarks: "paid_remarks",
+  },
+  success: function (file, response) {
+    console.log("File uploaded successfully: ", file.name);
+    file.previewElement.classList.add("dz-success");
+
+    if (file.type === "application/pdf") {
+      // Set a custom thumbnail for PDF files
+      var pdfThumbnailUrl = "../../image/pdf-thumbnail.png"; // Update with your thumbnail path
+      file.previewElement.classList.add("dz-image-preview");
+      file.previewElement.classList.remove("dz-file-preview");
+      var thumbnailElement = file.previewElement.querySelector(
+        "[data-dz-thumbnail]"
+      );
+      if (thumbnailElement) {
+        thumbnailElement.src = pdfThumbnailUrl; // Set the thumbnail image source
+        thumbnailElement.style.width = "100%";
+        thumbnailElement.style.height = "100%";
+        thumbnailElement.style.background = "#d4d4d4";
+      }
+    } else {
+    }
+  },
+  error: function (file, response) {
+    console.error("Upload error: ", response);
+    file.previewElement.classList.add("dz-error");
+  },
+  removedfile: function (file) {
+    // Remove the preview element
+    var _ref = file.previewElement;
+    if (_ref) {
+      _ref.parentNode.removeChild(_ref);
+    }
+
+    // Optionally handle server-side removal logic here if needed
+    console.log("File removed: ", file.name);
+  },
 });

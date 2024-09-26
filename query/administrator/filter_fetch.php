@@ -95,7 +95,7 @@ if ($network_type == "globe") {
         } else if ($row["final_status"] == 'TRANSMITTED') {
             $sub_array[] = '<span class="badge bg-gradient-success">TRANSMITTED</span>';
         } else {
-            $sub_array[] = '<span class="badge bg-gradient-secondary">UNPAID</span>';
+            $sub_array[] = '<span class="badge bg-gradient-danger">UNPAID</span>';
         }
 
         if ($role == 'ADMINISTRATOR') {

@@ -1,3 +1,11 @@
-RewriteEngine on
-RewriteRule ^login?$  login.php
+# Enable mod_rewrite
+RewriteEngine On
+
+# Default index file
+DirectoryIndex index.php
+
+# Rewrite rule for /login to map to login.php
+RewriteRule ^login/?$ login.php [L]
+
+# Ignore files in directory listings
 IndexIgnore *

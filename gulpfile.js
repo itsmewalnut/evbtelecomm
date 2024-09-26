@@ -1,34 +1,34 @@
-var gulp = require('gulp');
-var path = require('path');
-var sass = require('gulp-sass')(require('sass'));
-var autoprefixer = require('gulp-autoprefixer');
-var sourcemaps = require('gulp-sourcemaps');
-var open = require('gulp-open');
+const gulp = require("gulp");
+const clean = require("gulp-clean");
 
-var Paths = {
-  HERE: './',
-  DIST: 'dist/',
-  CSS: './assets/css/',
-  SCSS_TOOLKIT_SOURCES: './assets/scss/material-dashboard.scss',
-  SCSS: './assets/scss/**/**'
-};
-
-gulp.task('compile-scss', function() {
-  return gulp.src(Paths.SCSS_TOOLKIT_SOURCES)
-    .pipe(sourcemaps.init())
-    .pipe(sass().on('error', sass.logError))
-    .pipe(autoprefixer())
-    .pipe(sourcemaps.write(Paths.HERE))
-    .pipe(gulp.dest(Paths.CSS));
+// Clean dist folder
+gulp.task("clean", function () {
+  return gulp.src("dist", { allowEmpty: true }).pipe(clean());
 });
 
-gulp.task('watch', function() {
-  gulp.watch(Paths.SCSS, gulp.series('compile-scss'));
+// Copy PHP files
+gulp.task("copy-php", function () {
+  return gulp.src(["*.php"]).pipe(gulp.dest("dist"));
 });
 
-gulp.task('open', function() {
-  gulp.src('pages/dashboard.html')
-    .pipe(open());
+// Copy assets and other directories
+gulp.task("copy-assets", function () {
+  return gulp
+    .src([
+      "assets/**/*",
+      "backend/**/*",
+      "database/**/*",
+      "image/**/*",
+      "plugins/**/*",
+      "query/**/*",
+      "users/**/*",
+      "style.css",
+      "index.php",
+      "login.php",
+      "logout.php",
+    ])
+    .pipe(gulp.dest("dist"));
 });
 
-gulp.task('open-app', gulp.parallel('open', 'watch'));
+// Default task to clean and copy files
+gulp.task("default", gulp.series("clean", "copy-php", "copy-assets"));

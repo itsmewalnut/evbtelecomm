@@ -55,7 +55,7 @@ if ($network_type == "globe") {
         } else if ($row["final_status"] == 'TRANSMITTED') {
             $sub_array[] = '<span class="badge bg-gradient-success">TRANSMITTED</span>';
         } else {
-            $sub_array[] = '<span class="badge bg-gradient-secondary">UNPAID</span>';
+            $sub_array[] = '<span class="badge bg-gradient-danger">UNPAID</span>';
         }
 
         if ($role == 'ADMINISTRATOR') {
@@ -129,15 +129,16 @@ if ($network_type == "globe") {
         $sub_array[] = $row["account_no"];
         $sub_array[] = $row["register_no"];
         $sub_array[] = $row["duedate"];
-        if ($row["final_status"] == 'ACTIVE') {
+
+        if ($row["account_status"] == 'ACTIVE') {
             $sub_array[] = '<span class="badge bg-gradient-success">ACTIVE</span>';
         } else {
             $sub_array[] = '<span class="badge bg-gradient-secondary">INACTIVE</span>';
         }
 
-        if ($row["account_status"] == 'PAID') {
+        if ($row["final_status"] == 'PAID') {
             $sub_array[] = '<span class="badge bg-gradient-warning">PAID</span>';
-        } else if ($row["account_status"] == 'TRANSMITTED') {
+        } else if ($row["final_status"] == 'TRANSMITTED') {
             $sub_array[] = '<span class="badge bg-gradient-success">TRANSMITTED</span>';
         } else {
             $sub_array[] = '<span class="badge bg-gradient-secondary">UNPAID</span>';
@@ -212,15 +213,16 @@ if ($network_type == "globe") {
         $sub_array[] = $row["register_name"];
         $sub_array[] = $row["branch"];
         $sub_array[] = $row["duedate"];
-        if ($row["final_status"] == 'ACTIVE') {
+
+        if ($row["account_status"] == 'ACTIVE') {
             $sub_array[] = '<span class="badge bg-gradient-success">ACTIVE</span>';
         } else {
             $sub_array[] = '<span class="badge bg-gradient-secondary">INACTIVE</span>';
         }
 
-        if ($row["account_status"] == 'PAID') {
+        if ($row["final_status"] == 'PAID') {
             $sub_array[] = '<span class="badge bg-gradient-warning">PAID</span>';
-        } else if ($row["account_status"] == 'TRANSMITTED') {
+        } else if ($row["final_status"] == 'TRANSMITTED') {
             $sub_array[] = '<span class="badge bg-gradient-success">TRANSMITTED</span>';
         } else {
             $sub_array[] = '<span class="badge bg-gradient-secondary">UNPAID</span>';

@@ -80,9 +80,7 @@ function loadUserTable() {
 $("#addUser").on("hidden.bs.modal", function () {
   $("#adduser-title").text("Add New User");
   $("#fname").text("");
-  $("#fname_active, #mname_active, #lname_active, #uname_active").removeClass(
-    "focused is-focused"
-  );
+  $(".textive").removeClass("focused is-focused");
   $("#imagePreview").attr("src", "");
   $("#adduser_form")[0].reset();
   $(':input[type="submit"]').prop("disabled", false);
@@ -142,9 +140,7 @@ $("#adduser_form").submit(function (e) {
 
 $(document).on("click", "#getUserUpdate", function () {
   $("#Addaction").val("updateUser");
-  $("#fname_active, #mname_active, #lname_active, #uname_active").addClass(
-    "focused is-focused"
-  );
+  $(".textive").addClass("focused is-focused");
   $("#adduser-title").text("Update User Information");
 
   var mydata = {
@@ -161,7 +157,7 @@ $(document).on("click", "#getUserUpdate", function () {
       $("#accountID").val(result.user_id);
       $("#imagePreview").attr("src", result.avatar);
       $("#fname").text(result.fullname);
-      $("#fullname").text(result.fullname);
+      $("#fullname").val(result.fullname);
       $("#firstname").val(result.firstname);
       $("#middlename").val(result.middlename);
       $("#lastname").val(result.lastname);

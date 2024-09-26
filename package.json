@@ -2,7 +2,7 @@
   "name": "material-dashboard",
   "version": "3.1.0",
   "description": "Freebie Dashboard for Bootstrap 5",
-  "main": "pages/dashboard.html",
+  "main": "index.php",
   "directories": {
     "example": "root"
   },
@@ -46,5 +46,5 @@
     "gulp-open": "^3.0.1",
     "sass": "^1.49.9"
   },
-  "homepage": "http://creative-tim.com/product/material-dashboard"
+  "homepage": "https://evbtelecomm.evbgroup.biz"
 }

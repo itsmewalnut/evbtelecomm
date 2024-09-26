@@ -275,17 +275,17 @@ if ($_SESSION['role'] == "ADMINISTRATOR") {
                                     </div>
                                     <div class="col-md-7 ms-auto">
                                         <h5 class="py-2">Personal Information</h5>
-                                        <div class="input-group input-group-dynamic mb-4" id="fname_active">
+                                        <div class="input-group input-group-dynamic mb-4 textive">
                                             <label class="form-label">Firstname</label>
-                                            <input type="text" name="firstname" id="firstname" class="form-control" required>
+                                            <input type="text" name="firstname" id="firstname" class="form-control" autocomplete="off" required>
                                         </div>
-                                        <div class="input-group input-group-dynamic mb-4" id="mname_active">
+                                        <div class="input-group input-group-dynamic mb-4 textive">
                                             <label class="form-label">Middlename</label>
-                                            <input type="text" name="middlename" id="middlename" class="form-control" required>
+                                            <input type="text" name="middlename" id="middlename" class="form-control" autocomplete="off" required>
                                         </div>
-                                        <div class="input-group input-group-dynamic mb-4" id="lname_active">
+                                        <div class="input-group input-group-dynamic mb-4 textive">
                                             <label class="form-label">Lastname</label>
-                                            <input type="text" name="lastname" id="lastname" class="form-control" required>
+                                            <input type="text" name="lastname" id="lastname" class="form-control" autocomplete="off" required>
                                         </div>
                                         <div class="input-group input-group-static mb-4">
                                             <label for="role" class="ms-0">Role</label>
@@ -300,9 +300,9 @@ if ($_SESSION['role'] == "ADMINISTRATOR") {
                                     <div>
                                         <h5 class="py-2">Credentials</h5>
                                         <div class="col ms-auto">
-                                            <div class="input-group input-group-dynamic mb-4" id="uname_active">
+                                            <div class="input-group input-group-dynamic mb-4 textive">
                                                 <label class="form-label">Username</label>
-                                                <input type="text" name="username" id="username" class="form-control" required>
+                                                <input type="text" name="username" id="username" class="form-control" autocomplete="off" required>
                                             </div>
                                         </div>
                                         <div class="col ms-auto">

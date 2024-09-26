@@ -51,3 +51,53 @@
   background-size: 50% 70%;
   margin-bottom: 50px;
 }
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  margin: 0;
+}
+
+.async-hide {
+  opacity: 0 !important;
+}
+
+.pdf-grid {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(150px, 1fr)
+  ); /* Responsive columns */
+  gap: 15px; /* Space between grid items */
+  padding: 10px; /* Optional: padding around the grid */
+}
+
+.pdf-thumbnail {
+  display: block;
+  border-radius: 5px; /* Rounded corners */
+  overflow: hidden; /* Hide overflow */
+  transition: transform 0.2s; /* Hover effect */
+}
+
+.pdf-thumbnail:hover {
+  transform: scale(1.05); /* Scale effect on hover */
+}
+
+.pdf-thumbnail img {
+  width: 100%; /* Make image fill the container */
+  height: auto; /* Maintain aspect ratio */
+  display: block; /* Prevent extra space below images */
+}
+
+.pdf {
+  display: block;
+  border-radius: 5px; /* Rounded corners */
+  overflow: hidden; /* Hide overflow */
+  transition: transform 0.2s; /* Hover effect */
+}
+
+.pdf:hover {
+  transform: scale(1.05); /* Scale effect on hover */
+}
