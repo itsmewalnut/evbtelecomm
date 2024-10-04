@@ -64,25 +64,18 @@ input[type="number"]::-webkit-outer-spin-button {
   opacity: 0 !important;
 }
 
-.pdf-grid {
-  display: grid;
-  grid-template-columns: repeat(
-    auto-fill,
-    minmax(150px, 1fr)
-  ); /* Responsive columns */
-  gap: 15px; /* Space between grid items */
-  padding: 10px; /* Optional: padding around the grid */
-}
-
 .pdf-thumbnail {
   display: block;
   border-radius: 5px; /* Rounded corners */
   overflow: hidden; /* Hide overflow */
   transition: transform 0.2s; /* Hover effect */
+  padding: 10px;
 }
 
 .pdf-thumbnail:hover {
   transform: scale(1.05); /* Scale effect on hover */
+  background-color: #d6d6d63d;
+  border-radius: 10px;
 }
 
 .pdf-thumbnail img {
@@ -91,13 +84,27 @@ input[type="number"]::-webkit-outer-spin-button {
   display: block; /* Prevent extra space below images */
 }
 
-.pdf {
-  display: block;
-  border-radius: 5px; /* Rounded corners */
-  overflow: hidden; /* Hide overflow */
-  transition: transform 0.2s; /* Hover effect */
+.pdfview,
+.pdftitle {
+  pointer-events: none;
 }
 
-.pdf:hover {
-  transform: scale(1.05); /* Scale effect on hover */
+/* Styling for autofilled input fields */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  transition: background-color 5000s ease-in-out 0s;
+  background-color: #333; /* Change background color to match your design */
+  background-image: none; /* Remove any default background image */
+}
+
+.dark-version input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  transition: background-color 5000s ease-in-out 0s;
+  -webkit-text-fill-color: #fff; /* Change text color */
+  background-color: #333; /* Change background color to match your design */
+  background-image: none; /* Remove any default background image */
 }

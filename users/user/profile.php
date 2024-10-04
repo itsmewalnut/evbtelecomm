@@ -3,6 +3,13 @@ require('../../database/db_conn.php');
 session_start();
 
 if ($_SESSION['role'] == "ENCODER" || $_SESSION['role'] == "CHECKER") {
+
+    if (isset($_POST['updatePass'])) {
+        $user_id = $_SESSION['user_id'];
+        $pass = mysqli_real_escape_string($conn, $_POST['upass']);
+        mysqli_query($conn, "UPDATE user_account SET password == '$pass' WHERE user_id == '$user_id'");
+        exit();
+    };
 ?>
     <!DOCTYPE html>
     <html lang="en">
@@ -162,31 +169,14 @@ if ($_SESSION['role'] == "ENCODER" || $_SESSION['role'] == "CHECKER") {
                                         <img src="<?php echo $_SESSION['avatar']; ?>" class="avatar avatar-xl me-1 border-radius-lg d-sm-inline d-none" alt="user_avatar" onerror="this.src='../../image/avatar_thumbnail.png';">
                                         <span class="d-sm-inline d-none text-bold"><?php echo $_SESSION['fullname']; ?></span>
                                     </div>
-                                    <hr class="horizontal light mt-0 mb-" />
-                                    <li class="mb-2">
-                                        <a class="dropdown-item border-radius-md" href="#">
-                                            <div class="d-flex align-items-center py-1">
-                                                <div class="my-auto">
-                                                    <span class="material-icons">person</span>
-                                                </div>
-                                                <div class="ms-2">
-                                                    <h6 class="text-sm font-weight-normal mb-1"> Profile</h6>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li class="mb-2">
-                                        <a class="dropdown-item border-radius-md" href="#">
-                                            <div class="d-flex align-items-center">
-                                                <div class="my-auto">
-                                                    <span class="material-icons">settings</span>
-                                                </div>
-                                                <div class="ms-2">
-                                                    <h6 class="text-sm font-weight-normal"> Settings</h6>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </li>
+                                    <hr class="horizontal dark mt-0 mb-0" />
+                                    <div class="p-3 text-center">
+                                        <span class="d-sm-inline d-none text-bold badge bg-gradient-success"><?php echo $_SESSION['account_status']; ?></span>
+                                        <br>
+                                        <div class="mt-2">
+                                            <span class="d-sm-inline d-none text-bold"><?php echo $_SESSION['department']; ?></span>
+                                        </div>
+                                    </div>
                                 </ul>
                             </li>
                         </ul>
@@ -221,19 +211,19 @@ if ($_SESSION['role'] == "ENCODER" || $_SESSION['role'] == "CHECKER") {
                             <div class="nav-wrapper position-relative end-0">
                                 <ul class="nav nav-pills nav-fill p-1" role="tablist">
                                     <li class="nav-item">
-                                        <a class="nav-link mb-0 px-0 py-1 active " data-bs-toggle="tab" href="javascript:;" role="tab" aria-selected="true">
-                                            <i class="material-icons text-lg position-relative">home</i>
-                                            <span class="ms-1">App</span>
+                                        <a class="nav-link mb-0 px-0 py-1 active" data-bs-toggle="tab" href="#profile" aria-controls="profile" role="tab" aria-selected="true">
+                                            <i class="material-icons text-lg position-relative">person</i>
+                                            <span class="ms-1">Personal Info</span>
                                         </a>
                                     </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link mb-0 px-0 py-1 " data-bs-toggle="tab" href="javascript:;" role="tab" aria-selected="false">
+                                    <!-- <li class="nav-item">
+                                        <a class="nav-link mb-0 px-0 py-1" data-bs-toggle="tab" href="#message" aria-controls="message" role="tab" aria-selected="false">
                                             <i class="material-icons text-lg position-relative">email</i>
                                             <span class="ms-1">Messages</span>
                                         </a>
-                                    </li>
+                                    </li> -->
                                     <li class="nav-item">
-                                        <a class="nav-link mb-0 px-0 py-1 " data-bs-toggle="tab" href="javascript:;" role="tab" aria-selected="false">
+                                        <a class="nav-link mb-0 px-0 py-1" data-bs-toggle="tab" href="#settings" aria-controls="settings" role="tab" aria-selected="false">
                                             <i class="material-icons text-lg position-relative">settings</i>
                                             <span class="ms-1">Settings</span>
                                         </a>
@@ -243,156 +233,66 @@ if ($_SESSION['role'] == "ENCODER" || $_SESSION['role'] == "CHECKER") {
                         </div>
                     </div>
                     <div class="row">
-                        <div class="row">
-                            <div class="col-12 col-xl-4">
-                                <div class="card card-plain h-100">
-                                    <div class="card-header pb-0 p-3">
-                                        <h6 class="mb-0">Platform Settings</h6>
+                        <div class="tab-content" id="v-pills-tabContent">
+                            <div class="tab-pane fade show active border-radius-lg" id="profile" role="tabpanel" aria-labelledby="profile" loading="lazy">
+                                <div class="card" id="basic-info">
+                                    <div class="card-header">
+                                        <h5>Basic Info</h5>
                                     </div>
-                                    <div class="card-body p-3">
-                                        <h6 class="text-uppercase text-body text-xs font-weight-bolder">Account</h6>
-                                        <ul class="list-group">
-                                            <li class="list-group-item border-0 px-0">
-                                                <div class="form-check form-switch ps-0">
-                                                    <input class="form-check-input ms-auto" type="checkbox" id="flexSwitchCheckDefault" checked>
-                                                    <label class="form-check-label text-body ms-3 text-truncate w-80 mb-0" for="flexSwitchCheckDefault">Email me when someone follows me</label>
-                                                </div>
-                                            </li>
-                                            <li class="list-group-item border-0 px-0">
-                                                <div class="form-check form-switch ps-0">
-                                                    <input class="form-check-input ms-auto" type="checkbox" id="flexSwitchCheckDefault1">
-                                                    <label class="form-check-label text-body ms-3 text-truncate w-80 mb-0" for="flexSwitchCheckDefault1">Email me when someone answers on my post</label>
-                                                </div>
-                                            </li>
-                                            <li class="list-group-item border-0 px-0">
-                                                <div class="form-check form-switch ps-0">
-                                                    <input class="form-check-input ms-auto" type="checkbox" id="flexSwitchCheckDefault2" checked>
-                                                    <label class="form-check-label text-body ms-3 text-truncate w-80 mb-0" for="flexSwitchCheckDefault2">Email me when someone mentions me</label>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                        <h6 class="text-uppercase text-body text-xs font-weight-bolder mt-4">Application</h6>
-                                        <ul class="list-group">
-                                            <li class="list-group-item border-0 px-0">
-                                                <div class="form-check form-switch ps-0">
-                                                    <input class="form-check-input ms-auto" type="checkbox" id="flexSwitchCheckDefault3">
-                                                    <label class="form-check-label text-body ms-3 text-truncate w-80 mb-0" for="flexSwitchCheckDefault3">New launches and projects</label>
-                                                </div>
-                                            </li>
-                                            <li class="list-group-item border-0 px-0">
-                                                <div class="form-check form-switch ps-0">
-                                                    <input class="form-check-input ms-auto" type="checkbox" id="flexSwitchCheckDefault4" checked>
-                                                    <label class="form-check-label text-body ms-3 text-truncate w-80 mb-0" for="flexSwitchCheckDefault4">Monthly product updates</label>
-                                                </div>
-                                            </li>
-                                            <li class="list-group-item border-0 px-0 pb-0">
-                                                <div class="form-check form-switch ps-0">
-                                                    <input class="form-check-input ms-auto" type="checkbox" id="flexSwitchCheckDefault5">
-                                                    <label class="form-check-label text-body ms-3 text-truncate w-80 mb-0" for="flexSwitchCheckDefault5">Subscribe to newsletter</label>
-                                                </div>
-                                            </li>
-                                        </ul>
+                                    <div class="card-body pt-0">
+
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-12 col-xl-4">
-                                <div class="card card-plain h-100">
-                                    <div class="card-header pb-0 p-3">
-                                        <div class="row">
-                                            <div class="col-md-8 d-flex align-items-center">
-                                                <h6 class="mb-0">Profile Information</h6>
-                                            </div>
-                                            <div class="col-md-4 text-end">
-                                                <a href="javascript:;">
-                                                    <i class="fas fa-user-edit text-secondary text-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Profile"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card-body p-3">
-                                        <p class="text-sm">
-                                            Hi, <?php echo $_SESSION['fullname']; ?>, Decisions: If you can’t decide, the answer is no. If two equally difficult paths, choose the one more painful in the short term (pain avoidance is creating an illusion of equality).
-                                        </p>
-                                        <hr class="horizontal gray-light my-4">
-                                        <ul class="list-group">
-                                            <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong class="text-dark">Full Name:</strong> &nbsp; <?php echo $_SESSION['fullname']; ?></li>
-                                            <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Mobile:</strong> &nbsp; (44) 123 1234 123</li>
-                                            <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Email:</strong> &nbsp; alecthompson@mail.com</li>
-                                            <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Location:</strong> &nbsp; USA</li>
-                                            <li class="list-group-item border-0 ps-0 pb-0">
-                                                <strong class="text-dark text-sm">Social:</strong> &nbsp;
-                                                <a class="btn btn-facebook btn-simple mb-0 ps-1 pe-2 py-0" href="javascript:;">
-                                                    <i class="fab fa-facebook fa-lg"></i>
-                                                </a>
-                                                <a class="btn btn-twitter btn-simple mb-0 ps-1 pe-2 py-0" href="javascript:;">
-                                                    <i class="fab fa-twitter fa-lg"></i>
-                                                </a>
-                                                <a class="btn btn-instagram btn-simple mb-0 ps-1 pe-2 py-0" href="javascript:;">
-                                                    <i class="fab fa-instagram fa-lg"></i>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
+                        </div>
+                        <!-- <div class="tab-content" id="v-pills-tabContent">
+                            <div class="tab-pane fade height-400 border-radius-lg" id="message" role="tabpanel" aria-labelledby="message" loading="lazy">
+
                             </div>
-                            <div class="col-12 col-xl-4">
-                                <div class="card card-plain h-100">
-                                    <div class="card-header pb-0 p-3">
-                                        <h6 class="mb-0">Conversations</h6>
+                        </div> -->
+                        <div class="tab-content" id="v-pills-tabContent">
+                            <div class="tab-pane fade border-radius-lg" id="settings" role="tabpanel" aria-labelledby="settings" loading="lazy">
+                                <div class="card" id="password">
+                                    <div class="card-header">
+                                        <h5>Change Password</h5>
                                     </div>
-                                    <div class="card-body p-3">
-                                        <ul class="list-group">
-                                            <li class="list-group-item border-0 d-flex align-items-center px-0 mb-2 pt-0">
-                                                <div class="avatar me-3">
-                                                    <img src="../../assets/img/kal-visuals-square.jpg" alt="kal" class="border-radius-lg shadow">
-                                                </div>
-                                                <div class="d-flex align-items-start flex-column justify-content-center">
-                                                    <h6 class="mb-0 text-sm">Sophie B.</h6>
-                                                    <p class="mb-0 text-xs">Hi! I need more information..</p>
-                                                </div>
-                                                <a class="btn btn-link pe-3 ps-0 mb-0 ms-auto w-25 w-md-auto" href="javascript:;">Reply</a>
-                                            </li>
-                                            <li class="list-group-item border-0 d-flex align-items-center px-0 mb-2">
-                                                <div class="avatar me-3">
-                                                    <img src="../../assets/img/marie.jpg" alt="kal" class="border-radius-lg shadow">
-                                                </div>
-                                                <div class="d-flex align-items-start flex-column justify-content-center">
-                                                    <h6 class="mb-0 text-sm">Anne Marie</h6>
-                                                    <p class="mb-0 text-xs">Awesome work, can you..</p>
-                                                </div>
-                                                <a class="btn btn-link pe-3 ps-0 mb-0 ms-auto w-25 w-md-auto" href="javascript:;">Reply</a>
-                                            </li>
-                                            <li class="list-group-item border-0 d-flex align-items-center px-0 mb-2">
-                                                <div class="avatar me-3">
-                                                    <img src="../../assets/img/ivana-square.jpg" alt="kal" class="border-radius-lg shadow">
-                                                </div>
-                                                <div class="d-flex align-items-start flex-column justify-content-center">
-                                                    <h6 class="mb-0 text-sm">Ivanna</h6>
-                                                    <p class="mb-0 text-xs">About files I can..</p>
-                                                </div>
-                                                <a class="btn btn-link pe-3 ps-0 mb-0 ms-auto w-25 w-md-auto" href="javascript:;">Reply</a>
-                                            </li>
-                                            <li class="list-group-item border-0 d-flex align-items-center px-0 mb-2">
-                                                <div class="avatar me-3">
-                                                    <img src="../../assets/img/team-4.jpg" alt="kal" class="border-radius-lg shadow">
-                                                </div>
-                                                <div class="d-flex align-items-start flex-column justify-content-center">
-                                                    <h6 class="mb-0 text-sm">Peterson</h6>
-                                                    <p class="mb-0 text-xs">Have a great afternoon..</p>
-                                                </div>
-                                                <a class="btn btn-link pe-3 ps-0 mb-0 ms-auto w-25 w-md-auto" href="javascript:;">Reply</a>
-                                            </li>
-                                            <li class="list-group-item border-0 d-flex align-items-center px-0">
-                                                <div class="avatar me-3">
-                                                    <img src="../../assets/img/team-3.jpg" alt="kal" class="border-radius-lg shadow">
-                                                </div>
-                                                <div class="d-flex align-items-start flex-column justify-content-center">
-                                                    <h6 class="mb-0 text-sm">Nick Daniel</h6>
-                                                    <p class="mb-0 text-xs">Hi! I need more information..</p>
-                                                </div>
-                                                <a class="btn btn-link pe-3 ps-0 mb-0 ms-auto w-25 w-md-auto" href="javascript:;">Reply</a>
-                                            </li>
-                                        </ul>
+                                    <div class="card-body pt-0">
+                                        <form id="changePass" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
+                                            <div class="input-group input-group-outline">
+                                                <label class="form-label">Old Password</label>
+                                                <input type="text" id="old_pass" class="form-control" onfocus="focused(this)" onfocusout="defocused(this)">
+                                                <small></small>
+                                            </div>
+                                            <div class="input-group input-group-outline my-3">
+                                                <label class="form-label">Current Password</label>
+                                                <input type="text" id="current_pass" name="upass" class="form-control" onfocus="focused(this)" onfocusout="defocused(this)">
+                                                <small></small>
+                                            </div>
+                                            <div class="input-group input-group-outline my-3">
+                                                <label class="form-label">Confirm Password</label>
+                                                <input type="text" id="confirm_pass" class="form-control" onfocus="focused(this)" onfocusout="defocused(this)">
+                                                <small></small>
+                                            </div>
+                                            <h5 class="mt-5">Password requirements</h5>
+                                            <p class="text-muted mb-2">
+                                                Please follow this guide for a strong password:
+                                            </p>
+                                            <ul class="text-muted ps-4 mb-0 float-start">
+                                                <li>
+                                                    <span class="text-sm">One special characters</span>
+                                                </li>
+                                                <li>
+                                                    <span class="text-sm">Min 8 characters</span>
+                                                </li>
+                                                <li>
+                                                    <span class="text-sm">One number (2 are recommended)</span>
+                                                </li>
+                                                <li>
+                                                    <span class="text-sm">Change it often</span>
+                                                </li>
+                                            </ul>
+                                            <input class="btn bg-gradient-dark btn-sm float-end mt-6 mb-0" type="submit" id="updatePass" name="updatePass" value="Update password">
+                                        </form>
                                     </div>
                                 </div>
                             </div>
@@ -463,3 +363,131 @@ if ($_SESSION['role'] == "ENCODER" || $_SESSION['role'] == "CHECKER") {
     header("Location: ../../logout.php");
 }
 ?>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const form = document.getElementById("changePass"),
+            oldpassword = document.getElementById("old_pass"),
+            password = document.getElementById("current_pass"),
+            password2 = document.getElementById("confirm_pass");
+
+        const errorMessages = {
+            old_pass: "Please enter your old password.",
+            current_pass: "Please enter a new password.",
+            confirm_pass: "Please confirm your new password."
+        };
+
+        form.addEventListener("submit", function(e) {
+            e.preventDefault(); // Prevent form submission for validation
+            const isValidOldPassword = checkRequired([oldpassword]);
+            const isValidCurrentPassword = checkRequired([password]);
+            const isValidConfirmPassword = checkRequired([password2]);
+
+            if (isValidCurrentPassword && isValidConfirmPassword) {
+                const isPasswordStrong = checkPasswordStrength(password);
+                const isPasswordMatch = checkPasswordMatch(password, password2);
+
+                // Only if all validations pass, allow submission
+                if (isPasswordStrong && isPasswordMatch) {
+                    // Here you can submit the form or handle it as needed
+                    console.log(form);
+                    Swal.fire({
+                        title: "Change Password?",
+                        text: "Are you sure, you want to change your password?",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#28a745",
+                        cancelButtonColor: "#f44335",
+                        confirmButtonText: "Yes, Confirmed!",
+                        cancelButtonText: "Cancel",
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            Swal.fire({
+                                icon: "success",
+                                title: "Thank You!",
+                                text: "Password Successfully Changed!",
+                                showConfirmButton: false,
+                                timer: 2500,
+                            });
+                        }
+                    });
+                }
+            }
+        });
+
+        function showError(field, message) {
+            const parent = field.parentElement;
+            parent.className = "input-group input-group-outline mb-5 is-invalid is-filled";
+            parent.querySelector("small").innerText = message;
+            return false; // Indicate that the validation failed
+        }
+
+        function showSucces(field) {
+            field.parentElement.className = "input-group input-group-outline mb-5 is-valid is-filled";
+            return true; // Indicate that the validation passed
+        }
+
+        function checkRequired(fields) {
+            let allValid = true;
+            fields.forEach(field => {
+                if (field.value.trim() === "") {
+                    allValid = false; // Set to false if any field is invalid
+                    const message = errorMessages[field.id] || "This field is required.";
+                    showError(field, message);
+                } else {
+                    oldpassword.parentElement.querySelector("small").innerText = "";
+                    showSucces(field);
+                }
+            });
+            return allValid; // Return true if all fields are valid
+        }
+
+        function checkPasswordStrength(password) {
+            const passwordValue = password.value.trim();
+            const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(passwordValue);
+            const hasNumber = /\d/.test(passwordValue);
+            const isValidLength = passwordValue.length >= 8;
+
+            // Clear any previous error messages
+            password.parentElement.classList.remove("is-invalid");
+            password.parentElement.querySelector("small").innerText = "";
+
+            let isValid = true;
+
+            if (!hasSpecialChar) {
+                isValid = false;
+                showError(password, "Password must contain one special character");
+            }
+            if (!hasNumber) {
+                isValid = false;
+                showError(password, "Password must contain at least one number");
+            }
+            if (!isValidLength) {
+                isValid = false;
+                showError(password, "Password must be at least 8 characters long");
+            }
+
+            if (isValid) {
+                showSucces(password);
+            }
+
+            return isValid; // Return whether the password is strong
+        }
+
+        function checkPasswordMatch(password, password2) {
+
+            password2.parentElement.classList.remove("is-invalid");
+            password2.parentElement.querySelector("small").innerText = "";
+
+            if (password.value !== password2.value) {
+                return showError(password2, "Passwords do not match");
+            } else {
+                return showSucces(password2);
+            }
+        }
+
+        function getFieldName(field) {
+            return field.id.charAt(0).toUpperCase() + field.id.slice(1);
+        }
+    });
+</script>

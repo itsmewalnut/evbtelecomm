@@ -21,6 +21,7 @@ if ($paid_Type == "paidGlobe") {
         foreach ($_FILES['attachment']['tmp_name'] as $key => $value) {
             $pname = rand(1000, 10000) . "-" . $empname . "_" . $_FILES['attachment']['name'][$key];
             $tname = $_FILES['attachment']['tmp_name'][$key];
+            $file_name = $_FILES['attachment']['name'][$key];
 
             $upload_dir = ('../../files/globe_folder');
 
@@ -28,7 +29,7 @@ if ($paid_Type == "paidGlobe") {
 
             $directory = ($upload_dir . '/' . $pname);
 
-            mysqli_query($conn, "INSERT INTO globe_attachment(globe_id, file_location) VALUES ('$paid_ID', '$directory')");
+            mysqli_query($conn, "INSERT INTO globe_attachment(globe_id, file_location, file_name, date_paid) VALUES ('$paid_ID', '$directory', '$file_name', '$paid_Date')");
         }
     } else {
         echo "No files were uploaded.";

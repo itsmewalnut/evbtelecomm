@@ -169,31 +169,14 @@ if ($_SESSION['role'] == "ADMINISTRATOR") {
                                         <img src="<?php echo $_SESSION['avatar']; ?>" class="avatar avatar-xl me-1 border-radius-lg d-sm-inline d-none" alt="user_avatar" onerror="this.src='../../image/avatar_thumbnail.png';">
                                         <span class="d-sm-inline d-none text-bold"><?php echo $_SESSION['fullname']; ?></span>
                                     </div>
-                                    <hr class="horizontal light mt-0 mb-" />
-                                    <li class="mb-2">
-                                        <a class="dropdown-item border-radius-md" href="#">
-                                            <div class="d-flex align-items-center py-1">
-                                                <div class="my-auto">
-                                                    <span class="material-icons">person</span>
-                                                </div>
-                                                <div class="ms-2">
-                                                    <h6 class="text-sm font-weight-normal mb-1"> Profile</h6>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li class="mb-2">
-                                        <a class="dropdown-item border-radius-md" href="#">
-                                            <div class="d-flex align-items-center">
-                                                <div class="my-auto">
-                                                    <span class="material-icons">settings</span>
-                                                </div>
-                                                <div class="ms-2">
-                                                    <h6 class="text-sm font-weight-normal"> Settings</h6>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </li>
+                                    <hr class="horizontal dark mt-0 mb-0" />
+                                    <div class="p-3 text-center">
+                                        <span class="d-sm-inline d-none text-bold badge bg-gradient-success"><?php echo $_SESSION['account_status']; ?></span>
+                                        <br>
+                                        <div class="mt-2">
+                                            <span class="d-sm-inline d-none text-bold"><?php echo $_SESSION['department']; ?></span>
+                                        </div>
+                                    </div>
                                 </ul>
                             </li>
                         </ul>

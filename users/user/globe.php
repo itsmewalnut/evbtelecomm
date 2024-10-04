@@ -171,31 +171,14 @@ if ($_SESSION['role'] == "ENCODER" || $_SESSION['role'] == "CHECKER") {
                                         <img src="<?php echo $_SESSION['avatar']; ?>" class="avatar avatar-xl me-1 border-radius-lg d-sm-inline d-none" alt="user_avatar" onerror="this.src='../../image/avatar_thumbnail.png';">
                                         <span class="d-sm-inline d-none text-bold"><?php echo $_SESSION['fullname']; ?></span>
                                     </div>
-                                    <hr class="horizontal light mt-0 mb-" />
-                                    <li class="mb-2">
-                                        <a class="dropdown-item border-radius-md" href="#">
-                                            <div class="d-flex align-items-center py-1">
-                                                <div class="my-auto">
-                                                    <span class="material-icons">person</span>
-                                                </div>
-                                                <div class="ms-2">
-                                                    <h6 class="text-sm font-weight-normal mb-1"> Profile</h6>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li class="mb-2">
-                                        <a class="dropdown-item border-radius-md" href="#">
-                                            <div class="d-flex align-items-center">
-                                                <div class="my-auto">
-                                                    <span class="material-icons">settings</span>
-                                                </div>
-                                                <div class="ms-2">
-                                                    <h6 class="text-sm font-weight-normal"> Settings</h6>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </li>
+                                    <hr class="horizontal dark mt-0 mb-0" />
+                                    <div class="p-3 text-center">
+                                        <span class="d-sm-inline d-none text-bold badge bg-gradient-success"><?php echo $_SESSION['account_status']; ?></span>
+                                        <br>
+                                        <div class="mt-2">
+                                            <span class="d-sm-inline d-none text-bold"><?php echo $_SESSION['department']; ?></span>
+                                        </div>
+                                    </div>
                                 </ul>
                             </li>
                         </ul>
@@ -211,7 +194,7 @@ if ($_SESSION['role'] == "ENCODER" || $_SESSION['role'] == "CHECKER") {
                         <div class="card my-4">
                             <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
                                 <div class="bg-gradient-info shadow-info border-radius-lg pt-4 pb-3">
-                                    <h6 class="text-white text-capitalize ps-3">Globe</h6>
+                                    <h6 class="text-white text-capitalize ps-3">GLOBE</h6>
                                 </div>
                             </div>
                             <div class="card-body px-0 pb-2">
@@ -304,7 +287,7 @@ if ($_SESSION['role'] == "ENCODER" || $_SESSION['role'] == "CHECKER") {
                                         <!-- Search Button -->
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <button type="submit" id="filterTable" class="btn btn-icon btn-3 btn-success w-100">
+                                                <button type="submit" id="filterTable" class="btn btn-icon btn-3 btn-info w-100">
                                                     <span class="btn-inner--icon"><i class="fa fa-search"></i></span>
                                                     <span class="btn-inner--text"> search</span>
                                                 </button>
@@ -400,7 +383,7 @@ if ($_SESSION['role'] == "ENCODER" || $_SESSION['role'] == "CHECKER") {
                                                             <input type="text" name="registerName" id="registerName" class="form-control" autocomplete="off" required>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-6 mb-4">
+                                                    <div class="col-md-4 mb-4">
                                                         <div class="input-group input-group-static">
                                                             <label for="accountStatus" class="ms-0">Account Status</label>
                                                             <select class="form-control" name="accountStatus" id="accountStatus">
@@ -410,7 +393,7 @@ if ($_SESSION['role'] == "ENCODER" || $_SESSION['role'] == "CHECKER") {
                                                             </select>
                                                         </div>
                                                     </div>
-                                                    <!-- <div class="col-md-4 mb-4">
+                                                    <div class="col-md-4 mb-4">
                                                         <div class="input-group input-group-static">
                                                             <label for="finalStatus" class="ms-0">Final Status</label>
                                                             <select class="form-control" name="finalStatus" id="finalStatus">
@@ -420,8 +403,8 @@ if ($_SESSION['role'] == "ENCODER" || $_SESSION['role'] == "CHECKER") {
                                                                 <option value="PAID">PAID</option>
                                                             </select>
                                                         </div>
-                                                    </div> -->
-                                                    <div class="col-md-6 mb-4">
+                                                    </div>
+                                                    <div class="col-md-4 mb-4">
                                                         <div class="input-group input-group-static">
                                                             <label for="acc_type" class="ms-0">Types of Account</label>
                                                             <select class="form-control" name="acc_type" id="acc_type">
@@ -537,6 +520,33 @@ if ($_SESSION['role'] == "ENCODER" || $_SESSION['role'] == "CHECKER") {
                 </div>
             </div>
 
+            <!----------------------------------------SOA Modal------------------------------------->
+            <!-- <div class="modal fade" id="viewSOA" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title font-weight-normal" id="exampleModalLabel">Proof of Payment</h5>
+                            <button type="button" class="btn-close text-dark" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="pdf" id="attachment_container"></div>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+            <div class="offcanvas offcanvas-end" id="viewSOA" data-bs-scroll="false" tabindex="-1" aria-labelledby="offcanvasRightLabel">
+                <div class="offcanvas-header">
+                    <h5 class="offcanvas-title" id="offcanvasRightLabel"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+                    <div class="pdf" id="attachment_container"></div>
+                </div>
+            </div>
+            <!----------------------------------------End SOA Modal------------------------------------->
+
             <!-- View Account Modal -->
             <div class="modal fade" id="viewGlobe" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-xl" role="document">
@@ -550,7 +560,7 @@ if ($_SESSION['role'] == "ENCODER" || $_SESSION['role'] == "CHECKER") {
                         <div class="modal-body">
                             <div class="row">
                                 <div class="col-xl-5 col-lg-6 text-center">
-                                    <div class="pdf" id="attachment_container"></div>
+                                    <img class="w-100" alt="Click here to View/Download" src="../../image/pdf-invalid.png">
                                 </div>
                                 <div class="col-lg-6 mx-auto">
                                     <div class="d-flex gap-2">
@@ -570,6 +580,7 @@ if ($_SESSION['role'] == "ENCODER" || $_SESSION['role'] == "CHECKER") {
                                             <span class="mask bg-gradient-dark opacity-10"></span>
                                             <div class="card-body position-relative z-index-1 p-3">
                                                 <i class="material-icons text-white p-2">wifi</i>
+                                                <h5 class="text-white mt-3 mb-3 pb-2" id="acc_no"></h5>
                                                 <div class="d-flex mt-3">
                                                     <div class="me-6">
                                                         <p class="text-white text-sm opacity-8 mb-0">Paid Amount</p>
@@ -656,10 +667,10 @@ if ($_SESSION['role'] == "ENCODER" || $_SESSION['role'] == "CHECKER") {
                                                                 <div class="d-flex align-items-center">
                                                                     <button class="btn btn-icon-only btn-rounded bg-gradient-info mb-0 me-3 p-3 btn-sm d-flex align-items-center justify-content-center"><i class="material-icons text-lg">person</i></button>
                                                                     <div class="d-flex flex-column">
-                                                                        <h6 class="mb-1 text-dark text-sm">Account No</h6>
+                                                                        <h6 class="mb-1 text-dark text-sm">Globe ID</h6>
                                                                     </div>
                                                                 </div>
-                                                                <div class="d-flex align-items-center text-sm font-weight-bold ms-auto" id="acc_no"></div>
+                                                                <div class="d-flex align-items-center text-sm font-weight-bold ms-auto" id="acc_id"></div>
                                                             </div>
                                                             <hr class="horizontal dark mt-3 mb-2" />
                                                         </li>

@@ -49,9 +49,9 @@ if (!window.jQuery) {
 $.fn.EZView = function (collectionName) {
   var self = this;
 
-  if (!$(self).length) {
-    throw Error("No jQuery elements found");
-  }
+  // if (!$(self).length) {
+  //   throw Error("No jQuery elements found");
+  // }
 
   /**
    * Initial actions

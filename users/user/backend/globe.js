@@ -86,14 +86,12 @@ function loadGlobeTable() {
             if (
               data[7] === '<span class="badge bg-gradient-warning">PAID</span>'
             ) {
-              $(row).removeClass(
-                "bg-gradient-danger text-white border-radius-lg"
-              );
+              $(row).removeClass("bg-gradient-danger text-white");
             } else if (currentDate >= fiveDaysBefore && currentDate < dueDate) {
               $(row)
                 .find("td")
-                .eq(5)
-                .addClass("bg-gradient-danger text-white border-radius-lg");
+                .slice(0, 6)
+                .addClass("bg-gradient-danger text-white");
             }
           },
           language: {
@@ -245,6 +243,7 @@ $(document).on("click", "#getGlobeView", function () {
       $("#acc_billing").text(result.account_type);
       $("#acc_datepaid").text(result.date_paid || "-");
       $("#acc_no").text(result.account_no);
+      $("#acc_id").text(result.globe_id);
       $("#acc_email").text(result.email);
       $("#acc_rno").text(result.register_no);
       $("#acc_address").text(result.register_address);
@@ -321,6 +320,27 @@ $(document).on("click", "#getGlobeView", function () {
     },
     error: function (xhr, status, error) {
       console.error("AJAX Error: ", status, error);
+    },
+  });
+});
+
+// Fetching Account SOA in modal
+$(document).on("click", "#getGlobeSOA", function () {
+  $(".main-content").removeClass("ps ps--scrolling-y");
+  $("#offcanvasRightLabel").text("SOA - " + $(this).data("name"));
+
+  var mydata = {
+    soa_id: $(this).data("id"),
+    soa_type: "globe",
+  };
+
+  $.ajax({
+    url: "../../query/administrator/view_attachment.php",
+    type: "POST",
+    data: JSON.stringify(mydata),
+    success: function (response) {
+      $("#attachment_container").html(response);
+      $(".pdf-thumbnail").EZView();
     },
   });
 });
@@ -429,14 +449,12 @@ $("#accountSearchForm").submit(function (a) {
             if (
               data[7] === '<span class="badge bg-gradient-warning">PAID</span>'
             ) {
-              $(row).removeClass(
-                "bg-gradient-danger text-white border-radius-lg"
-              );
+              $(row).removeClass("bg-gradient-danger text-white");
             } else if (currentDate >= fiveDaysBefore && currentDate < dueDate) {
               $(row)
                 .find("td")
-                .eq(5)
-                .addClass("bg-gradient-danger text-white border-radius-lg");
+                .slice(0, 6)
+                .addClass("bg-gradient-danger text-white");
             }
           },
         })

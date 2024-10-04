@@ -6,7 +6,7 @@ function logout(event) {
     text: "Make sure to save all files before you logout!",
     icon: "warning",
     showCancelButton: true,
-    confirmButtonColor: "#03a9f4",
+    confirmButtonColor: "#28a745",
     cancelButtonColor: "#f44335",
     confirmButtonText: "Yes, log out!",
     cancelButtonText: "Cancel",
