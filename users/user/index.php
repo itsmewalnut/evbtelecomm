@@ -173,7 +173,7 @@ if ($_SESSION['role'] == "ENCODER" || $_SESSION['role'] == "CHECKER") {
             </div>
         </aside>
         <main
-            class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ps ps--active-y">
+            class="main-content position-relative max-height-vh-100 h-100 border-radius-lg">
             <!-- Navbar -->
             <nav class="navbar navbar-main navbar-expand-lg position-sticky mt-4 top-1 px-0 mx-4 shadow-none border-radius-xl z-index-sticky" id="navbarBlur" data-scroll="true">
                 <div class="container-fluid py-1 px-3">
@@ -512,6 +512,12 @@ if ($_SESSION['role'] == "ENCODER" || $_SESSION['role'] == "CHECKER") {
         <script src="../../assets/js/plugins/perfect-scrollbar.min.js"></script>
         <script src="../../assets/js/plugins/smooth-scrollbar.min.js"></script>
         <script src="../../assets/js/plugins/countup.min.js"></script>
+        <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
+        <script src="../../assets/js/material-dashboard.min.js?v=3.1.0"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="../../backend/logout.js"></script>
+        <script src="../../backend/count.js"></script>
+
         <script>
             var win = navigator.platform.indexOf("Win") > -1;
             if (win && document.querySelector("#sidenav-scrollbar")) {
@@ -521,11 +527,6 @@ if ($_SESSION['role'] == "ENCODER" || $_SESSION['role'] == "CHECKER") {
                 Scrollbar.init(document.querySelector("#sidenav-scrollbar"), options);
             }
         </script>
-        <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
-        <script src="../../assets/js/material-dashboard.min.js?v=3.1.0"></script>
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-        <script src="../../backend/logout.js"></script>
-        <script src="../../backend/count.js"></script>
     </body>
 
     </html>
