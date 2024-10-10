@@ -228,7 +228,7 @@ $("#deactivate_form").on("submit", function (a) {
     contentType: false,
     processData: false,
     success: function (data) {
-      if ($("#action").val() == "deactivate") {
+      if ($("#action").val() == "Deactivate") {
         Swal.fire({
           icon: "success",
           titleText: "Account Deactivated!",

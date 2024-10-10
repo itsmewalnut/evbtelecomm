@@ -491,13 +491,6 @@ var myDropzone = new Dropzone(drop, {
   addRemoveLinks: true,
   acceptedFiles: ".pdf",
   paramName: "attachment[]",
-  params: {
-    paid_type: "paid_type",
-    paid_ID: "paid_ID",
-    paid_date: "paid_date",
-    paid_amount: "paid_amount",
-    paid_remarks: "paid_remarks",
-  },
   success: function (file, response) {
     console.log("File uploaded successfully: ", file.name);
     file.previewElement.classList.add("dz-success");

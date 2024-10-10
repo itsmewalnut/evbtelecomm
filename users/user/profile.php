@@ -7,7 +7,7 @@ if ($_SESSION['role'] == "ENCODER" || $_SESSION['role'] == "CHECKER") {
     if (isset($_POST['updatePass'])) {
         $user_id = $_SESSION['user_id'];
         $pass = mysqli_real_escape_string($conn, $_POST['upass']);
-        mysqli_query($conn, "UPDATE user_account SET password == '$pass' WHERE user_id == '$user_id'");
+        mysqli_query($conn, "UPDATE user_account SET password = '$pass' WHERE user_id = '$user_id'");
         exit();
     };
 ?>
