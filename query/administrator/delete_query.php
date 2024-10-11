@@ -1,8 +1,11 @@
 <?php
 include('../../database/db_conn.php');
+date_default_timezone_set('Asia/Macao');
+$date = date('Y-m-d H:i:s');
 
 $slipType = $_POST['deleteNetworkType'];
-$slipID = $_POST['deleteGlobeID'];
+$slipID = $_POST['deleteNetworkID'];
+$slipNAME = $_POST['deleteNetworkNAME'];
 
 // Function to delete files from the server and records from attachment tables
 function deleteAttachments($conn, $attachmentTable, $slipID, $idColumn)
@@ -59,5 +62,7 @@ $stmt = $conn->prepare("DELETE FROM $mainTable WHERE $idColumn = ?");
 $stmt->bind_param("i", $slipID);
 $stmt->execute();
 $stmt->close();
+
+mysqli_query($conn, "INSERT INTO activity_log(network_type, remarks, network_date, role, action) VALUES ('$slipType', '$slipNAME has been deleted in $slipType', '$date', 'ADMINISTRATOR', 'DELETE')");
 
 $conn->close();

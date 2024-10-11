@@ -4,11 +4,10 @@ session_start();
 
 if ($_SESSION['role'] == "ENCODER" || $_SESSION['role'] == "CHECKER") {
 
-    if (isset($_POST['updatePass'])) {
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $user_id = $_SESSION['user_id'];
         $pass = mysqli_real_escape_string($conn, $_POST['upass']);
         mysqli_query($conn, "UPDATE user_account SET password = '$pass' WHERE user_id = '$user_id'");
-        exit();
     };
 ?>
     <!DOCTYPE html>
@@ -237,11 +236,61 @@ if ($_SESSION['role'] == "ENCODER" || $_SESSION['role'] == "CHECKER") {
                             <div class="tab-pane fade show active border-radius-lg" id="profile" role="tabpanel" aria-labelledby="profile" loading="lazy">
                                 <div class="card" id="basic-info">
                                     <div class="card-header">
-                                        <h5>Basic Info</h5>
+                                        <h5>Basic Information</h5>
                                     </div>
                                     <div class="card-body pt-0">
-
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="mb-3">
+                                                    <h6>First Name:</h6>
+                                                    <p class="text-muted"><?php echo htmlspecialchars($_SESSION['firstname']); ?></p>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <h6>Middle Name:</h6>
+                                                    <p class="text-muted"><?php echo htmlspecialchars($_SESSION['middlename']); ?></p>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <h6>Last Name:</h6>
+                                                    <p class="text-muted"><?php echo htmlspecialchars($_SESSION['lastname']); ?></p>
+                                                    <div class="mt-3">
+                                                        <h6>Social Media:</h6>
+                                                        <a href="https://facebook.com" class="me-3" target="_blank">
+                                                            <i class="fab fa-facebook fa-md"></i>
+                                                        </a>
+                                                        <a href="https://twitter.com" class="me-3" target="_blank">
+                                                            <i class="fab fa-twitter fa-md"></i>
+                                                        </a>
+                                                        <a href="https://instagram.com" class="" target="_blank">
+                                                            <i class="fab fa-instagram fa-md"></i>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="mb-3">
+                                                    <h6>Branch:</h6>
+                                                    <p class="text-muted"><?php echo htmlspecialchars($_SESSION['branch']); ?></p>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <h6>Department:</h6>
+                                                    <p class="text-muted"><?php echo htmlspecialchars($_SESSION['department']); ?></p>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <h6>Username:</h6>
+                                                    <p class="text-muted"><?php echo htmlspecialchars($_SESSION['username']); ?></p>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <h6>Role:</h6>
+                                                    <p class="text-muted"><?php echo htmlspecialchars($_SESSION['role']); ?></p>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <h6>Account Status:</h6>
+                                                    <p class="text-muted"><?php echo htmlspecialchars($_SESSION['account_status']); ?></p>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
+
                                 </div>
                             </div>
                         </div>
@@ -257,20 +306,20 @@ if ($_SESSION['role'] == "ENCODER" || $_SESSION['role'] == "CHECKER") {
                                         <h5>Change Password</h5>
                                     </div>
                                     <div class="card-body pt-0">
-                                        <form id="changePass" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
+                                        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
                                             <div class="input-group input-group-outline">
                                                 <label class="form-label">Old Password</label>
-                                                <input type="text" id="old_pass" class="form-control" onfocus="focused(this)" onfocusout="defocused(this)">
+                                                <input type="text" id="old_pass" name="old_pass" class="form-control" autocomplete="off">
                                                 <small></small>
                                             </div>
                                             <div class="input-group input-group-outline my-3">
                                                 <label class="form-label">Current Password</label>
-                                                <input type="text" id="current_pass" name="upass" class="form-control" onfocus="focused(this)" onfocusout="defocused(this)">
+                                                <input type="text" id="current_pass" name="upass" class="form-control" autocomplete="off">
                                                 <small></small>
                                             </div>
                                             <div class="input-group input-group-outline my-3">
                                                 <label class="form-label">Confirm Password</label>
-                                                <input type="text" id="confirm_pass" class="form-control" onfocus="focused(this)" onfocusout="defocused(this)">
+                                                <input type="text" id="confirm_pass" name="confirm_pass" class="form-control" autocomplete="off">
                                                 <small></small>
                                             </div>
                                             <h5 class="mt-5">Password requirements</h5>
@@ -291,7 +340,7 @@ if ($_SESSION['role'] == "ENCODER" || $_SESSION['role'] == "CHECKER") {
                                                     <span class="text-sm">Change it often</span>
                                                 </li>
                                             </ul>
-                                            <input class="btn bg-gradient-dark btn-sm float-end mt-6 mb-0" type="submit" id="updatePass" name="updatePass" value="Update password">
+                                            <input class="btn bg-gradient-dark btn-sm float-end mt-6 mb-0" type="submit" name="updatePass" value="Update password">
                                         </form>
                                     </div>
                                 </div>
@@ -366,8 +415,7 @@ if ($_SESSION['role'] == "ENCODER" || $_SESSION['role'] == "CHECKER") {
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        const form = document.getElementById("changePass"),
-            oldpassword = document.getElementById("old_pass"),
+        const oldpassword = document.getElementById("old_pass"),
             password = document.getElementById("current_pass"),
             password2 = document.getElementById("confirm_pass");
 
@@ -377,20 +425,22 @@ if ($_SESSION['role'] == "ENCODER" || $_SESSION['role'] == "CHECKER") {
             confirm_pass: "Please confirm your new password."
         };
 
-        form.addEventListener("submit", function(e) {
+        // Listen for form submission
+        document.querySelector("form").addEventListener("submit", function(e) {
             e.preventDefault(); // Prevent form submission for validation
+
             const isValidOldPassword = checkRequired([oldpassword]);
             const isValidCurrentPassword = checkRequired([password]);
             const isValidConfirmPassword = checkRequired([password2]);
 
-            if (isValidCurrentPassword && isValidConfirmPassword) {
+            if (isValidOldPassword && isValidCurrentPassword && isValidConfirmPassword) {
                 const isPasswordStrong = checkPasswordStrength(password);
                 const isPasswordMatch = checkPasswordMatch(password, password2);
 
                 // Only if all validations pass, allow submission
                 if (isPasswordStrong && isPasswordMatch) {
                     // Here you can submit the form or handle it as needed
-                    console.log(form);
+                    const form = e.target; // Reference the form from the event
                     Swal.fire({
                         title: "Change Password?",
                         text: "Are you sure, you want to change your password?",
@@ -402,6 +452,7 @@ if ($_SESSION['role'] == "ENCODER" || $_SESSION['role'] == "CHECKER") {
                         cancelButtonText: "Cancel",
                     }).then((result) => {
                         if (result.isConfirmed) {
+                            form.submit();
                             Swal.fire({
                                 icon: "success",
                                 title: "Thank You!",
@@ -435,7 +486,7 @@ if ($_SESSION['role'] == "ENCODER" || $_SESSION['role'] == "CHECKER") {
                     const message = errorMessages[field.id] || "This field is required.";
                     showError(field, message);
                 } else {
-                    oldpassword.parentElement.querySelector("small").innerText = "";
+                    field.parentElement.querySelector("small").innerText = "";
                     showSucces(field);
                 }
             });
@@ -475,7 +526,6 @@ if ($_SESSION['role'] == "ENCODER" || $_SESSION['role'] == "CHECKER") {
         }
 
         function checkPasswordMatch(password, password2) {
-
             password2.parentElement.classList.remove("is-invalid");
             password2.parentElement.querySelector("small").innerText = "";
 
@@ -484,10 +534,6 @@ if ($_SESSION['role'] == "ENCODER" || $_SESSION['role'] == "CHECKER") {
             } else {
                 return showSucces(password2);
             }
-        }
-
-        function getFieldName(field) {
-            return field.id.charAt(0).toUpperCase() + field.id.slice(1);
         }
     });
 </script>

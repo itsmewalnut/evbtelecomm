@@ -415,7 +415,7 @@ if ($_SESSION['role'] == "ENCODER" || $_SESSION['role'] == "CHECKER") {
                                                             </select>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-6">
+                                                    <div class="col-md-6 mb-4">
                                                         <div class="input-group input-group-static textive">
                                                             <label>Due Date</label>
                                                             <input class="form-control datetimepicker" name="dueDate" id="dueDate" type="text" autocomplete="off" data-input>
@@ -478,13 +478,13 @@ if ($_SESSION['role'] == "ENCODER" || $_SESSION['role'] == "CHECKER") {
                                                         </div>
                                                     </div>
                                                     <div class="col-md-4">
-                                                        <div class="input-group input-group-static textive">
+                                                        <div class="input-group input-group-static mb-4 textive">
                                                             <label>Serial No</label>
                                                             <input type="text" name="acc_serialno" id="acc_serialno" class="form-control" autocomplete="off" required>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-4">
-                                                        <div class="input-group input-group-static textive">
+                                                        <div class="input-group input-group-static mb-4 textive">
                                                             <label>IMEI 1</label>
                                                             <input type="number" name="accImei1" id="accImei1" class="form-control" autocomplete="off" required>
                                                         </div>
@@ -547,7 +547,7 @@ if ($_SESSION['role'] == "ENCODER" || $_SESSION['role'] == "CHECKER") {
             </div>
             <!----------------------------------------End SOA Modal------------------------------------->
 
-            <!-- View Account Modal -->
+            <!----------------------------------------View Account Modal------------------------------------->
             <div class="modal fade" id="viewGlobe" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-xl" role="document">
                     <div class="modal-content">
@@ -811,6 +811,7 @@ if ($_SESSION['role'] == "ENCODER" || $_SESSION['role'] == "CHECKER") {
                     </div>
                 </div>
             </div>
+            <!----------------------------------------End of View Account Modal------------------------------------->
 
             <!----------------------------------------Payment Modal------------------------------------->
             <div class="modal fade" id="paymentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
@@ -826,7 +827,7 @@ if ($_SESSION['role'] == "ENCODER" || $_SESSION['role'] == "CHECKER") {
                             <div class="modal-body">
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <div class="input-group input-group-static">
+                                        <div class="input-group input-group-static mb-4">
                                             <label>Date of Paid</label>
                                             <input class="form-control datetimepicker" name="paid_date" id="paid_date" type="text" autocomplete="off" required data-input>
                                         </div>
@@ -932,8 +933,6 @@ if ($_SESSION['role'] == "ENCODER" || $_SESSION['role'] == "CHECKER") {
         <script src="../../plugins/dropzone/dropzone.js"></script>
         <script src="../../assets/js/plugins/perfect-scrollbar.min.js"></script>
         <script src="../../assets/js/plugins/smooth-scrollbar.min.js"></script>
-        <script src="../../assets/js/plugins/photoswipe.min.js"></script>
-        <script src="../../assets/js/plugins/photoswipe-ui-default.min.js"></script>
         <!-- jQuery -->
         <script src="../../plugins/jquery/jquery.min.js"></script>
         <!-- DataTables  & Plugins -->

@@ -1,9 +1,12 @@
 <?php
 session_start();
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 include('../../database/db_conn.php');
 date_default_timezone_set('Asia/Macao');
 $date = date('Y-m-d H:i:s');
-$dateonly = date('Y-m-d');
+$role = $_SESSION["role"];
 $empname = $_SESSION['fullname'];
 
 $paid_Type = $_POST['paid_type'];
@@ -31,6 +34,7 @@ if ($paid_Type == "paidGlobe") {
 
             mysqli_query($conn, "INSERT INTO globe_attachment(globe_id, file_location, file_name, date_paid) VALUES ('$paid_ID', '$directory', '$file_name', '$paid_Date')");
         }
+        mysqli_query($conn, "INSERT INTO activity_log(network_type, remarks, network_date, role, action) VALUES ('GLOBE', '$role paid in globe', '$date', '$role', 'PAID')");
     } else {
         echo "No files were uploaded.";
     }

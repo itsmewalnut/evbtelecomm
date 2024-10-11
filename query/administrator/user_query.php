@@ -51,7 +51,7 @@ if (!empty($_FILES['account_avatar']['name'])) {
 }
 
 if ($action == "AddUser") {
-    mysqli_query($conn, "INSERT INTO user_account (fullname, firstname, middlename, lastname, branch, department, username, password, avatar, role, account_status) VALUES ('$fullname', '$first_name', '$middle_name', '$last_name', '$branch', '$department', '$username', 'Evbgroup123', '$directory', '$role', 'INACTIVE')");
+    mysqli_query($conn, "INSERT INTO user_account (fullname, firstname, middlename, lastname, branch, department, username, password, avatar, role, account_status) VALUES ('$fullname', '$first_name', '$middle_name', '$last_name', '$branch', '$department', '$username', 'Evbgroup123!', '$directory', '$role', 'INACTIVE')");
 } else if ($action == "updateUser") {
 
     $status_query = mysqli_query($conn, "SELECT account_status FROM user_account WHERE user_id = '$accountID'");

@@ -124,6 +124,10 @@ $("#addGlobe").on("hidden.bs.modal", function () {
   $("#addGlobe_form")[0].reset();
 });
 
+$("#paymentModal").on("hidden.bs.modal", function () {
+  $(':input[type="submit"]').prop("disabled", false);
+});
+
 // Add Account
 $(document).on("click", "#AddNewGlobe", function () {
   $("#action").val("AddGlobe");
@@ -292,18 +296,6 @@ $(document).on("click", "#getGlobeView", function () {
         )
         .text(result.account_status);
 
-      const id = result.globe_id;
-      const slipType = "globe";
-      $.ajax({
-        url: "../../query/administrator/view_attachment.php",
-        type: "POST",
-        data: { id: id, slipType: slipType },
-        success: function (response) {
-          $("#attachment_container").html(response);
-          $("#view_attachment").EZView();
-        },
-      });
-
       // Pay Button handling
       $(document).on("click", "#payButton", function () {
         $("#paid_ID").val(result.globe_id);
@@ -347,6 +339,7 @@ $(document).on("click", "#getGlobeSOA", function () {
 
 // PAID query
 $("#payment_form").submit(function (e) {
+  $(':input[type="submit"]').prop("disabled", true);
   e.preventDefault(); // Prevent the default form submission
 
   var formData = new FormData(this); // Create FormData object with the form data

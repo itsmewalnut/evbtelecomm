@@ -239,9 +239,8 @@ if ($_SESSION['role'] == "ENCODER" || $_SESSION['role'] == "CHECKER") {
                     <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
                         <div class="card">
                             <div class="card-header p-3 pt-2">
-                                <div
-                                    class="icon icon-lg icon-shape bg-gradient-info shadow-info text-center border-radius-xl mt-n4 position-absolute">
-                                    <i class="material-icons opacity-10">public</i>
+                                <div class="icon icon-lg icon-shape bg-gradient-dark shadow-dark border-radius-xl mt-n4 position-absolute d-flex justify-content-center align-items-center">
+                                    <img class="w-80 h-80" src="../../assets/img/small-logos/globe.png" alt="spotify_logo">
                                 </div>
                                 <div class="text-end pt-1">
                                     <p class="text-sm mb-0 text-capitalize">Total Accounts</p>
@@ -259,9 +258,8 @@ if ($_SESSION['role'] == "ENCODER" || $_SESSION['role'] == "CHECKER") {
                     <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
                         <div class="card">
                             <div class="card-header p-3 pt-2">
-                                <div
-                                    class="icon icon-lg icon-shape bg-gradient-success shadow-success text-center border-radius-xl mt-n4 position-absolute">
-                                    <i class="material-icons opacity-10">sim_card</i>
+                                <div class="icon icon-lg icon-shape bg-gradient-dark shadow-dark border-radius-xl mt-n4 position-absolute d-flex justify-content-center align-items-center">
+                                    <img class="w-80 h-80" src="../../assets/img/small-logos/smart.png" alt="spotify_logo">
                                 </div>
                                 <div class="text-end pt-1">
                                     <p class="text-sm mb-0 text-capitalize">Total Accounts</p>
@@ -279,9 +277,8 @@ if ($_SESSION['role'] == "ENCODER" || $_SESSION['role'] == "CHECKER") {
                     <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
                         <div class="card">
                             <div class="card-header p-3 pt-2">
-                                <div
-                                    class="icon icon-lg icon-shape bg-gradient-danger shadow-danger text-center border-radius-xl mt-n4 position-absolute">
-                                    <i class="material-icons opacity-10">cell_tower</i>
+                                <div class="icon icon-lg icon-shape bg-gradient-dark shadow-dark border-radius-xl mt-n4 position-absolute d-flex justify-content-center align-items-center">
+                                    <img class="w-80 h-80" src="../../assets/img/small-logos/pldt.png" alt="spotify_logo">
                                 </div>
                                 <div class="text-end pt-1">
                                     <p class="text-sm mb-0 text-capitalize">Total Accounts</p>
@@ -299,9 +296,8 @@ if ($_SESSION['role'] == "ENCODER" || $_SESSION['role'] == "CHECKER") {
                     <div class="col-xl-3 col-sm-6">
                         <div class="card">
                             <div class="card-header p-3 pt-2">
-                                <div
-                                    class="icon icon-lg icon-shape bg-gradient-dark shadow-dark text-center border-radius-xl mt-n4 position-absolute">
-                                    <i class="material-icons opacity-10">group</i>
+                                <div class="icon icon-lg icon-shape bg-gradient-dark shadow-dark border-radius-xl mt-n4 position-absolute d-flex justify-content-center align-items-center">
+                                    <img class="w-80 h-80" src="../../assets/img/small-logos/simcard.png" alt="spotify_logo">
                                 </div>
                                 <div class="text-end pt-1">
                                     <p class="text-sm mb-0 text-capitalize">Overall Accounts</p>
@@ -311,7 +307,7 @@ if ($_SESSION['role'] == "ENCODER" || $_SESSION['role'] == "CHECKER") {
                             <hr class="dark horizontal my-0" />
                             <div class="card-footer p-3">
                                 <p class="mb-0">
-                                    <span class="text-sm font-weight-bolder">Overall</span>
+                                    <span class="text-sm font-weight-bolder">OVERALL</span>
                                 </p>
                             </div>
                         </div>
@@ -378,96 +374,13 @@ if ($_SESSION['role'] == "ENCODER" || $_SESSION['role'] == "CHECKER") {
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-6">
-                        <div class="card h-100">
-                            <div class="card-header pb-0">
-                                <h6>Activity Log</h6>
+                        <div class="card bg-gradient-dark h-100">
+                            <div class="card-header bg-transparent pb-0">
+                                <h6 class="text-white">Activity Log</h6>
                             </div>
                             <div class="card-body p-3">
-                                <div class="timeline timeline-one-side">
-                                    <div class="timeline-block mb-3">
-                                        <span class="timeline-step">
-                                            <i class="material-icons text-success text-gradient">notifications</i>
-                                        </span>
-                                        <div class="timeline-content">
-                                            <h6 class="text-dark text-sm font-weight-bold mb-0">
-                                                $2400, Design changes
-                                            </h6>
-                                            <p
-                                                class="text-secondary font-weight-bold text-xs mt-1 mb-0">
-                                                22 DEC 7:20 PM
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class="timeline-block mb-3">
-                                        <span class="timeline-step">
-                                            <i class="material-icons text-danger text-gradient">code</i>
-                                        </span>
-                                        <div class="timeline-content">
-                                            <h6 class="text-dark text-sm font-weight-bold mb-0">
-                                                New order #1832412
-                                            </h6>
-                                            <p
-                                                class="text-secondary font-weight-bold text-xs mt-1 mb-0">
-                                                21 DEC 11 PM
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class="timeline-block mb-3">
-                                        <span class="timeline-step">
-                                            <i class="material-icons text-info text-gradient">shopping_cart</i>
-                                        </span>
-                                        <div class="timeline-content">
-                                            <h6 class="text-dark text-sm font-weight-bold mb-0">
-                                                Server payments for April
-                                            </h6>
-                                            <p
-                                                class="text-secondary font-weight-bold text-xs mt-1 mb-0">
-                                                21 DEC 9:34 PM
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class="timeline-block mb-3">
-                                        <span class="timeline-step">
-                                            <i class="material-icons text-warning text-gradient">credit_card</i>
-                                        </span>
-                                        <div class="timeline-content">
-                                            <h6 class="text-dark text-sm font-weight-bold mb-0">
-                                                New card added for order #4395133
-                                            </h6>
-                                            <p
-                                                class="text-secondary font-weight-bold text-xs mt-1 mb-0">
-                                                20 DEC 2:20 AM
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class="timeline-block mb-3">
-                                        <span class="timeline-step">
-                                            <i class="material-icons text-primary text-gradient">key</i>
-                                        </span>
-                                        <div class="timeline-content">
-                                            <h6 class="text-dark text-sm font-weight-bold mb-0">
-                                                Unlock packages for development
-                                            </h6>
-                                            <p
-                                                class="text-secondary font-weight-bold text-xs mt-1 mb-0">
-                                                18 DEC 4:54 AM
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class="timeline-block">
-                                        <span class="timeline-step">
-                                            <i class="material-icons text-dark text-gradient">payments</i>
-                                        </span>
-                                        <div class="timeline-content">
-                                            <h6 class="text-dark text-sm font-weight-bold mb-0">
-                                                New order #9583120
-                                            </h6>
-                                            <p
-                                                class="text-secondary font-weight-bold text-xs mt-1 mb-0">
-                                                17 DEC
-                                            </p>
-                                        </div>
-                                    </div>
+                                <div class="timeline timeline-one-side" id="timeline_container">
+                                    <!-- Timeline entries will be added here -->
                                 </div>
                             </div>
                         </div>
@@ -506,6 +419,9 @@ if ($_SESSION['role'] == "ENCODER" || $_SESSION['role'] == "CHECKER") {
                 <i class="material-icons py-2" id="dark-mode-icon">dark_mode</i>
             </a>
         </div>
+
+        <!--   Date fns   -->
+        <script src="https://cdn.jsdelivr.net/npm/date-fns@latest"></script>
         <!--   Core JS Files   -->
         <script src="../../assets/js/core/popper.min.js"></script>
         <script src="../../assets/js/core/bootstrap.min.js"></script>
@@ -515,6 +431,7 @@ if ($_SESSION['role'] == "ENCODER" || $_SESSION['role'] == "CHECKER") {
         <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
         <script src="../../assets/js/material-dashboard.min.js?v=3.1.0"></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="../../backend/dashboard.js"></script>
         <script src="../../backend/logout.js"></script>
         <script src="../../backend/count.js"></script>
 
