@@ -36,7 +36,7 @@ if ($network_type == "Globe") {
         mysqli_query($conn, "INSERT INTO activity_log(network_type, remarks, network_date, role, action) VALUES ('GLOBE', '$role added new account in globe', '$date', '$role', 'ADD')");
     } else {
         mysqli_query($conn, "UPDATE globe_table SET account_no = '$accountNO', register_no = '$registerNO', register_name = '$registerName', branch = '$acc_Branch', duedate = '$dueDate', account_type = '$acc_type', acquisition_date = '$acqui_date', acquisition_date = '$acqui_date', register_address = '$register_add', username = '$globe_username', password = '$globe_password', monthly = '$accMonthly', email = '$accEmail', serial_no = '$acc_serialno', imei1 = '$accImei1', imei2 = '$accImei2', account_status = '$accountStatus', final_status = '$finalStatus' WHERE globe_id = '$network_ID'");
-        mysqli_query($conn, "INSERT INTO activity_log(network_type, remarks, network_date, role, action) VALUES ('GLOBE', '$role update in globe', '$date', '$role', 'UPDATE')");
+        mysqli_query($conn, "INSERT INTO activity_log(network_type, remarks, network_date, role, action) VALUES ('GLOBE', '$role updated in globe', '$date', '$role', 'UPDATE')");
     }
 } else if ($network_type == "Smart") {
     if ($action == 'AddSmart') {
@@ -44,7 +44,7 @@ if ($network_type == "Globe") {
         mysqli_query($conn, "INSERT INTO activity_log(network_type, remarks, network_date, role, action) VALUES ('SMART', '$role added new account in smart', '$date', '$role', 'ADD')");
     } else {
         mysqli_query($conn, "UPDATE smart_table SET account_no = '$accountNO', register_no = '$registerNO', register_name = '$registerName', branch = '$acc_Branch', duedate = '$dueDate', account_type = '$acc_type', acquisition_date = '$acqui_date', acquisition_date = '$acqui_date', register_address = '$register_add', username = '$globe_username', password = '$globe_password', monthly = '$accMonthly', email = '$accEmail', serial_no = '$acc_serialno', imei1 = '$accImei1', imei2 = '$accImei2', account_status = '$accountStatus', final_status = '$finalStatus' WHERE globe_id = '$network_ID'");
-        mysqli_query($conn, "INSERT INTO activity_log(network_type, remarks, network_date, role, action) VALUES ('SMART', '$role update in smart', '$date', '$role', 'UPDATE')");
+        mysqli_query($conn, "INSERT INTO activity_log(network_type, remarks, network_date, role, action) VALUES ('SMART', '$role updated in smart', '$date', '$role', 'UPDATE')");
     }
 } else {
     if ($action == 'AddPLDT') {
@@ -52,6 +52,6 @@ if ($network_type == "Globe") {
         mysqli_query($conn, "INSERT INTO activity_log(network_type, remarks, network_date, role, action) VALUES ('PLDT', '$role added new account in pldt', '$date', '$role', 'ADD')");
     } else {
         mysqli_query($conn, "UPDATE pldt_table SET account_no = '$accountNO', register_no = '$registerNO', register_name = '$registerName', branch = '$acc_Branch', duedate = '$dueDate', account_type = '$acc_type', acquisition_date = '$acqui_date', acquisition_date = '$acqui_date', register_address = '$register_add', username = '$globe_username', password = '$globe_password', monthly = '$accMonthly', email = '$accEmail', serial_no = '$acc_serialno', imei1 = '$accImei1', imei2 = '$accImei2', account_status = '$accountStatus', final_status = '$finalStatus' WHERE globe_id = '$network_ID'");
-        mysqli_query($conn, "INSERT INTO activity_log(network_type, remarks, network_date, role, action) VALUES ('PLDT', '$role update in pldt', '$date', '$role', 'UPDATE')");
+        mysqli_query($conn, "INSERT INTO activity_log(network_type, remarks, network_date, role, action) VALUES ('PLDT', '$role updated in pldt', '$date', '$role', 'UPDATE')");
     }
 };
