@@ -229,20 +229,26 @@ $("#deactivate_form").on("submit", function (a) {
     processData: false,
     success: function (data) {
       if ($("#action").val() == "Deactivate") {
-        Swal.fire({
-          icon: "success",
-          titleText: "Account Deactivated!",
-          text: "Account Deactivated Successfully!",
+        const Toast = Swal.mixin({
+          toast: true,
+          position: "bottom",
           showConfirmButton: false,
-          timer: 2500,
+          timer: 3000,
+        });
+        Toast.fire({
+          icon: "success",
+          title: "User is now INACTIVE",
         });
       } else {
-        Swal.fire({
-          icon: "success",
-          titleText: "Account Activated!",
-          text: "Account Activated Successfully!",
+        const Toast = Swal.mixin({
+          toast: true,
+          position: "bottom",
           showConfirmButton: false,
-          timer: 2500,
+          timer: 3000,
+        });
+        Toast.fire({
+          icon: "success",
+          title: "User is now ACTIVE",
         });
       }
       $("#deactivate_form")[0].reset();

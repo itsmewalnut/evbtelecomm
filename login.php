@@ -31,11 +31,11 @@ if (isset($_POST['Submit'])) {
 
             // Redirect based on user role
             if ($row["role"] == "ADMINISTRATOR") {
-                header('Location: users/administrator');
+                header('Location: users/administrator/dashboard');
             } elseif ($row["role"] == "ENCODER" || $row["role"] == "CHECKER") {
-                header('Location: users/user');
+                header('Location: users/user/dashboard');
             } elseif ($row["role"] == "CHECKER") {
-                header('Location: users/checker');
+                header('Location: users/checker/dashboard');
             }
             exit; // Ensure no further code is executed after redirection
         }

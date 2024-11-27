@@ -1,5 +1,6 @@
 <?php
 include('../../database/db_conn.php');
+date_default_timezone_set('Asia/Manila');
 
 // Function to fetch events from a given table
 function fetchEvents($conn, $tableName)
@@ -61,7 +62,6 @@ $data_array = json_encode($all_events);
 
     <link rel="stylesheet" type="text/css" href="../../evo-calendar/css/evo-calendar.css" />
     <link rel="stylesheet" type="text/css" href="../../evo-calendar/css/evo-calendar.midnight-blue.css" />
-    <link rel="stylesheet" type="text/css" href="../../evo-calendar/css/evo-calendar.royal-navy.css" />
 
     <style type="text/css">
         .hero {

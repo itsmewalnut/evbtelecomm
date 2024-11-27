@@ -122,6 +122,20 @@ $("#addGlobe").on("hidden.bs.modal", function () {
   $(".textive").removeClass("focused is-focused");
   $("#imagePreview").attr("src", "");
   $("#addGlobe_form")[0].reset();
+
+  // Remove Choices values
+  if (choices["acc_Branch"]) {
+    choices["acc_Branch"].setChoiceByValue("");
+  }
+  if (choices["accountStatus"]) {
+    choices["accountStatus"].setChoiceByValue("");
+  }
+  if (choices["finalStatus"]) {
+    choices["finalStatus"].setChoiceByValue("");
+  }
+  if (choices["acc_type"]) {
+    choices["acc_type"].setChoiceByValue("");
+  }
 });
 
 $("#paymentModal").on("hidden.bs.modal", function () {
@@ -198,8 +212,8 @@ $(document).on("click", "#getGlobeUpdate", function () {
       $("#dueDate").val(result.duedate);
       $("#acqui_date").val(result.acquisition_date);
       $("#register_add").val(result.register_address);
-      $("#globe_username").val(result.username);
-      $("#globe_password").val(result.password);
+      $("#account_username").val(result.username);
+      $("#account_password").val(result.password);
       $("#accMonthly").val(result.monthly);
       $("#accEmail").val(result.email);
       $("#accPhone").val(result.phone);
@@ -265,14 +279,17 @@ $(document).on("click", "#getGlobeView", function () {
         $("#acc_finalstatus").text(result.final_status);
         $("#PAID_BUTTON").show();
         $("#TRANSMIT_BUTTON").hide();
+        $("#accImage").attr("src", "../../image/pdf-transmit.png");
       } else if (result.final_status == "PAID") {
         $("#acc_finalstatus").text(result.final_status);
         $("#PAID_BUTTON").hide();
         $("#TRANSMIT_BUTTON").hide();
+        $("#accImage").attr("src", "../../image/pdf-paid.png");
       } else {
         $("#acc_finalstatus").text(result.final_status);
         $("#PAID_BUTTON").hide();
         $("#TRANSMIT_BUTTON").show();
+        $("#accImage").attr("src", "../../image/pdf-unpaid.png");
       }
 
       // Format dates
@@ -303,8 +320,7 @@ $(document).on("click", "#getGlobeView", function () {
 
       // Transmit Button handling
       $(document).on("click", "#transmitButton", function () {
-        $("#transmitGlobeID").val(result.globe_id);
-        $("#transmitType").val("paidGlobe");
+        $("#transmitID").val(result.globe_id);
         $("#transmitMessage").text(
           `Transmit the account with the register name of ${result.register_name}`
         );
@@ -316,7 +332,7 @@ $(document).on("click", "#getGlobeView", function () {
   });
 });
 
-// Fetching Account SOA in modal
+// View SOA in offcanvas
 $(document).on("click", "#getGlobeSOA", function () {
   $(".main-content").removeClass("ps ps--scrolling-y");
   $("#offcanvasRightLabel").text("SOA - " + $(this).data("name"));
@@ -333,6 +349,7 @@ $(document).on("click", "#getGlobeSOA", function () {
     success: function (response) {
       $("#attachment_container").html(response);
       $(".pdf-thumbnail").EZView();
+      $(".payment-thumbnail").EZView();
     },
   });
 });
@@ -345,7 +362,7 @@ $("#payment_form").submit(function (e) {
   var formData = new FormData(this); // Create FormData object with the form data
 
   // Append files from Dropzone to FormData
-  myDropzone.files.forEach(function (file) {
+  paymentDropzone.files.forEach(function (file) {
     formData.append("attachment[]", file); // Append each file
   });
 
@@ -366,7 +383,7 @@ $("#payment_form").submit(function (e) {
       $("#paymentModal").modal("hide");
       loadGlobeTable();
       $("#payment_form")[0].reset();
-      myDropzone.removeAllFiles(); // Clear Dropzone after submission
+      paymentDropzone.removeAllFiles(); // Clear Dropzone after submission
     },
     error: function (error) {
       console.error("Submission error: ", error);
@@ -376,11 +393,20 @@ $("#payment_form").submit(function (e) {
 
 // Transmit Form query
 $("#TransmitForm").submit(function (e) {
+  $(':input[type="submit"]').prop("disabled", true);
   e.preventDefault();
+
+  var formData = new FormData(this); // Create FormData object with the form data
+
+  // Append files from Dropzone to FormData
+  transmitDropzone.files.forEach(function (file) {
+    formData.append("transmit_attachment[]", file); // Append each file
+  });
+
   $.ajax({
     url: "../../query/administrator/transmit_query.php",
     method: "POST",
-    data: new FormData(this),
+    data: formData,
     contentType: false,
     processData: false,
     success: function (data) {
@@ -394,6 +420,10 @@ $("#TransmitForm").submit(function (e) {
       $("#transmitModal").modal("hide");
       loadGlobeTable();
       $("#TransmitForm")[0].reset();
+      transmitDropzone.removeAllFiles(); // Clear Dropzone after submission
+    },
+    error: function (error) {
+      console.error("Submission error: ", error);
     },
   });
 });
@@ -478,12 +508,57 @@ if (document.querySelector(".datetimepicker")) {
 }
 
 Dropzone.autoDiscover = false;
-var drop = document.getElementById("dropzone");
-var myDropzone = new Dropzone(drop, {
+var drop1 = document.getElementById("transmit_dropzone");
+var transmitDropzone = new Dropzone(drop1, {
+  url: "../../query/administrator/transmit_query.php",
+  addRemoveLinks: true,
+  acceptedFiles: ".pdf",
+  paramName: "transmit_attachment[]",
+  maxFiles: 1,
+  success: function (file, response) {
+    console.log("File uploaded successfully: ", file.name);
+    file.previewElement.classList.add("dz-success");
+
+    if (file.type === "application/pdf") {
+      // Set a custom thumbnail for PDF files
+      var pdfThumbnailUrl = "../../image/pdf-thumbnail.png"; // Update with your thumbnail path
+      file.previewElement.classList.add("dz-image-preview");
+      file.previewElement.classList.remove("dz-file-preview");
+      var thumbnailElement = file.previewElement.querySelector(
+        "[data-dz-thumbnail]"
+      );
+      if (thumbnailElement) {
+        thumbnailElement.src = pdfThumbnailUrl; // Set the thumbnail image source
+        thumbnailElement.style.width = "100%";
+        thumbnailElement.style.height = "100%";
+        thumbnailElement.style.background = "#d4d4d4";
+      }
+    } else {
+    }
+  },
+  error: function (file, response) {
+    console.error("Upload error: ", response);
+    file.previewElement.classList.add("dz-error");
+  },
+  removedfile: function (file) {
+    // Remove the preview element
+    var _ref = file.previewElement;
+    if (_ref) {
+      _ref.parentNode.removeChild(_ref);
+    }
+
+    // Optionally handle server-side removal logic here if needed
+    console.log("File removed: ", file.name);
+  },
+});
+
+var drop2 = document.getElementById("payment_dropzone");
+var paymentDropzone = new Dropzone(drop2, {
   url: "../../query/administrator/paid_query.php",
   addRemoveLinks: true,
   acceptedFiles: ".pdf",
   paramName: "attachment[]",
+  maxFiles: 1,
   success: function (file, response) {
     console.log("File uploaded successfully: ", file.name);
     file.previewElement.classList.add("dz-success");

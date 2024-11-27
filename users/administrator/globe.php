@@ -23,7 +23,7 @@ if ($_SESSION['role'] == "ADMINISTRATOR") {
         <link href="../../assets/css/nucleo-icons.css" rel="stylesheet" />
         <link href="../../assets/css/nucleo-svg.css" rel="stylesheet" />
         <!-- Font Awesome Icons -->
-        <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
         <!-- Material Icons -->
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet" />
         <!-- CSS Files -->
@@ -141,62 +141,7 @@ if ($_SESSION['role'] == "ADMINISTRATOR") {
         <main
             class="main-content position-relative max-height-vh-100 h-100 border-radius-lg">
             <!-- Navbar -->
-            <nav class="navbar navbar-main navbar-expand-lg position-sticky mt-4 top-1 px-0 mx-4 shadow-none border-radius-xl z-index-sticky" id="navbarBlur" data-scroll="true">
-                <div class="container-fluid py-1 px-3">
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
-                            <li class="breadcrumb-item text-sm"><a href="dashboard"><i class="material-icons opacity-10">home</i></a></li>
-                            <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Pages</a></li>
-                            <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Globe</li>
-                        </ol>
-                        <h6 class="font-weight-bolder mb-0">Globe</h6>
-                    </nav>
-                    <div class="sidenav-toggler sidenav-toggler-inner d-xl-block d-none ">
-                        <a href="javascript:;" class="nav-link text-body p-0">
-                            <div class="sidenav-toggler-inner">
-                                <i class="sidenav-toggler-line"></i>
-                                <i class="sidenav-toggler-line"></i>
-                                <i class="sidenav-toggler-line"></i>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
-                        <div class="ms-md-auto pe-md-3 d-flex align-items-center">
-                        </div>
-                        <ul class="navbar-nav justify-content-end">
-                            <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
-                                <a href="javascript:;" class="nav-link text-body p-0" id="iconNavbarSidenav">
-                                    <div class="sidenav-toggler-inner">
-                                        <i class="sidenav-toggler-line"></i>
-                                        <i class="sidenav-toggler-line"></i>
-                                        <i class="sidenav-toggler-line"></i>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="nav-item dropdown pe-2">
-                                <a href="javascript:;" class="nav-link text-body p-0 position-relative" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <img src="<?php echo $_SESSION['avatar']; ?>" class="avatar avatar-sm me-1 border-radius-lg d-sm-inline d-none" alt="user_avatar" onerror="this.src='../../image/avatar_thumbnail.png';">
-                                    <span class="d-sm-inline d-none text-bold"><?php echo $_SESSION['role']; ?></span>
-                                </a>
-                                <ul class="dropdown-menu dropdown-menu-end p-2" style="width:250px" aria-labelledby="dropdownMenuButton">
-                                    <div class="profile-pic p-3 d-flex justify-content-center align-items-center">
-                                        <img src="<?php echo $_SESSION['avatar']; ?>" class="avatar avatar-xl me-1 border-radius-lg d-sm-inline d-none" alt="user_avatar" onerror="this.src='../../image/avatar_thumbnail.png';">
-                                        <span class="d-sm-inline d-none text-bold"><?php echo $_SESSION['fullname']; ?></span>
-                                    </div>
-                                    <hr class="horizontal dark mt-0 mb-0" />
-                                    <div class="p-3 text-center">
-                                        <span class="d-sm-inline d-none text-bold badge bg-gradient-success"><?php echo $_SESSION['account_status']; ?></span>
-                                        <br>
-                                        <div class="mt-2">
-                                            <span class="d-sm-inline d-none text-bold"><?php echo $_SESSION['department']; ?></span>
-                                        </div>
-                                    </div>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
+            <?php include "../../navbar.php" ?>
             <!-- End Navbar -->
 
             <!-- main content -->
@@ -299,7 +244,7 @@ if ($_SESSION['role'] == "ADMINISTRATOR") {
                                         <!-- Search Button -->
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <button type="submit" id="filterTable" class="btn btn-icon btn-3 btn-success w-100">
+                                                <button type="submit" id="filterTable" class="btn btn-icon btn-3 btn-info w-100">
                                                     <span class="btn-inner--icon"><i class="fa fa-search"></i></span>
                                                     <span class="btn-inner--text"> search</span>
                                                 </button>
@@ -376,8 +321,8 @@ if ($_SESSION['role'] == "ADMINISTRATOR") {
                         </div>
                         <div class="modal-body">
                             <div class="row">
-                                <div class="col-xl-5 col-lg-6 text-center">
-                                    <img class="w-100" alt="Click here to View/Download" src="../../image/pdf-invalid.png">
+                                <div class="col-xl-5 col-lg-6 mx-auto mt-3">
+                                    <img class="w-100" alt="Click here to View/Download" id="accImage">
                                 </div>
                                 <div class="col-lg-6 mx-auto">
                                     <div class="d-flex gap-2">
@@ -393,19 +338,19 @@ if ($_SESSION['role'] == "ADMINISTRATOR") {
                                     <h6 class="mb-0" id="acc_remarks"></h6>
                                     <div class="row mt-4">
                                         <div class="overflow-hidden position-relative border-radius-xl">
-                                            <img src="../../assets/img/illustrations/pattern-tree.svg" class="position-absolute opacity-2 start-0 top-0 w-100 z-index-1 h-100" alt="pattern-tree">
+                                            <img src="../../assets/img/illustrations/pattern-tree.svg" class="position-absolute opacity-2 start-0 top-0 w-100 z-index-1" alt="pattern-tree">
                                             <span class="mask bg-gradient-dark opacity-10"></span>
                                             <div class="card-body position-relative z-index-1 p-3">
                                                 <i class="material-icons text-white p-2">wifi</i>
                                                 <h5 class="text-white mt-3 mb-3 pb-2" id="acc_no"></h5>
                                                 <div class="d-flex mt-3">
                                                     <div class="me-6">
-                                                        <p class="text-white text-sm opacity-8 mb-0">Paid Amount</p>
-                                                        <h6 class="text-white mb-0" id="acc_amount"></h6>
+                                                        <p class="text-white text-sm opacity-8 mb-0">Subscription</p>
+                                                        <h6 class="text-white mb-0" id="acc_billing"></h6>
                                                     </div>
                                                     <div class="ms-1">
-                                                        <p class="text-white text-sm opacity-8 mb-0">Payment Plan</p>
-                                                        <h6 class="text-white mb-0" id="acc_billing"></h6>
+                                                        <p class="text-white text-sm opacity-8 mb-0">Paid Amount</p>
+                                                        <h6 class="text-white mb-0" id="acc_amount"></h6>
                                                     </div>
                                                 </div>
                                                 <div class="d-flex mt-3">
@@ -621,29 +566,8 @@ if ($_SESSION['role'] == "ADMINISTRATOR") {
                 </div>
             </div>
 
-            <footer class="footer py-4">
-                <div class="container-fluid">
-                    <div class="row align-items-center justify-content-lg-between">
-                        <div class="col-lg-6 mb-lg-0 mb-4">
-                            <div class="copyright text-center text-sm text-muted text-lg-start">©
-                                <script>
-                                    document.write(new Date().getFullYear());
-                                </script>
-                                <a href="https://evbgroup.biz/" class="font-weight-bold" target="_blank">EVB Group of Companies</a>
-                                All rights reserve.
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <ul
-                                class="nav nav-footer justify-content-center justify-content-lg-end">
-                                <li class="nav-item">
-                                    <span class="text-sm font-weight-bold">Version 1.0.0</span>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </footer>
+            <!-- Footer -->
+            <?php include "../../footer.php" ?>
 
             <!-- end main content -->
         </main>
@@ -655,36 +579,9 @@ if ($_SESSION['role'] == "ADMINISTRATOR") {
             </a>
         </div>
 
-        <!--   Core JS Files   -->
-        <script src="../../assets/js/core/popper.min.js"></script>
-        <script src="../../assets/js/core/bootstrap.min.js"></script>
-        <script src="../../assets/js/core/choices.min.js"></script>
-        <script src="../../assets/js/core/quill.min.js"></script>
-        <script src="../../assets/js/core/flatpickr.min.js"></script>
-        <script src="../../assets/js/plugins/perfect-scrollbar.min.js"></script>
-        <script src="../../assets/js/plugins/smooth-scrollbar.min.js"></script>
-        <!-- jQuery -->
-        <script src="../../plugins/jquery/jquery.min.js"></script>
-        <!-- DataTables  & Plugins -->
-        <script src="../../plugins/datatables/jquery.dataTables.min.js"></script>
-        <script src="../../plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
-        <script src="../../plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
-        <script src="../../plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
-        <script src="../../plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
-        <script src="../../plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
-        <script src="../../plugins/jszip/jszip.min.js"></script>
-        <script src="../../plugins/pdfmake/pdfmake.min.js"></script>
-        <script src="../../plugins/pdfmake/vfs_fonts.js"></script>
-        <script src="../../plugins/datatables-buttons/js/buttons.html5.min.js"></script>
-        <script src="../../plugins/datatables-buttons/js/buttons.print.min.js"></script>
-        <script src="../../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
-        <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
-        <script src="../../assets/js/material-dashboard.min.js?v=3.1.0"></script>
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <!-- Scripts -->
+        <?php include "../../important_scripts/script_network.php" ?>
         <script src="backend/globe.js"></script>
-        <script src="../../backend/logout.js"></script>
-        <script src="../../backend/EZView.js"></script>
-        <script src="../../backend/draggable.js"></script>
 
         <script>
             var win = navigator.platform.indexOf("Win") > -1;

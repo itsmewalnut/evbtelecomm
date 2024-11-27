@@ -1,7 +1,6 @@
 <?php
 session_start();
 include('../../database/db_conn.php');
-$user = $_SESSION["fullname"];
 $role = $_SESSION["role"];
 $network_type = $_POST['networkType'];
 if ($network_type == "globe") {
@@ -45,7 +44,7 @@ if ($network_type == "globe") {
         $sub_array[] = $row["duedate"];
 
         if ($row["account_status"] == 'ACTIVE') {
-            $sub_array[] = '<span class="badge bg-gradient-success">ACTIVE</span>';
+            $sub_array[] = '<span class="badge bg-gradient-info">ACTIVE</span>';
         } else {
             $sub_array[] = '<span class="badge bg-gradient-secondary">INACTIVE</span>';
         }
@@ -60,19 +59,19 @@ if ($network_type == "globe") {
 
         if ($role == 'ADMINISTRATOR') {
             $sub_array[] = '<div style="display:flex; justify-content:center; gap:10px; margin-top:10px">
-                <button type="button" id="getGlobeSOA" class="btn btn-icon btn-2 btn-dark btn-sm" data-bs-toggle="offcanvas" data-bs-target="#viewSOA" aria-controls="offcanvasRight" data-name="' . $row["register_name"] . '" data-id="' . $row["globe_id"] . '"><i class="fa fa-folder-open-o" style="font-size: 13px" title="SOA"></i> SOA</button>
+                <button type="button" id="getGlobeSOA" class="btn btn-icon btn-2 btn-dark btn-sm" data-bs-toggle="offcanvas" data-bs-target="#viewSOA" aria-controls="offcanvasRight" data-name="' . $row["register_name"] . '" data-id="' . $row["globe_id"] . '"><i class="fa-solid fa-file-pdf" style="font-size: 13px" title="SOA"></i> SOA</button>
                 <button type="button" id="getGlobeView" class="btn btn-icon btn-2 btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#viewGlobe" data-id="' . $row["globe_id"] . '"><i class="fa fa-eye" style="font-size: 13px" title="View"></i> View</button>
                 <button type="button" id="getGlobeDelete" class="btn btn-icon btn-2 btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteGlobe" data-id="' . $row["globe_id"] . '" data-name="' . $row["register_name"] . '"><i class="fa fa-trash-alt" style="font-size: 13px" title="Delete"></i> Delete</button>
                 </div>';
         } else if ($role == 'ENCODER') {
             $sub_array[] = '<div style="display:flex; justify-content:center; gap:10px; margin-top:10px">
-                <button type="button" id="getGlobeSOA" class="btn btn-icon btn-2 btn-dark btn-sm" data-bs-toggle="offcanvas" data-bs-target="#viewSOA" aria-controls="offcanvasRight" data-name="' . $row["register_name"] . '" data-id="' . $row["globe_id"] . '"><i class="fa fa-folder-open-o" style="font-size: 13px" title="SOA"></i> SOA</button>
+                <button type="button" id="getGlobeSOA" class="btn btn-icon btn-2 btn-dark btn-sm" data-bs-toggle="offcanvas" data-bs-target="#viewSOA" aria-controls="offcanvasRight" data-name="' . $row["register_name"] . '" data-id="' . $row["globe_id"] . '"><i class="fa-solid fa-file-pdf" style="font-size: 13px" title="SOA"></i> SOA</button>
                 <button type="button" id="getGlobeView" class="btn btn-icon btn-2 btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#viewGlobe" data-id="' . $row["globe_id"] . '"><i class="fa fa-eye" style="font-size: 13px" title="View"></i> View</button>
                 <button type="button" id="getGlobeUpdate" class="btn btn-icon btn-2 btn-light btn-sm" data-bs-toggle="modal" data-bs-target="#addGlobe" data-id="' . $row["globe_id"] . '"><i class="fa fa-edit" style="font-size: 13px" title="Update"></i> Update</button>
                 </div>';
         } else {
             $sub_array[] = '<div style="display:flex; justify-content:center; gap:10px; margin-top:10px">
-                <button type="button" id="getGlobeSOA" class="btn btn-icon btn-2 btn-dark btn-sm" data-bs-toggle="offcanvas" data-bs-target="#viewSOA" aria-controls="offcanvasRight" data-name="' . $row["register_name"] . '" data-id="' . $row["globe_id"] . '"><i class="fa fa-folder-open-o" style="font-size: 13px" title="SOA"></i> SOA</button>
+                <button type="button" id="getGlobeSOA" class="btn btn-icon btn-2 btn-dark btn-sm" data-bs-toggle="offcanvas" data-bs-target="#viewSOA" aria-controls="offcanvasRight" data-name="' . $row["register_name"] . '" data-id="' . $row["globe_id"] . '"><i class="fa-solid fa-file-pdf" style="font-size: 13px" title="SOA"></i> SOA</button>
                 <button type="button" id="getGlobeView" class="btn btn-icon btn-2 btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#viewGlobe" data-id="' . $row["globe_id"] . '"><i class="fa fa-eye" style="font-size: 13px" title="View"></i> View</button>
                 </div>';
         }
@@ -144,20 +143,25 @@ if ($network_type == "globe") {
         } else if ($row["final_status"] == 'TRANSMITTED') {
             $sub_array[] = '<span class="badge bg-gradient-success">TRANSMITTED</span>';
         } else {
-            $sub_array[] = '<span class="badge bg-gradient-secondary">UNPAID</span>';
+            $sub_array[] = '<span class="badge bg-gradient-danger">UNPAID</span>';
         }
 
-        if ($row["account_status"] == 'ACTIVE') {
+        if ($role == 'ADMINISTRATOR') {
             $sub_array[] = '<div style="display:flex; justify-content:center; gap:10px; margin-top:10px">
-                <button type="button" id="getUserUpdate" class="btn btn-icon btn-2 btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#addUser" data-id="' . $row["smart_id"] . '"><i class="fa fa-edit" style="font-size: 13px" title="Update"></i> Update</button>
-                <button type="button" id="getUserDeactivate" class="btn btn-icon btn-2 btn-light btn-sm" data-bs-toggle="modal" data-bs-target="#deactivateUser" data-action="deactivate" data-id="' . $row["smart_id"] . '" data-name="' . $row["register_name"] . '"><i class="fa fa-user-times" style="font-size: 13px" title="Deactivate"></i> Deactivate</button>
-                <button type="button" id="getUserDelete" class="btn btn-icon btn-2 btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteUser" data-id="' . $row["smart_id"] . '" data-name="' . $row["register_name"] . '"><i class="fa fa-trash-alt" style="font-size: 13px" title="Delete"></i> Delete</button>
+                <button type="button" id="getSmartSOA" class="btn btn-icon btn-2 btn-dark btn-sm" data-bs-toggle="offcanvas" data-bs-target="#viewSOA" aria-controls="offcanvasRight" data-name="' . $row["register_name"] . '" data-id="' . $row["smart_id"] . '"><i class="fa-solid fa-file-pdf" style="font-size: 13px" title="SOA"></i> SOA</button>
+                <button type="button" id="getSmartView" class="btn btn-icon btn-2 btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#viewSmart" data-id="' . $row["smart_id"] . '"><i class="fa fa-eye" style="font-size: 13px" title="View"></i> View</button>
+                <button type="button" id="getSmartDelete" class="btn btn-icon btn-2 btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteSmart" data-id="' . $row["smart_id"] . '" data-name="' . $row["register_name"] . '"><i class="fa fa-trash-alt" style="font-size: 13px" title="Delete"></i> Delete</button>
+                </div>';
+        } else if ($role == 'ENCODER') {
+            $sub_array[] = '<div style="display:flex; justify-content:center; gap:10px; margin-top:10px">
+                <button type="button" id="getSmartSOA" class="btn btn-icon btn-2 btn-dark btn-sm" data-bs-toggle="offcanvas" data-bs-target="#viewSOA" aria-controls="offcanvasRight" data-name="' . $row["register_name"] . '" data-id="' . $row["smart_id"] . '"><i class="fa-solid fa-file-pdf" style="font-size: 13px" title="SOA"></i> SOA</button>
+                <button type="button" id="getSmartView" class="btn btn-icon btn-2 btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#viewSmart" data-id="' . $row["smart_id"] . '"><i class="fa fa-eye" style="font-size: 13px" title="View"></i> View</button>
+                <button type="button" id="getSmartUpdate" class="btn btn-icon btn-2 btn-light btn-sm" data-bs-toggle="modal" data-bs-target="#addSmart" data-id="' . $row["smart_id"] . '"><i class="fa fa-edit" style="font-size: 13px" title="Update"></i> Update</button>
                 </div>';
         } else {
             $sub_array[] = '<div style="display:flex; justify-content:center; gap:10px; margin-top:10px">
-                <button type="button" id="getUserUpdate" class="btn btn-icon btn-2 btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#addUser" data-id="' . $row["smart_id"] . '"><i class="fa fa-edit" style="font-size: 13px" title="Update"></i> Update</button>
-                <button type="button" id="getUserActivate" class="btn btn-icon btn-2 btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#deactivateUser" data-action="activate" data-id="' . $row["smart_id"] . '" data-name="' . $row["register_name"] . '"><i class="fa fa-user-check" style="font-size: 13px" title="Activate"></i> Activate</button>
-                <button type="button" id="getUserDelete" class="btn btn-icon btn-2 btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteUser" data-id="' . $row["smart_id"] . '" data-name="' . $row["register_name"] . '"><i class="fa fa-trash-alt" style="font-size: 13px" title="Delete"></i> Delete</button>
+                <button type="button" id="getSmartSOA" class="btn btn-icon btn-2 btn-dark btn-sm" data-bs-toggle="offcanvas" data-bs-target="#viewSOA" aria-controls="offcanvasRight" data-name="' . $row["register_name"] . '" data-id="' . $row["smart_id"] . '"><i class="fa-solid fa-file-pdf" style="font-size: 13px" title="SOA"></i> SOA</button>
+                <button type="button" id="getSmartView" class="btn btn-icon btn-2 btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#viewSmart" data-id="' . $row["smart_id"] . '"><i class="fa fa-eye" style="font-size: 13px" title="View"></i> View</button>
                 </div>';
         }
 
@@ -218,7 +222,7 @@ if ($network_type == "globe") {
         $sub_array[] = $row["duedate"];
 
         if ($row["account_status"] == 'ACTIVE') {
-            $sub_array[] = '<span class="badge bg-gradient-success">ACTIVE</span>';
+            $sub_array[] = '<span class="badge bg-gradient-danger">ACTIVE</span>';
         } else {
             $sub_array[] = '<span class="badge bg-gradient-secondary">INACTIVE</span>';
         }
@@ -228,20 +232,25 @@ if ($network_type == "globe") {
         } else if ($row["final_status"] == 'TRANSMITTED') {
             $sub_array[] = '<span class="badge bg-gradient-success">TRANSMITTED</span>';
         } else {
-            $sub_array[] = '<span class="badge bg-gradient-secondary">UNPAID</span>';
+            $sub_array[] = '<span class="badge bg-gradient-danger">UNPAID</span>';
         }
 
-        if ($row["account_status"] == 'ACTIVE') {
+        if ($role == 'ADMINISTRATOR') {
             $sub_array[] = '<div style="display:flex; justify-content:center; gap:10px; margin-top:10px">
-                <button type="button" id="getUserUpdate" class="btn btn-icon btn-2 btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#addUser" data-id="' . $row["pldt_id"] . '"><i class="fa fa-edit" style="font-size: 13px" title="Update"></i> Update</button>
-                <button type="button" id="getUserDeactivate" class="btn btn-icon btn-2 btn-light btn-sm" data-bs-toggle="modal" data-bs-target="#deactivateUser" data-action="deactivate" data-id="' . $row["pldt_id"] . '" data-name="' . $row["register_name"] . '"><i class="fa fa-user-times" style="font-size: 13px" title="Deactivate"></i> Deactivate</button>
-                <button type="button" id="getUserDelete" class="btn btn-icon btn-2 btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteUser" data-id="' . $row["pldt_id"] . '" data-name="' . $row["register_name"] . '"><i class="fa fa-trash-alt" style="font-size: 13px" title="Delete"></i> Delete</button>
+                <button type="button" id="getPLDTSOA" class="btn btn-icon btn-2 btn-dark btn-sm" data-bs-toggle="offcanvas" data-bs-target="#viewSOA" aria-controls="offcanvasRight" data-name="' . $row["register_name"] . '" data-id="' . $row["pldt_id"] . '"><i class="fa-solid fa-file-pdf" style="font-size: 13px" title="SOA"></i> SOA</button>
+                <button type="button" id="getPLDTView" class="btn btn-icon btn-2 btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#viewPLDT" data-id="' . $row["pldt_id"] . '"><i class="fa fa-eye" style="font-size: 13px" title="View"></i> View</button>
+                <button type="button" id="getPLDTDelete" class="btn btn-icon btn-2 btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deletePLDT" data-id="' . $row["pldt_id"] . '" data-name="' . $row["register_name"] . '"><i class="fa fa-trash-alt" style="font-size: 13px" title="Delete"></i> Delete</button>
+                </div>';
+        } else if ($role == 'ENCODER') {
+            $sub_array[] = '<div style="display:flex; justify-content:center; gap:10px; margin-top:10px">
+                <button type="button" id="getPLDTSOA" class="btn btn-icon btn-2 btn-dark btn-sm" data-bs-toggle="offcanvas" data-bs-target="#viewSOA" aria-controls="offcanvasRight" data-name="' . $row["register_name"] . '" data-id="' . $row["pldt_id"] . '"><i class="fa-solid fa-file-pdf" style="font-size: 13px" title="SOA"></i> SOA</button>
+                <button type="button" id="getPLDTView" class="btn btn-icon btn-2 btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#viewPLDT" data-id="' . $row["pldt_id"] . '"><i class="fa fa-eye" style="font-size: 13px" title="View"></i> View</button>
+                <button type="button" id="getPLDTUpdate" class="btn btn-icon btn-2 btn-light btn-sm" data-bs-toggle="modal" data-bs-target="#addPLDT" data-id="' . $row["pldt_id"] . '"><i class="fa fa-edit" style="font-size: 13px" title="Update"></i> Update</button>
                 </div>';
         } else {
             $sub_array[] = '<div style="display:flex; justify-content:center; gap:10px; margin-top:10px">
-                <button type="button" id="getUserUpdate" class="btn btn-icon btn-2 btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#addUser" data-id="' . $row["pldt_id"] . '"><i class="fa fa-edit" style="font-size: 13px" title="Update"></i> Update</button>
-                <button type="button" id="getUserActivate" class="btn btn-icon btn-2 btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#deactivateUser" data-action="activate" data-id="' . $row["pldt_id"] . '" data-name="' . $row["register_name"] . '"><i class="fa fa-user-check" style="font-size: 13px" title="Activate"></i> Activate</button>
-                <button type="button" id="getUserDelete" class="btn btn-icon btn-2 btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteUser" data-id="' . $row["pldt_id"] . '" data-name="' . $row["register_name"] . '"><i class="fa fa-trash-alt" style="font-size: 13px" title="Delete"></i> Delete</button>
+                <button type="button" id="getPLDTSOA" class="btn btn-icon btn-2 btn-dark btn-sm" data-bs-toggle="offcanvas" data-bs-target="#viewSOA" aria-controls="offcanvasRight" data-name="' . $row["register_name"] . '" data-id="' . $row["pldt_id"] . '"><i class="fa-solid fa-file-pdf" style="font-size: 13px" title="SOA"></i> SOA</button>
+                <button type="button" id="getPLDTView" class="btn btn-icon btn-2 btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#viewPLDT" data-id="' . $row["pldt_id"] . '"><i class="fa fa-eye" style="font-size: 13px" title="View"></i> View</button>
                 </div>';
         }
 

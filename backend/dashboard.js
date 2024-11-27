@@ -46,14 +46,15 @@ function loadActivityLog() {
         }
 
         var timelineEntry = `
-            <div class="timeline-block mb-3">
+            <div class="timeline-block mb-2 mt-2">
                 ${icon}
                 <div class="timeline-content">
                     <div class="d-flex my-2 float-end">${action}</div>
                     <h6 class="text-white text-sm font-weight-bold mb-0">${
                       row[1]
                     }</h6>
-                    <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">${formatDate(
+                    <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">
+                    <i class="fa fa-clock-o me-1 text-sm"></i>${formatDate(
                       row[2]
                     )}</p>
                 </div>

@@ -8784,6 +8784,10 @@ fieldset:disabled .btn {
   bottom: 10% !important;
 }
 
+.bottom-40 {
+  bottom: 40% !important;
+}
+
 .bottom-50 {
   bottom: 50% !important;
 }
@@ -10870,8 +10874,7 @@ fieldset:disabled .btn {
 }
 
 .bg-dark {
-  background-color: #fff !important;
-  /* background-color: #344767 !important; */
+  background-color: #344767 !important;
 }
 
 .bg-white {
@@ -21329,7 +21332,7 @@ fieldset:disabled .btn {
 }
 
 .card {
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+  box-shadow: 1px 4px 6px 3px rgba(0, 0, 0, 0.1),
     0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
@@ -21695,6 +21698,10 @@ fieldset:disabled .btn {
 
 .dark-version {
   background-color: #1a2035 !important;
+}
+
+.dark-version .swal2-popup.swal2-toast {
+  background: #344767 !important;
 }
 
 .dark-version .modal-content {
@@ -24787,6 +24794,14 @@ hr.horizontal.gray-light {
   padding: 0.5rem 1rem;
   font-weight: 400;
   font-size: 0.875rem;
+}
+
+.dark-version .navbar .nav-link {
+  color: #fff;
+}
+
+.dark-version .navbar .sidenav-toggler .sidenav-toggler-inner i {
+  background-color: #fff !important;
 }
 
 .navbar.navbar-absolute {

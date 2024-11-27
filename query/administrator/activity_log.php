@@ -10,7 +10,7 @@ if (isset($_POST["order"])) {
     $query .= 'ORDER BY ' . $columns[$_POST['order']['0']['column']] . ' ' . $_POST['order']['0']['dir'] . ' 
 ';
 } else {
-    $query .= 'ORDER BY id DESC LIMIT 9';
+    $query .= 'ORDER BY id DESC LIMIT 10';
 }
 
 $query1 = '';

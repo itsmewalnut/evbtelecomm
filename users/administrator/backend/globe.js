@@ -154,14 +154,17 @@ $(document).on("click", "#getGlobeView", function () {
         $("#acc_finalstatus").text(result.final_status);
         $("#PAID_BUTTON").show();
         $("#TRANSMIT_BUTTON").hide();
+        $("#accImage").attr("src", "../../image/pdf-transmit.png");
       } else if (result.final_status == "PAID") {
         $("#acc_finalstatus").text(result.final_status);
         $("#PAID_BUTTON").hide();
         $("#TRANSMIT_BUTTON").hide();
+        $("#accImage").attr("src", "../../image/pdf-paid.png");
       } else {
         $("#acc_finalstatus").text(result.final_status);
         $("#PAID_BUTTON").hide();
         $("#TRANSMIT_BUTTON").show();
+        $("#accImage").attr("src", "../../image/pdf-unpaid.png");
       }
 
       // Format dates
