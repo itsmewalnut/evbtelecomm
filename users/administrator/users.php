@@ -98,7 +98,7 @@ if ($_SESSION['role'] == "ADMINISTRATOR") {
                                                 <img class="profile-user-img img-responsive img-circle w-100" id="imagePreview" src="../../image/avatar_thumbnail.png" alt="User profile picture" onerror="this.src='../../image/avatar_thumbnail.png';">
                                             </div>
                                             <div class="avatar-edit">
-                                                <input type='file' id="imageUpload" accept=".png, .jpg, .jpeg" name="account_avatar" id="account_avatar">
+                                                <input type='file' id="imageUpload" accept=".png, .jpg, .jpeg, .gif" name="account_avatar" id="account_avatar">
                                                 <label for="imageUpload" class="d-flex justify-content-center align-items-center text-white"><i class="fas fa-camera"></i></label>
                                             </div>
                                         </div>
