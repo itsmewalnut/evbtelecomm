@@ -52,6 +52,11 @@ if ($_SESSION['role'] == "ENCODER" || $_SESSION['role'] == "CHECKER") {
                         <div class="col-auto">
                             <div class="avatar avatar-xl position-relative">
                                 <img src="<?php echo $_SESSION['avatar']; ?>" alt="profile_image" class="w-100 border-radius-lg shadow-sm">
+                                <button class="btn btn-sm btn-icon-only bg-gradient-dark position-absolute bottom-0 end-0 mb-n2 me-n2">
+                                    <span class="material-icons text-xs top-0 mt-n2" data-bs-toggle="tooltip" data-bs-placement="top" title="" aria-hidden="true" data-bs-original-title="Edit Avatar" aria-label="Edit Avatar">
+                                        edit
+                                    </span>
+                                </button>
                             </div>
                         </div>
                         <div class="col-auto my-auto">
@@ -148,7 +153,6 @@ if ($_SESSION['role'] == "ENCODER" || $_SESSION['role'] == "CHECKER") {
                                             </div>
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
                         </div>
