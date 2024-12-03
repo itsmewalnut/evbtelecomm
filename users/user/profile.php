@@ -51,8 +51,8 @@ if ($_SESSION['role'] == "ENCODER" || $_SESSION['role'] == "CHECKER") {
                     <div class="row gx-4 mb-2">
                         <div class="col-auto">
                             <div class="avatar avatar-xl position-relative">
-                                <img src="<?php echo $_SESSION['avatar']; ?>" alt="profile_image" class="w-100 border-radius-lg shadow-sm">
-                                <button class="btn btn-sm btn-icon-only bg-gradient-dark position-absolute bottom-0 end-0 mb-n2 me-n2">
+                                <img src="<?php echo $_SESSION['avatar']; ?>" alt="profile_image" class="w-100 border-radius-lg shadow-sm" onerror="this.src='../../image/avatar_thumbnail.png';">
+                                <button class="btn btn-sm btn-icon-only bg-gradient-dark position-absolute bottom-0 end-0 mb-n2 me-n2" id="getUserUpdate" data-bs-toggle="modal" data-bs-target="#UpdateAvatar">
                                     <span class="material-icons text-xs top-0 mt-n2" data-bs-toggle="tooltip" data-bs-placement="top" title="" aria-hidden="true" data-bs-original-title="Edit Avatar" aria-label="Edit Avatar">
                                         edit
                                     </span>
@@ -211,7 +211,43 @@ if ($_SESSION['role'] == "ENCODER" || $_SESSION['role'] == "CHECKER") {
                     </div>
                 </div>
             </div>
-            <!-- end main content -->
+
+            <!-- Update Avatar Modal -->
+            <div class="modal fade" id="UpdateAvatar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Change Avatar</h1>
+                        </div>
+                        <form id="avatar_form" enctype="multipart/form-data" method="post">
+                            <div class="modal-body">
+                                <div class="avatar-upload">
+                                    <div class="avatar-preview">
+                                        <img class="profile-user-img img-responsive img-circle w-100" id="imagePreview" src="<?php echo $_SESSION['avatar'] ?>" alt="User profile picture" onerror="this.src='../../image/avatar_thumbnail.png';">
+                                    </div>
+                                    <div class="avatar-edit">
+                                        <input type='file' id="imageUpload" accept=".png, .jpg, .jpeg, .gif" name="account_avatar" id="account_avatar">
+                                        <label for="imageUpload" class="d-flex justify-content-center align-items-center text-white"><i class="fas fa-camera"></i></label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                <button type="submit" class="btn btn-success">Upload</button>
+                                <input type="hidden" id="accountID" name="accountID" value="<?php echo $_SESSION['user_id'] ?>">
+                                <input type="hidden" id="firstname" name="firstname" value="<?php echo $_SESSION['firstname'] ?>">
+                                <input type="hidden" id="middlename" name="middlename" value="<?php echo $_SESSION['middlename'] ?>">
+                                <input type="hidden" id="lastname" name="lastname" value="<?php echo $_SESSION['lastname'] ?>">
+                                <input type="hidden" id="branch" name="branch" value="<?php echo $_SESSION['branch'] ?>">
+                                <input type="hidden" id="department" name="department" value="<?php echo $_SESSION['department'] ?>">
+                                <input type="hidden" id="username" name="username" value="<?php echo $_SESSION['username'] ?>">
+                                <input type="hidden" id="role" name="role" value="<?php echo $_SESSION['role'] ?>">
+                                <input type="hidden" id="action" name="action" value="updateUser">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
 
             <!-- Footer -->
             <?php include "../../footer.php" ?>
@@ -226,6 +262,8 @@ if ($_SESSION['role'] == "ENCODER" || $_SESSION['role'] == "CHECKER") {
             </a>
         </div>
 
+        <!-- jQuery -->
+        <script src="../../plugins/jquery/jquery.min.js"></script>
         <!--   Core JS Files   -->
         <script src="../../assets/js/core/popper.min.js"></script>
         <script src="../../assets/js/core/bootstrap.min.js"></script>
@@ -247,11 +285,52 @@ if ($_SESSION['role'] == "ENCODER" || $_SESSION['role'] == "CHECKER") {
     </body>
 
     </html>
+
 <?php
 } else {
     header("Location: ../../logout.php");
 }
 ?>
+
+<script>
+    $(document).on("click", "#getUserUpdate", function() {
+        $("#imageUpload").change(function(data) {
+            var imageFile = data.target.files[0];
+            var reader = new FileReader();
+            reader.readAsDataURL(imageFile);
+
+            reader.onload = function(evt) {
+                $("#imagePreview").attr("src", evt.target.result);
+                $("#imagePreview").hide();
+                $("#imagePreview").fadeIn(650);
+            };
+        });
+    });
+
+    // Add user query
+    $("#avatar_form").submit(function(e) {
+        $(':input[type="submit"]').prop("disabled", true);
+        e.preventDefault();
+
+        $.ajax({
+            url: "../../query/administrator/user_query.php",
+            method: "POST",
+            data: new FormData(this),
+            contentType: false,
+            processData: false,
+            success: function(data) {
+                Swal.fire({
+                    icon: "success",
+                    titleText: "Uploaded Successfully!",
+                    text: "Avatar has been changed!",
+                    showConfirmButton: false,
+                    timer: 2500,
+                });
+                $("#UpdateAvatar").modal("hide");
+            },
+        });
+    });
+</script>
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
