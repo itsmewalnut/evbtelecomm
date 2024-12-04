@@ -36,7 +36,7 @@ while ($row = $result->fetch_assoc()) {
 
     $data .= '</div>
                 <div class="pdfview card card-body border card-plain border-radius-lg d-flex align-items-center flex-row p-2">
-                    <img class="w-10 me-3 mb-0" src="../../image/pdf-thumbnail.png" alt="logo">
+                    <img class="w-10 me-2 mb-0" src="../../image/pdf.png" alt="logo">
                     <h6 class="mb-0 text-sm">' . htmlspecialchars($row['file_name']) . '</h6>
                 </div>
               </a>';

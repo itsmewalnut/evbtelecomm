@@ -521,7 +521,7 @@ var transmitDropzone = new Dropzone(drop1, {
 
     if (file.type === "application/pdf") {
       // Set a custom thumbnail for PDF files
-      var pdfThumbnailUrl = "../../image/pdf-thumbnail.png"; // Update with your thumbnail path
+      var pdfThumbnailUrl = "../../image/pdf.png"; // Update with your thumbnail path
       file.previewElement.classList.add("dz-image-preview");
       file.previewElement.classList.remove("dz-file-preview");
       var thumbnailElement = file.previewElement.querySelector(
@@ -531,7 +531,6 @@ var transmitDropzone = new Dropzone(drop1, {
         thumbnailElement.src = pdfThumbnailUrl; // Set the thumbnail image source
         thumbnailElement.style.width = "100%";
         thumbnailElement.style.height = "100%";
-        thumbnailElement.style.background = "#d4d4d4";
       }
     } else {
     }
@@ -565,7 +564,7 @@ var paymentDropzone = new Dropzone(drop2, {
 
     if (file.type === "application/pdf") {
       // Set a custom thumbnail for PDF files
-      var pdfThumbnailUrl = "../../image/pdf-thumbnail.png"; // Update with your thumbnail path
+      var pdfThumbnailUrl = "../../image/pdf.png"; // Update with your thumbnail path
       file.previewElement.classList.add("dz-image-preview");
       file.previewElement.classList.remove("dz-file-preview");
       var thumbnailElement = file.previewElement.querySelector(
@@ -575,7 +574,6 @@ var paymentDropzone = new Dropzone(drop2, {
         thumbnailElement.src = pdfThumbnailUrl; // Set the thumbnail image source
         thumbnailElement.style.width = "100%";
         thumbnailElement.style.height = "100%";
-        thumbnailElement.style.background = "#d4d4d4";
       }
     } else {
     }

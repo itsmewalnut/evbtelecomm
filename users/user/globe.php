@@ -682,7 +682,6 @@ if ($_SESSION['role'] == "ENCODER" || $_SESSION['role'] == "CHECKER") {
                                         </div>
                                     </div>
                                 </div>
-                                <h5>Attachments</h5>
                                 <div class="dropzone" id="payment_dropzone">
                                     <div class="input-group input-group-dynamic">
                                         <div class="fallback">
