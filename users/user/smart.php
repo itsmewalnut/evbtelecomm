@@ -434,7 +434,7 @@ if ($_SESSION['role'] == "ENCODER" || $_SESSION['role'] == "CHECKER") {
                                     <h6 class="mb-0" id="acc_remarks"></h6>
                                     <div class="row mt-4">
                                         <div class="overflow-hidden position-relative border-radius-xl">
-                                            <img src="../../assets/img/illustrations/pattern-tree.svg" class="position-absolute opacity-2 start-0 top-0 w-100 z-index-1" alt="pattern-tree">
+                                            <img src="../../assets/img/illustrations/pattern-tree.svg" class="position-absolute opacity-2 start-0 top-0 h-100 w-100 z-index-1" alt="pattern-tree">
                                             <span class="mask bg-gradient-dark opacity-10"></span>
                                             <div class="card-body position-relative z-index-1 p-3">
                                                 <i class="material-icons text-white p-2">wifi</i>

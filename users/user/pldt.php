@@ -108,7 +108,6 @@ if ($_SESSION['role'] == "ENCODER" || $_SESSION['role'] == "CHECKER") {
                                         </div>
 
                                         <div class="row p-1">
-
                                             <div class="col-md-4">
                                                 <div class="input-group input-group-static mb-4">
                                                     <label for="filterDUEDATE" class="ms-0">Select Duedate</label>
@@ -194,7 +193,7 @@ if ($_SESSION['role'] == "ENCODER" || $_SESSION['role'] == "CHECKER") {
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form id="addPldt_form" enctype="multipart/form-data" method="post">
+                            <form id="addPLDT_form" enctype="multipart/form-data" method="post">
                                 <div class="row mt-4">
                                     <div class="mx-auto position-relative">
                                         <div class="card">
@@ -241,7 +240,7 @@ if ($_SESSION['role'] == "ENCODER" || $_SESSION['role'] == "CHECKER") {
                                                             <input type="text" name="registerName" id="registerName" class="form-control" autocomplete="off" required>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-6 mb-4">
+                                                    <div class="col-md-4 mb-4">
                                                         <div class="input-group input-group-static">
                                                             <label for="accountStatus" class="ms-0">Account Status</label>
                                                             <select class="form-control" name="accountStatus" id="accountStatus">
@@ -251,7 +250,7 @@ if ($_SESSION['role'] == "ENCODER" || $_SESSION['role'] == "CHECKER") {
                                                             </select>
                                                         </div>
                                                     </div>
-                                                    <!-- <div class="col-md-4 mb-4">
+                                                    <div class="col-md-4 mb-4">
                                                         <div class="input-group input-group-static">
                                                             <label for="finalStatus" class="ms-0">Final Status</label>
                                                             <select class="form-control" name="finalStatus" id="finalStatus">
@@ -261,8 +260,8 @@ if ($_SESSION['role'] == "ENCODER" || $_SESSION['role'] == "CHECKER") {
                                                                 <option value="PAID">PAID</option>
                                                             </select>
                                                         </div>
-                                                    </div> -->
-                                                    <div class="col-md-6 mb-4">
+                                                    </div>
+                                                    <div class="col-md-4 mb-4">
                                                         <div class="input-group input-group-static">
                                                             <label for="acc_type" class="ms-0">Types of Account</label>
                                                             <select class="form-control" name="acc_type" id="acc_type">
@@ -308,13 +307,13 @@ if ($_SESSION['role'] == "ENCODER" || $_SESSION['role'] == "CHECKER") {
                                                     <div class="col-md-4">
                                                         <div class="input-group input-group-static mb-4 textive">
                                                             <label>Username</label>
-                                                            <input type="text" name="pldt_username" id="pldt_username" class="form-control" autocomplete="off" required>
+                                                            <input type="text" name="account_username" id="account_username" class="form-control" autocomplete="off" required>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-4">
                                                         <div class="input-group input-group-static mb-4 textive">
                                                             <label>Password</label>
-                                                            <input type="text" name="pldt_password" id="pldt_password" class="form-control" autocomplete="off" required>
+                                                            <input type="text" name="account_password" id="account_password" class="form-control" autocomplete="off" required>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-4">
@@ -378,6 +377,33 @@ if ($_SESSION['role'] == "ENCODER" || $_SESSION['role'] == "CHECKER") {
                 </div>
             </div>
 
+            <!----------------------------------------SOA Modal------------------------------------->
+            <!-- <div class="modal fade" id="viewSOA" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title font-weight-normal" id="exampleModalLabel">Proof of Payment</h5>
+                            <button type="button" class="btn-close text-dark" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="pdf" id="attachment_container"></div>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+            <div class="offcanvas offcanvas-end" id="viewSOA" data-bs-scroll="false" tabindex="-1" aria-labelledby="offcanvasRightLabel">
+                <div class="offcanvas-header">
+                    <h5 class="offcanvas-title" id="offcanvasRightLabel"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+                    <div class="pdf" id="attachment_container"></div>
+                </div>
+            </div>
+            <!----------------------------------------End SOA Modal------------------------------------->
+
             <!-- View Account Modal -->
             <div class="modal fade" id="viewPldt" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-xl" role="document">
@@ -438,11 +464,9 @@ if ($_SESSION['role'] == "ENCODER" || $_SESSION['role'] == "CHECKER") {
                                             </div>
                                         </div>
                                     </div>
-
-                                    <!-- Paid Button -->
+                                    <!-- Paid and Transmit Button -->
                                     <?php
-
-                                    if ($_SESSION["role"] == "ENCODER") {
+                                    if ($_SESSION["role"] == "CHECKER") {
                                         echo '<div class="row mt-4" id="PAID_BUTTON">
                                                 <div class="col-lg-5">
                                                     <button class="btn bg-gradient-warning mb-0 mt-lg-auto w-100" type="button" id="payButton" name="button" data-bs-toggle="modal" data-bs-target="#paymentModal">
@@ -451,15 +475,7 @@ if ($_SESSION['role'] == "ENCODER" || $_SESSION['role'] == "CHECKER") {
                                                     </button>
                                                 </div>
                                             </div>';
-                                    } else {
-                                    }
-                                    ?>
-                                    <!------------->
-
-                                    <!-- TRANSMIT Button -->
-                                    <?php
-
-                                    if ($_SESSION["role"] == "ENCODER") {
+                                    } else if ($_SESSION["role"] == "ENCODER") {
                                         echo '<div class="row mt-4" id="TRANSMIT_BUTTON">
                                                 <div class="col-lg-5">
                                                     <button class="btn bg-gradient-success mb-0 mt-lg-auto w-100" type="button" id="transmitButton" name="button" data-bs-toggle="modal" data-bs-target="#transmitModal">
@@ -468,11 +484,9 @@ if ($_SESSION['role'] == "ENCODER" || $_SESSION['role'] == "CHECKER") {
                                                     </button>
                                                 </div>
                                             </div>';
-                                    } else {
                                     }
                                     ?>
-                                    <!------------->
-
+                                    <!-------------------------->
                                 </div>
                             </div>
                             <div class="row mt-5">
@@ -657,7 +671,7 @@ if ($_SESSION['role'] == "ENCODER" || $_SESSION['role'] == "CHECKER") {
                             <div class="modal-body">
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <div class="input-group input-group-static">
+                                        <div class="input-group input-group-static mb-4">
                                             <label>Date of Paid</label>
                                             <input class="form-control datetimepicker" name="paid_date" id="paid_date" type="text" autocomplete="off" required data-input>
                                         </div>
@@ -669,8 +683,7 @@ if ($_SESSION['role'] == "ENCODER" || $_SESSION['role'] == "CHECKER") {
                                         </div>
                                     </div>
                                 </div>
-                                <h5>Attachments</h5>
-                                <div class="dropzone" id="dropzone">
+                                <div class="dropzone" id="payment_dropzone">
                                     <div class="input-group input-group-dynamic">
                                         <div class="fallback">
                                             <input type="file" name="attachment[]" multiple="true" />
@@ -706,13 +719,19 @@ if ($_SESSION['role'] == "ENCODER" || $_SESSION['role'] == "CHECKER") {
                         </div>
                         <form id="TransmitForm" enctype="multipart/form-data" method="POST">
                             <div class="modal-body">
-                                <h5 id="transmitMessage"></h5>
+                                <div class="dropzone" id="transmit_dropzone">
+                                    <div class="input-group input-group-dynamic">
+                                        <div class="fallback">
+                                            <input type="file" name="transmit_attachment[]" multiple="true" />
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn bg-gradient-secondary" data-bs-target="#viewPldt" data-bs-toggle="modal">Back</button>
                                 <button type="submit" class="btn btn-success">Transmit</button>
-                                <input type="hidden" name="transmitType" id="transmitType">
-                                <input type="hidden" name="transmitPldtID" id="transmitPldtID">
+                                <input type="hidden" name="transmitType" id="transmitType" value="transmitPldt">
+                                <input type="hidden" name="transmitID" id="transmitID">
                             </div>
                         </form>
                     </div>
