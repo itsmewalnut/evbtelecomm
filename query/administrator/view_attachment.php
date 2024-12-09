@@ -13,7 +13,7 @@ if ($slipType == "globe") {
 } elseif ($slipType == "smart") {
     $stmt = $conn->prepare("SELECT file_location, payment_image, file_name, date_paid, soa_status FROM smart_attachment WHERE smart_id = ?");
 } else {
-    $stmt = $conn->prepare("SELECT file_location, payment_image, file_name, date_paid, soa_status FROM pdlt_attachment WHERE pdlt_id = ?");
+    $stmt = $conn->prepare("SELECT file_location, payment_image, file_name, date_paid, soa_status FROM pldt_attachment WHERE pldt_id = ?");
 }
 
 // Bind the idid parameter
