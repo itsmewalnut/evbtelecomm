@@ -215,10 +215,10 @@ if ($network_type == "globe") {
     while ($row = mysqli_fetch_array($result)) {
         $sub_array = array();
         $sub_array[] = $row["pldt_id"];
+        $sub_array[] = $row["branch"];
+        $sub_array[] = $row["register_name"];
         $sub_array[] = $row["account_no"];
         $sub_array[] = $row["register_no"];
-        $sub_array[] = $row["register_name"];
-        $sub_array[] = $row["branch"];
         $sub_array[] = $row["duedate"];
 
         if ($row["account_status"] == 'ACTIVE') {
