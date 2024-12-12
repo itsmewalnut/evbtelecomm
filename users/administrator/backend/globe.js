@@ -208,7 +208,7 @@ $(document).on("click", "#getGlobeView", function () {
   });
 });
 
-// Fetching Account SOA in modal
+// View SOA in offcanvas
 $(document).on("click", "#getGlobeSOA", function () {
   $(".main-content").removeClass("ps ps--scrolling-y");
   $("#offcanvasRightLabel").text("SOA - " + $(this).data("name"));
@@ -225,6 +225,7 @@ $(document).on("click", "#getGlobeSOA", function () {
     success: function (response) {
       $("#attachment_container").html(response);
       $(".pdf-thumbnail").EZView();
+      $(".payment-thumbnail").EZView();
     },
   });
 });
