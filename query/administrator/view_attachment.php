@@ -9,11 +9,11 @@ $slipType = $mydata['soa_type'];
 $data = '<div class="pdf-grid">'; // Start a grid container
 
 if ($slipType == "globe") {
-    $stmt = $conn->prepare("SELECT file_location, payment_image, file_name, date_paid, soa_status FROM globe_attachment WHERE globe_id = ?");
+    $stmt = $conn->prepare("SELECT file_location, payment_image, file_name, date_paid, soa_status FROM globe_attachment WHERE globe_id = ? ORDER BY date_paid DESC");
 } elseif ($slipType == "smart") {
-    $stmt = $conn->prepare("SELECT file_location, payment_image, file_name, date_paid, soa_status FROM smart_attachment WHERE smart_id = ?");
+    $stmt = $conn->prepare("SELECT file_location, payment_image, file_name, date_paid, soa_status FROM smart_attachment WHERE smart_id = ? ORDER BY date_paid DESC");
 } else {
-    $stmt = $conn->prepare("SELECT file_location, payment_image, file_name, date_paid, soa_status FROM pldt_attachment WHERE pldt_id = ?");
+    $stmt = $conn->prepare("SELECT file_location, payment_image, file_name, date_paid, soa_status FROM pldt_attachment WHERE pldt_id = ? ORDER BY date_paid DESC");
 }
 
 // Bind the idid parameter
