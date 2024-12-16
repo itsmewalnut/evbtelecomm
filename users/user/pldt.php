@@ -61,7 +61,7 @@ if ($_SESSION['role'] == "ENCODER" || $_SESSION['role'] == "CHECKER") {
                                     <!-- Add New Account Button -->
                                     <?php
                                     if ($_SESSION["role"] == "ENCODER") {
-                                        echo '<button class="btn btn-icon btn-3 btn-danger" id="AddNewPldt" type="button" data-bs-toggle="modal" data-bs-target="#addPldt">
+                                        echo '<button class="btn btn-icon btn-3 btn-danger" id="AddNewPldt" type="button" data-bs-toggle="modal" data-bs-target="#addPLDT">
                                         <span class="btn-inner--icon"><i class="fa fa-user-plus"></i></span>
                                         <span class="btn-inner--text"> add new account</span>
                                     </button>';
@@ -183,11 +183,11 @@ if ($_SESSION['role'] == "ENCODER" || $_SESSION['role'] == "CHECKER") {
             </div>
 
             <!-- Add Account Modal -->
-            <div class="modal fade" id="addPldt" tabindex="-1" role="dialog" aria-labelledby="modal-form" aria-hidden="true">
+            <div class="modal fade" id="addPLDT" tabindex="-1" role="dialog" aria-labelledby="modal-form" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-scrollable modal-xl" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title font-weight-normal" id="addPldt-title">Add New Account</h5>
+                            <h5 class="modal-title font-weight-normal" id="addPLDT-title">Add New Account</h5>
                             <button type="button" class="btn-close text-dark" data-bs-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -405,19 +405,19 @@ if ($_SESSION['role'] == "ENCODER" || $_SESSION['role'] == "CHECKER") {
             <!----------------------------------------End SOA Modal------------------------------------->
 
             <!-- View Account Modal -->
-            <div class="modal fade" id="viewPldt" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="viewPLDT" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-xl" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title font-weight-normal" id="viewPldt_title">Account Information</h5>
+                            <h5 class="modal-title font-weight-normal" id="viewPLDT_title">Account Information</h5>
                             <button type="button" class="btn-close text-dark" data-bs-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div class="modal-body">
                             <div class="row">
-                                <div class="col-xl-5 col-lg-6 text-center">
-                                    <div class="pdf" id="attachment_container"></div>
+                                <div class="col-xl-5 col-lg-6 mx-auto mt-3">
+                                    <img class="w-100" alt="Click here to View/Download" id="accImage">
                                 </div>
                                 <div class="col-lg-6 mx-auto">
                                     <div class="d-flex gap-2">
@@ -512,7 +512,7 @@ if ($_SESSION['role'] == "ENCODER" || $_SESSION['role'] == "CHECKER") {
                                                                 <div class="d-flex align-items-center">
                                                                     <button class="btn btn-icon-only btn-rounded bg-gradient-danger mb-0 me-3 p-3 btn-sm d-flex align-items-center justify-content-center"><i class="material-icons text-lg">person</i></button>
                                                                     <div class="d-flex flex-column">
-                                                                        <h6 class="mb-1 text-dark text-sm">Pldt ID</h6>
+                                                                        <h6 class="mb-1 text-dark text-sm">PLDT ID</h6>
                                                                     </div>
                                                                 </div>
                                                                 <div class="d-flex align-items-center text-sm font-weight-bold ms-auto" id="acc_id"></div>
@@ -696,9 +696,9 @@ if ($_SESSION['role'] == "ENCODER" || $_SESSION['role'] == "CHECKER") {
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn bg-gradient-secondary" data-bs-target="#viewPldt" data-bs-toggle="modal">Back</button>
+                                <button type="button" class="btn bg-gradient-secondary" data-bs-target="#viewPLDT" data-bs-toggle="modal">Back</button>
                                 <button type="submit" id="submit_payment" class="btn bg-gradient-warning">Paid</button>
-                                <input type="hidden" name="paid_type" id="paid_type" value="paidPldt">
+                                <input type="hidden" name="paid_type" id="paid_type" value="paidPLDT">
                                 <input type="hidden" name="paid_ID" id="paid_ID">
                             </div>
                         </form>
@@ -728,9 +728,9 @@ if ($_SESSION['role'] == "ENCODER" || $_SESSION['role'] == "CHECKER") {
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn bg-gradient-secondary" data-bs-target="#viewPldt" data-bs-toggle="modal">Back</button>
+                                <button type="button" class="btn bg-gradient-secondary" data-bs-target="#viewPLDT" data-bs-toggle="modal">Back</button>
                                 <button type="submit" class="btn btn-success">Transmit</button>
-                                <input type="hidden" name="transmitType" id="transmitType" value="transmitPldt">
+                                <input type="hidden" name="transmitType" id="transmitType" value="transmitPLDT">
                                 <input type="hidden" name="transmitID" id="transmitID">
                             </div>
                         </form>

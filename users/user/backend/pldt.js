@@ -115,13 +115,13 @@ function loadPLDTTable() {
   });
 }
 
-$("#addPldt").on("hidden.bs.modal", function () {
+$("#addPLDT").on("hidden.bs.modal", function () {
   $(':input[type="submit"]').prop("disabled", false);
-  $("#addPldt-title").text("Add New Account");
+  $("#addPLDT-title").text("Add New Account");
   $("#fname").text("");
   $(".textive").removeClass("focused is-focused");
   $("#imagePreview").attr("src", "");
-  $("#addPldt_form")[0].reset();
+  $("#addPLDT_form")[0].reset();
 
   // Remove Choices values
   if (choices["acc_Branch"]) {
@@ -138,7 +138,7 @@ $("#addPldt").on("hidden.bs.modal", function () {
   }
 });
 
-$("#paymentModal").on("hidden.bs.modal", function () {
+$('#paymentModal, #transmitModal').on("hidden.bs.modal", function () {
   $(':input[type="submit"]').prop("disabled", false);
 });
 
@@ -178,7 +178,7 @@ $("#addPLDT_form").submit(function (e) {
           timer: 2500,
         });
       }
-      $("#addPldt").modal("hide");
+      $("#addPLDT").modal("hide");
       loadPLDTTable();
       $("#addPLDT_form")[0].reset();
     },
@@ -186,14 +186,14 @@ $("#addPLDT_form").submit(function (e) {
 });
 
 // Update Account
-$(document).on("click", "#getSmartUpdate", function () {
-  $("#action").val("updateSmart");
+$(document).on("click", "#getPLDTUpdate", function () {
+  $("#action").val("updatePldt");
   $(".textive").addClass("focused is-focused");
   $(".main-content").removeClass("ps ps--scrolling-y");
 
   var mydata = {
     slip_id: $(this).data("id"),
-    slip_type: "smart",
+    slip_type: "pldt",
   };
 
   $.ajax({
@@ -202,10 +202,10 @@ $(document).on("click", "#getSmartUpdate", function () {
     dataType: "json",
     data: JSON.stringify(mydata),
     success: function (result) {
-      $("#addSmart-title").text(
+      $("#addPLDT-title").text(
         "Update " + result.register_name + " of " + result.branch
       );
-      $("#networkID").val(result.smart_id);
+      $("#networkID").val(result.pldt_id);
       $("#accountNO").val(result.account_no);
       $("#registerNO").val(result.register_no);
       $("#registerName").val(result.register_name);
@@ -241,11 +241,11 @@ $(document).on("click", "#getSmartUpdate", function () {
 });
 
 // Fetching Account info in modal
-$(document).on("click", "#getSmartView", function () {
+$(document).on("click", "#getPLDTView", function () {
   $(".main-content").removeClass("ps ps--scrolling-y");
   const mydata = {
     slip_id: $(this).data("id"),
-    slip_type: "smart",
+    slip_type: "pldt",
   };
 
   $.ajax({
@@ -255,13 +255,13 @@ $(document).on("click", "#getSmartView", function () {
     data: JSON.stringify(mydata),
     success: function (result) {
       // Set values in the modal
-      $("#viewSmart_title").text(`${result.register_name} Information`);
+      $("#viewPldt_title").text(`${result.register_name} Information`);
       $("#acc_name").text(result.register_name);
       $("#acc_branch").text(result.branch);
       $("#acc_billing").text(result.account_type);
       $("#acc_datepaid").text(result.date_paid || "-");
       $("#acc_no").text(result.account_no);
-      $("#acc_id").text(result.smart_id);
+      $("#acc_id").text(result.pldt_id);
       $("#acc_email").text(result.email);
       $("#acc_rno").text(result.register_no);
       $("#acc_address").text(result.register_address);
@@ -315,12 +315,12 @@ $(document).on("click", "#getSmartView", function () {
 
       // Pay Button handling
       $(document).on("click", "#payButton", function () {
-        $("#paid_ID").val(result.smart_id);
+        $("#paid_ID").val(result.pldt_id);
       });
 
       // Transmit Button handling
       $(document).on("click", "#transmitButton", function () {
-        $("#transmitID").val(result.smart_id);
+        $("#transmitID").val(result.pldt_id);
         $("#transmitMessage").text(
           `Transmit the account with the register name of ${result.register_name}`
         );
@@ -333,13 +333,13 @@ $(document).on("click", "#getSmartView", function () {
 });
 
 // Fetching Account SOA in modal
-$(document).on("click", "#getSmartSOA", function () {
+$(document).on("click", "#getPLDTSOA", function () {
   $(".main-content").removeClass("ps ps--scrolling-y");
   $("#offcanvasRightLabel").text("SOA - " + $(this).data("name"));
 
   var mydata = {
     soa_id: $(this).data("id"),
-    soa_type: "smart",
+    soa_type: "pldt",
   };
 
   $.ajax({
@@ -381,7 +381,7 @@ $("#payment_form").submit(function (e) {
         timer: 2500,
       });
       $("#paymentModal").modal("hide");
-      loadSmartTable();
+      loadPLDTTable();
       $("#payment_form")[0].reset();
       paymentDropzone.removeAllFiles(); // Clear Dropzone after submission
     },
@@ -418,7 +418,7 @@ $("#TransmitForm").submit(function (e) {
         timer: 2500,
       });
       $("#transmitModal").modal("hide");
-      loadSmartTable();
+      loadPLDTTable();
       $("#TransmitForm")[0].reset();
       transmitDropzone.removeAllFiles(); // Clear Dropzone after submission
     },
@@ -491,9 +491,9 @@ $("#accountSearchForm").submit(function (a) {
 // Reset Table
 $("#resetTable").click(function (x) {
   $("#accountSearchForm")[0].reset();
-  var newTable = $("#smartTable").DataTable();
+  var newTable = $("#pldtTable").DataTable();
   newTable.clear().destroy();
-  loadSmartTable();
+  loadPLDTTable();
 });
 
 if (document.querySelector(".datetimepicker")) {

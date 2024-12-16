@@ -3,7 +3,15 @@ var choices = {};
 
 function initializeChoices() {
   // Array of dropdown IDs
-  var dropdownIds = ["role", "branch", "department"];
+  var dropdownIds = ["acc_Branch", "accountStatus", "finalStatus", "acc_type"];
+  var filter = [
+    "filterBRANCH",
+    "filterRNAME",
+    "filterACCNO",
+    "filterDUEDATE",
+    "filterACCSTATUS",
+    "filterSTATUS",
+  ];
 
   dropdownIds.forEach(function (id) {
     var element = document.getElementById(id);
@@ -13,13 +21,22 @@ function initializeChoices() {
       });
     }
   });
+
+  filter.forEach(function (id) {
+    var element = document.getElementById(id);
+    if (element) {
+      choices[id] = new Choices(element, {
+        searchEnabled: true,
+      });
+    }
+  });
 }
 
 // Call this function on page load
 initializeChoices();
 
 $(document).ready(function () {
-  loadGlobeTable();
+  loadPLDTTable();
 
   $("#imageUpload").change(function (data) {
     var imageFile = data.target.files[0];
@@ -34,19 +51,19 @@ $(document).ready(function () {
   });
 });
 
-function loadGlobeTable() {
+function loadPLDTTable() {
   $.ajax({
     url: "../../query/administrator/network_fetch.php",
     method: "POST",
-    data: { networkType: "globe", fetchType: "notFilter" },
+    data: { networkType: "pldy", fetchType: "notFilter" },
     success: function (data) {
       // Destroy the existing DataTable instance
-      var existingTable = $("#globeTable").DataTable();
+      var existingTable = $("#pldtTable").DataTable();
       existingTable.clear().destroy();
 
       try {
         data = JSON.parse(data);
-        var globeTable = $("#globeTable").DataTable({
+        var pldtTable = $("#pldtTable").DataTable({
           lengthMenu: [
             [10, 25, 50, -1],
             [10, 25, 50, "All"],
@@ -66,10 +83,10 @@ function loadGlobeTable() {
           },
         });
 
-        globeTable
+        pldtTable
           .buttons()
           .container()
-          .appendTo("#globeTable_wrapper .col-md-6:eq(0)");
+          .appendTo("#pldtTable_wrapper .col-md-6:eq(0)");
       } catch (error) {
         console.error("Error parsing JSON data:", error);
       }
@@ -77,103 +94,34 @@ function loadGlobeTable() {
   });
 }
 
-$("#addGlobe").on("hidden.bs.modal", function () {
-  $("#addGlobe-title").text("Add New Account");
-  $("#fname").text("");
-  $("#fname_active, #mname_active, #lname_active, #uname_active").removeClass(
-    "focused is-focused"
-  );
-  $("#imagePreview").attr("src", "");
-  $("#addGlobe_form")[0].reset();
-});
-
-// Add Account
-$(document).on("click", "#AddNewGlobe", function () {
-  $("#Addaction").val("AddGlobe");
-});
-
-// Add Account query
-$("#addGlobe_form").submit(function (e) {
-  $(':input[type="submit"]').prop("disabled", true);
-  e.preventDefault();
-
-  $.ajax({
-    url: "../../query/administrator/network_query.php",
-    method: "POST",
-    data: new FormData(this),
-    contentType: false,
-    processData: false,
-    success: function (data) {
-      if ($("#action").val() == "AddGlobe") {
-        Swal.fire({
-          icon: "success",
-          titleText: "Succesfully Added!",
-          text: "New Account has been created!",
-          showConfirmButton: false,
-          timer: 2500,
-        });
-      } else {
-        Swal.fire({
-          icon: "success",
-          titleText: "Account Updated!",
-          text: "Account information has been updated!",
-          showConfirmButton: false,
-          timer: 2500,
-        });
-      }
-      $("#addGlobe").modal("hide");
-      loadGlobeTable();
-      $("#addGlobe_form")[0].reset();
-    },
-  });
-});
-
-// Update Account
-$(document).on("click", "#getGlobeUpdate", function () {
-  $("#Addaction").val("updateGlobe");
-  $("#fname_active, #mname_active, #lname_active, #uname_active").addClass(
-    "focused is-focused"
-  );
-  $("#addGlobe-title").text("Update Account Information");
+// Fetching Account SOA in modal
+$(document).on("click", "#getPLDTSOA", function () {
+  $(".main-content").removeClass("ps ps--scrolling-y");
+  $("#offcanvasRightLabel").text("SOA - " + $(this).data("name"));
 
   var mydata = {
-    slip_id: $(this).data("id"),
-    forPage: "others",
+    soa_id: $(this).data("id"),
+    soa_type: "pldt",
   };
 
   $.ajax({
-    url: "../../query/administrator/network_data.php",
-    method: "POST",
-    dataType: "json",
+    url: "../../query/administrator/view_attachment.php",
+    type: "POST",
     data: JSON.stringify(mydata),
-    success: function (result) {
-      $("#accountID").val(result.globe_id);
-      $("#imagePreview").attr("src", result.avatar);
-      $("#fname").text(result.fullname);
-      $("#fullname").text(result.fullname);
-      $("#firstname").val(result.firstname);
-      $("#middlename").val(result.middlename);
-      $("#lastname").val(result.lastname);
-
-      // Update Choices values
-      if (choices["role"]) {
-        choices["role"].setChoiceByValue(result.role);
-      } else if (choices["branch"]) {
-        choices["branch"].setChoiceByValue(result.branch);
-      } else if (choices["department"]) {
-        choices["department"].setChoiceByValue(result.department);
-      }
-
-      $("#username").val(result.username);
+    success: function (response) {
+      $("#attachment_container").html(response);
+      $(".pdf-thumbnail").EZView();
+      $(".payment-thumbnail").EZView();
     },
   });
 });
 
 // Fetching Account info in modal
-$(document).on("click", "#getGlobeView", function () {
-  mydata = {
+$(document).on("click", "#getPLDTView", function () {
+  $(".main-content").removeClass("ps ps--scrolling-y");
+  const mydata = {
     slip_id: $(this).data("id"),
-    forPage: "others",
+    slip_type: "pldt",
   };
 
   $.ajax({
@@ -182,16 +130,76 @@ $(document).on("click", "#getGlobeView", function () {
     dataType: "json",
     data: JSON.stringify(mydata),
     success: function (result) {
-      $("#viewUserImage").attr("src", result.avatar);
+      // Set values in the modal
+      $("#viewPLDT_title").text(`${result.register_name} Information`);
+      $("#acc_name").text(result.register_name);
+      $("#acc_branch").text(result.branch);
+      $("#acc_billing").text(result.account_type);
+      $("#acc_datepaid").text(result.date_paid || "-");
+      $("#acc_no").text(result.account_no);
+      $("#acc_id").text(result.smart_id);
+      $("#acc_email").text(result.email);
+      $("#acc_rno").text(result.register_no);
+      $("#acc_address").text(result.register_address);
+      $("#acc_username").text(result.username);
+      $("#acc_password").text(result.password);
+      $("#acc_phone").text(result.phone);
+      $("#acc_sno").text(result.serial_no);
+      $("#acc_imei1").text(result.imei1);
+      $("#acc_imei2").text(result.imei2);
+      $("#acc_amount").text(result.paid_amount || "-");
+      $("#acc_remarks").text(result.remarks || "Encoder has no remarks!");
+
+      // Final status handling
+      if (result.final_status == "TRANSMITTED") {
+        $("#acc_finalstatus").text(result.final_status);
+        $("#PAID_BUTTON").show();
+        $("#TRANSMIT_BUTTON").hide();
+        $("#accImage").attr("src", "../../image/pdf-transmit.png");
+      } else if (result.final_status == "PAID") {
+        $("#acc_finalstatus").text(result.final_status);
+        $("#PAID_BUTTON").hide();
+        $("#TRANSMIT_BUTTON").hide();
+        $("#accImage").attr("src", "../../image/pdf-paid.png");
+      } else {
+        $("#acc_finalstatus").text(result.final_status);
+        $("#PAID_BUTTON").hide();
+        $("#TRANSMIT_BUTTON").show();
+        $("#accImage").attr("src", "../../image/pdf-unpaid.png");
+      }
+
+      // Format dates
+      const formatDate = (date) =>
+        new Date(date).toLocaleDateString("en-US", {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        });
+      $("#acc_duedate").text(formatDate(result.duedate));
+      $("#acc_acqdate").text(formatDate(result.acquisition_date));
+
+      // Account status styling
+      const $accStatus = $("#acc_status");
+      $accStatus
+        .removeClass("bg-gradient-success bg-gradient-secondary")
+        .addClass(
+          result.account_status === "ACTIVE"
+            ? "bg-gradient-success"
+            : "bg-gradient-secondary"
+        )
+        .text(result.account_status);
+    },
+    error: function (xhr, status, error) {
+      console.error("AJAX Error: ", status, error);
     },
   });
 });
 
 // Delete Account query
-$("#deleteGlobeForm").submit(function (e) {
+$("#deletePldtForm").submit(function (e) {
   e.preventDefault();
   $.ajax({
-    url: "../../query/administrator/network_query.php",
+    url: "../../query/administrator/delete_query.php",
     method: "POST",
     data: new FormData(this),
     contentType: false,
@@ -204,20 +212,100 @@ $("#deleteGlobeForm").submit(function (e) {
         showConfirmButton: false,
         timer: 2500,
       });
-      $("#deleteGlobe").modal("hide");
-      loadGlobeTable();
-      $("#deleteGlobeForm")[0].reset();
+      $("#deletePLDT").modal("hide");
+      loadPLDTTable();
+      $("#deletePldtForm")[0].reset();
     },
   });
 });
 
 // Delete Account
-$(document).on("click", "#getGlobeDelete", function () {
+$(document).on("click", "#getPLDTDelete", function () {
   $("#deleteAction").val("Delete");
-  $("#deleteGlobeID").val($(this).data("id"));
+  $("#deleteNetworkID").val($(this).data("id"));
+  $("#deleteNetworkNAME").val($(this).data("name"));
   $("#deleteMessage").text(
     "Are you sure to delete the account with name of " +
       $(this).data("name") +
       "?"
   );
 });
+
+// Search Account
+$("#accountSearchForm").submit(function (a) {
+  a.preventDefault();
+  $.ajax({
+    url: "../../query/administrator/filter_fetch.php",
+    method: "POST",
+    data: new FormData(this),
+    contentType: false,
+    processData: false,
+    success: function (data) {
+      data = JSON.parse(data);
+      var newTable = $("#pldtTable").DataTable();
+      newTable.clear().destroy();
+
+      var newTable = $("#pldtTable")
+        .DataTable({
+          lengthMenu: [
+            [10, 25, 50, -1],
+            [10, 25, 50, "All"],
+          ],
+          autoWidth: false,
+          responsive: true,
+          searching: false,
+          buttons: ["copy", "csv", "excel", "pdf", "print", "colvis"],
+          language: {
+            paginate: {
+              first: '<i class="fa fa-angle-double-left"></i>',
+              previous: '<i class="fa fa-angle-left"></i>',
+              next: '<i class="fa fa-angle-right"></i>',
+              last: '<i class="fa fa-angle-double-right"></i>',
+            },
+          },
+          data: data.data,
+          createdRow: function (row, data, dataIndex) {
+            const dueDateString = data[5]; // Assuming data[5] contains the due date string
+            const dueDate = new Date(dueDateString);
+            const currentDate = new Date();
+            const fiveDaysBefore = new Date(dueDate);
+            fiveDaysBefore.setDate(dueDate.getDate() - 5);
+
+            // Check if current date is within the 5 days before due date
+            if (
+              data[7] === '<span class="badge bg-gradient-warning">PAID</span>'
+            ) {
+              $(row).removeClass("bg-gradient-danger text-white");
+            } else if (currentDate >= fiveDaysBefore && currentDate < dueDate) {
+              $(row)
+                .find("td")
+                .slice(0, 6)
+                .addClass("bg-gradient-danger text-white");
+            }
+          },
+        })
+        .buttons()
+        .container()
+        .appendTo("#pldtTable_wrapper .col-md-6:eq(0)");
+    },
+  });
+});
+
+// Reset Table
+$("#resetTable").click(function (x) {
+  $("#accountSearchForm")[0].reset();
+  var newTable = $("#pldtTable").DataTable();
+  newTable.clear().destroy();
+  loadPLDTTable();
+});
+
+if (document.querySelector(".datetimepicker")) {
+  flatpickr(".datetimepicker", {
+    allowInput: false,
+    disableMobile: true,
+    // enableTime: true,
+    // altInput: true,
+    // altFormat: "F j, Y",
+    dateFormat: "Y-m-d",
+  }); // flatpickr
+}

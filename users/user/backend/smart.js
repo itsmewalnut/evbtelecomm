@@ -138,7 +138,7 @@ $("#addSmart").on("hidden.bs.modal", function () {
   }
 });
 
-$("#paymentModal").on("hidden.bs.modal", function () {
+$('#paymentModal, #transmitModal').on("hidden.bs.modal", function () {
   $(':input[type="submit"]').prop("disabled", false);
 });
 

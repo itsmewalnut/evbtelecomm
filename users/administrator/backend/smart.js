@@ -230,6 +230,30 @@ $(document).on("click", "#getSmartSOA", function () {
   });
 });
 
+// Delete Account query
+$("#deleteSmartForm").submit(function (e) {
+  e.preventDefault();
+  $.ajax({
+    url: "../../query/administrator/delete_query.php",
+    method: "POST",
+    data: new FormData(this),
+    contentType: false,
+    processData: false,
+    success: function (data) {
+      Swal.fire({
+        icon: "success",
+        titleText: "Account Deleted!",
+        text: "Account has been deleted!",
+        showConfirmButton: false,
+        timer: 2500,
+      });
+      $("#deleteSmart").modal("hide");
+      loadSmartTable();
+      $("#deleteSmartForm")[0].reset();
+    },
+  });
+});
+
 // Search Account
 $("#accountSearchForm").submit(function (a) {
   a.preventDefault();
