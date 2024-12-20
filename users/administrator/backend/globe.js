@@ -216,6 +216,7 @@ $(document).on("click", "#getGlobeSOA", function () {
   var mydata = {
     soa_id: $(this).data("id"),
     soa_type: "globe",
+    soa_role: $(this).data("role"),
   };
 
   $.ajax({

@@ -3,7 +3,13 @@ var choices = {};
 
 function initializeChoices() {
   // Array of dropdown IDs
-  var dropdownIds = ["acc_Branch", "accountStatus", "finalStatus", "acc_type"];
+  var dropdownIds = [
+    "acc_Branch",
+    "acc_Department",
+    "accountStatus",
+    "finalStatus",
+    "acc_type",
+  ];
   var filter = [
     "filterBRANCH",
     "filterRNAME",
@@ -127,6 +133,9 @@ $("#addGlobe").on("hidden.bs.modal", function () {
   if (choices["acc_Branch"]) {
     choices["acc_Branch"].setChoiceByValue("");
   }
+  if (choices["acc_Department"]) {
+    choices["acc_Department"].setChoiceByValue("");
+  }
   if (choices["accountStatus"]) {
     choices["accountStatus"].setChoiceByValue("");
   }
@@ -138,7 +147,7 @@ $("#addGlobe").on("hidden.bs.modal", function () {
   }
 });
 
-$('#paymentModal, #transmitModal').on("hidden.bs.modal", function () {
+$("#paymentModal, #transmitModal").on("hidden.bs.modal", function () {
   $(':input[type="submit"]').prop("disabled", false);
 });
 
@@ -224,6 +233,9 @@ $(document).on("click", "#getGlobeUpdate", function () {
       // Update Choices values
       if (choices["acc_Branch"]) {
         choices["acc_Branch"].setChoiceByValue(result.branch);
+      }
+      if (choices["acc_Department"]) {
+        choices["acc_Department"].setChoiceByValue(result.department);
       }
       if (choices["accountStatus"]) {
         choices["accountStatus"].setChoiceByValue(result.account_status);
@@ -313,11 +325,6 @@ $(document).on("click", "#getGlobeView", function () {
         )
         .text(result.account_status);
 
-      // Pay Button handling
-      $(document).on("click", "#payButton", function () {
-        $("#paid_ID").val(result.globe_id);
-      });
-
       // Transmit Button handling
       $(document).on("click", "#transmitButton", function () {
         $("#transmitID").val(result.globe_id);
@@ -336,10 +343,12 @@ $(document).on("click", "#getGlobeView", function () {
 $(document).on("click", "#getGlobeSOA", function () {
   $(".main-content").removeClass("ps ps--scrolling-y");
   $("#offcanvasRightLabel").text("SOA - " + $(this).data("name"));
+  $("#paid_ID").val($(this).data("id"));
 
   var mydata = {
     soa_id: $(this).data("id"),
     soa_type: "globe",
+    soa_role: $(this).data("role"),
   };
 
   $.ajax({
@@ -350,6 +359,12 @@ $(document).on("click", "#getGlobeSOA", function () {
       $("#attachment_container").html(response);
       $(".pdf-thumbnail").EZView();
       $(".payment-thumbnail").EZView();
+
+      // After loading the attachments, we need to add the event listener for payment buttons
+      $(".getPayment").on("click", function () {
+        // Set the paid_ID input value
+        $("#payment_ID").val($(this).data("id"));
+      });
     },
   });
 });

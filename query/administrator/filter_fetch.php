@@ -99,19 +99,19 @@ if ($network_type == "globe") {
 
         if ($role == 'ADMINISTRATOR') {
             $sub_array[] = '<div style="display:flex; justify-content:center; gap:10px; margin-top:10px">
-                <button type="button" id="getGlobeSOA" class="btn btn-icon btn-2 btn-dark btn-sm" data-bs-toggle="offcanvas" data-bs-target="#viewSOA" aria-controls="offcanvasRight" data-name="' . $row["register_name"] . '" data-id="' . $row["globe_id"] . '"><i class="fa-solid fa-file-pdf" style="font-size: 13px" title="SOA"></i> SOA</button>
+                <button type="button" id="getGlobeSOA" class="btn btn-icon btn-2 btn-dark btn-sm" data-bs-toggle="offcanvas" data-bs-target="#viewSOA" aria-controls="offcanvasRight" data-name="' . $row["register_name"] . '" data-id="' . $row["globe_id"] . '" data-role="' . $role . '"><i class="fa-solid fa-file-pdf" style="font-size: 13px" title="SOA"></i> SOA</button>
                 <button type="button" id="getGlobeView" class="btn btn-icon btn-2 btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#viewGlobe" data-id="' . $row["globe_id"] . '"><i class="fa fa-eye" style="font-size: 13px" title="View"></i> View</button>
                 <button type="button" id="getGlobeDelete" class="btn btn-icon btn-2 btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteGlobe" data-id="' . $row["globe_id"] . '" data-name="' . $row["register_name"] . '"><i class="fa fa-trash-alt" style="font-size: 13px" title="Delete"></i> Delete</button>
                 </div>';
         } else if ($role == 'ENCODER') {
             $sub_array[] = '<div style="display:flex; justify-content:center; gap:10px; margin-top:10px">
-                <button type="button" id="getGlobeSOA" class="btn btn-icon btn-2 btn-dark btn-sm" data-bs-toggle="offcanvas" data-bs-target="#viewSOA" aria-controls="offcanvasRight" data-name="' . $row["register_name"] . '" data-id="' . $row["globe_id"] . '"><i class="fa-solid fa-file-pdf" style="font-size: 13px" title="SOA"></i> SOA</button>
+                <button type="button" id="getGlobeSOA" class="btn btn-icon btn-2 btn-dark btn-sm" data-bs-toggle="offcanvas" data-bs-target="#viewSOA" aria-controls="offcanvasRight" data-name="' . $row["register_name"] . '" data-id="' . $row["globe_id"] . '" data-role="' . $role . '"><i class="fa-solid fa-file-pdf" style="font-size: 13px" title="SOA"></i> SOA</button>
                 <button type="button" id="getGlobeView" class="btn btn-icon btn-2 btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#viewGlobe" data-id="' . $row["globe_id"] . '"><i class="fa fa-eye" style="font-size: 13px" title="View"></i> View</button>
                 <button type="button" id="getGlobeUpdate" class="btn btn-icon btn-2 btn-light btn-sm" data-bs-toggle="modal" data-bs-target="#addGlobe" data-id="' . $row["globe_id"] . '"><i class="fa fa-edit" style="font-size: 13px" title="Update"></i> Update</button>
                 </div>';
         } else {
             $sub_array[] = '<div style="display:flex; justify-content:center; gap:10px; margin-top:10px">
-                <button type="button" id="getGlobeSOA" class="btn btn-icon btn-2 btn-dark btn-sm" data-bs-toggle="offcanvas" data-bs-target="#viewSOA" aria-controls="offcanvasRight" data-name="' . $row["register_name"] . '" data-id="' . $row["globe_id"] . '"><i class="fa-solid fa-file-pdf" style="font-size: 13px" title="SOA"></i> SOA</button>
+                <button type="button" id="getGlobeSOA" class="btn btn-icon btn-2 btn-dark btn-sm" data-bs-toggle="offcanvas" data-bs-target="#viewSOA" aria-controls="offcanvasRight" data-name="' . $row["register_name"] . '" data-id="' . $row["globe_id"] . '" data-role="' . $role . '"><i class="fa-solid fa-file-pdf" style="font-size: 13px" title="SOA"></i> SOA</button>
                 <button type="button" id="getGlobeView" class="btn btn-icon btn-2 btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#viewGlobe" data-id="' . $row["globe_id"] . '"><i class="fa fa-eye" style="font-size: 13px" title="View"></i> View</button>
                 </div>';
         }
@@ -228,19 +228,19 @@ if ($network_type == "globe") {
 
         if ($role == 'ADMINISTRATOR') {
             $sub_array[] = '<div style="display:flex; justify-content:center; gap:10px; margin-top:10px">
-                <button type="button" id="getSmartSOA" class="btn btn-icon btn-2 btn-dark btn-sm" data-bs-toggle="offcanvas" data-bs-target="#viewSOA" aria-controls="offcanvasRight" data-name="' . $row["register_name"] . '" data-id="' . $row["smart_id"] . '"><i class="fa-solid fa-file-pdf" style="font-size: 13px" title="SOA"></i> SOA</button>
+                <button type="button" id="getSmartSOA" class="btn btn-icon btn-2 btn-dark btn-sm" data-bs-toggle="offcanvas" data-bs-target="#viewSOA" aria-controls="offcanvasRight" data-name="' . $row["register_name"] . '" data-id="' . $row["smart_id"] . '" data-role="' . $role . '"><i class="fa-solid fa-file-pdf" style="font-size: 13px" title="SOA"></i> SOA</button>
                 <button type="button" id="getSmartView" class="btn btn-icon btn-2 btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#viewSmart" data-id="' . $row["smart_id"] . '"><i class="fa fa-eye" style="font-size: 13px" title="View"></i> View</button>
                 <button type="button" id="getSmartDelete" class="btn btn-icon btn-2 btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteSmart" data-id="' . $row["smart_id"] . '" data-name="' . $row["register_name"] . '"><i class="fa fa-trash-alt" style="font-size: 13px" title="Delete"></i> Delete</button>
                 </div>';
         } else if ($role == 'ENCODER') {
             $sub_array[] = '<div style="display:flex; justify-content:center; gap:10px; margin-top:10px">
-                <button type="button" id="getSmartSOA" class="btn btn-icon btn-2 btn-dark btn-sm" data-bs-toggle="offcanvas" data-bs-target="#viewSOA" aria-controls="offcanvasRight" data-name="' . $row["register_name"] . '" data-id="' . $row["smart_id"] . '"><i class="fa-solid fa-file-pdf" style="font-size: 13px" title="SOA"></i> SOA</button>
+                <button type="button" id="getSmartSOA" class="btn btn-icon btn-2 btn-dark btn-sm" data-bs-toggle="offcanvas" data-bs-target="#viewSOA" aria-controls="offcanvasRight" data-name="' . $row["register_name"] . '" data-id="' . $row["smart_id"] . '" data-role="' . $role . '"><i class="fa-solid fa-file-pdf" style="font-size: 13px" title="SOA"></i> SOA</button>
                 <button type="button" id="getSmartView" class="btn btn-icon btn-2 btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#viewSmart" data-id="' . $row["smart_id"] . '"><i class="fa fa-eye" style="font-size: 13px" title="View"></i> View</button>
                 <button type="button" id="getSmartUpdate" class="btn btn-icon btn-2 btn-light btn-sm" data-bs-toggle="modal" data-bs-target="#addSmart" data-id="' . $row["smart_id"] . '"><i class="fa fa-edit" style="font-size: 13px" title="Update"></i> Update</button>
                 </div>';
         } else {
             $sub_array[] = '<div style="display:flex; justify-content:center; gap:10px; margin-top:10px">
-                <button type="button" id="getSmartSOA" class="btn btn-icon btn-2 btn-dark btn-sm" data-bs-toggle="offcanvas" data-bs-target="#viewSOA" aria-controls="offcanvasRight" data-name="' . $row["register_name"] . '" data-id="' . $row["smart_id"] . '"><i class="fa-solid fa-file-pdf" style="font-size: 13px" title="SOA"></i> SOA</button>
+                <button type="button" id="getSmartSOA" class="btn btn-icon btn-2 btn-dark btn-sm" data-bs-toggle="offcanvas" data-bs-target="#viewSOA" aria-controls="offcanvasRight" data-name="' . $row["register_name"] . '" data-id="' . $row["smart_id"] . '" data-role="' . $role . '"><i class="fa-solid fa-file-pdf" style="font-size: 13px" title="SOA"></i> SOA</button>
                 <button type="button" id="getSmartView" class="btn btn-icon btn-2 btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#viewSmart" data-id="' . $row["smart_id"] . '"><i class="fa fa-eye" style="font-size: 13px" title="View"></i> View</button>
                 </div>';
         }
@@ -357,19 +357,19 @@ if ($network_type == "globe") {
 
         if ($role == 'ADMINISTRATOR') {
             $sub_array[] = '<div style="display:flex; justify-content:center; gap:10px; margin-top:10px">
-                <button type="button" id="getPLDTSOA" class="btn btn-icon btn-2 btn-dark btn-sm" data-bs-toggle="offcanvas" data-bs-target="#viewSOA" aria-controls="offcanvasRight" data-name="' . $row["register_name"] . '" data-id="' . $row["pldt_id"] . '"><i class="fa-solid fa-file-pdf" style="font-size: 13px" title="SOA"></i> SOA</button>
+                <button type="button" id="getPLDTSOA" class="btn btn-icon btn-2 btn-dark btn-sm" data-bs-toggle="offcanvas" data-bs-target="#viewSOA" aria-controls="offcanvasRight" data-name="' . $row["register_name"] . '" data-id="' . $row["pldt_id"] . '" data-role="' . $role . '"><i class="fa-solid fa-file-pdf" style="font-size: 13px" title="SOA"></i> SOA</button>
                 <button type="button" id="getPLDTView" class="btn btn-icon btn-2 btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#viewPLDT" data-id="' . $row["pldt_id"] . '"><i class="fa fa-eye" style="font-size: 13px" title="View"></i> View</button>
                 <button type="button" id="getPLDTDelete" class="btn btn-icon btn-2 btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deletePLDT" data-id="' . $row["pldt_id"] . '" data-name="' . $row["register_name"] . '"><i class="fa fa-trash-alt" style="font-size: 13px" title="Delete"></i> Delete</button>
                 </div>';
         } else if ($role == 'ENCODER') {
             $sub_array[] = '<div style="display:flex; justify-content:center; gap:10px; margin-top:10px">
-                <button type="button" id="getPLDTSOA" class="btn btn-icon btn-2 btn-dark btn-sm" data-bs-toggle="offcanvas" data-bs-target="#viewSOA" aria-controls="offcanvasRight" data-name="' . $row["register_name"] . '" data-id="' . $row["pldt_id"] . '"><i class="fa-solid fa-file-pdf" style="font-size: 13px" title="SOA"></i> SOA</button>
+                <button type="button" id="getPLDTSOA" class="btn btn-icon btn-2 btn-dark btn-sm" data-bs-toggle="offcanvas" data-bs-target="#viewSOA" aria-controls="offcanvasRight" data-name="' . $row["register_name"] . '" data-id="' . $row["pldt_id"] . '" data-role="' . $role . '"><i class="fa-solid fa-file-pdf" style="font-size: 13px" title="SOA"></i> SOA</button>
                 <button type="button" id="getPLDTView" class="btn btn-icon btn-2 btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#viewPLDT" data-id="' . $row["pldt_id"] . '"><i class="fa fa-eye" style="font-size: 13px" title="View"></i> View</button>
                 <button type="button" id="getPLDTUpdate" class="btn btn-icon btn-2 btn-light btn-sm" data-bs-toggle="modal" data-bs-target="#addPLDT" data-id="' . $row["pldt_id"] . '"><i class="fa fa-edit" style="font-size: 13px" title="Update"></i> Update</button>
                 </div>';
         } else {
             $sub_array[] = '<div style="display:flex; justify-content:center; gap:10px; margin-top:10px">
-                <button type="button" id="getPLDTSOA" class="btn btn-icon btn-2 btn-dark btn-sm" data-bs-toggle="offcanvas" data-bs-target="#viewSOA" aria-controls="offcanvasRight" data-name="' . $row["register_name"] . '" data-id="' . $row["pldt_id"] . '"><i class="fa-solid fa-file-pdf" style="font-size: 13px" title="SOA"></i> SOA</button>
+                <button type="button" id="getPLDTSOA" class="btn btn-icon btn-2 btn-dark btn-sm" data-bs-toggle="offcanvas" data-bs-target="#viewSOA" aria-controls="offcanvasRight" data-name="' . $row["register_name"] . '" data-id="' . $row["pldt_id"] . '" data-role="' . $role . '"><i class="fa-solid fa-file-pdf" style="font-size: 13px" title="SOA"></i> SOA</button>
                 <button type="button" id="getPLDTView" class="btn btn-icon btn-2 btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#viewPLDT" data-id="' . $row["pldt_id"] . '"><i class="fa fa-eye" style="font-size: 13px" title="View"></i> View</button>
                 </div>';
         }

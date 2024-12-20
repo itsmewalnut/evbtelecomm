@@ -8,6 +8,8 @@ date_default_timezone_set('Asia/Manila');
 $date = date('Y-m-d H:i:s');
 $role = $_SESSION["role"];
 $empname = $_SESSION['fullname'];
+$fname = $_SESSION['firstname'];
+$lname = $_SESSION['lastname'];
 
 $transmit_Type = $_POST['transmitType'];
 $transmit_ID = $_POST['transmitID'];
@@ -31,7 +33,7 @@ if ($transmit_Type == "transmitGlobe") {
 
             mysqli_query($conn, "INSERT INTO globe_attachment(globe_id, file_location, file_name, date_paid, soa_status) VALUES ('$transmit_ID', '$directory', '$file_name', '$transmit_Date', 'UNPAID')");
         }
-        mysqli_query($conn, "INSERT INTO activity_log(network_type, remarks, network_date, role, action) VALUES ('GLOBE', '$role transmitted in globe', '$date', '$role', 'TRANSMITTED')");
+        mysqli_query($conn, "INSERT INTO activity_log(network_type, remarks, network_date, role, action) VALUES ('GLOBE', '$fname $lname transmitted in globe', '$date', '$role', 'TRANSMITTED')");
     } else {
         echo "No files were uploaded.";
     }
@@ -53,7 +55,7 @@ if ($transmit_Type == "transmitGlobe") {
 
             mysqli_query($conn, "INSERT INTO smart_attachment(smart_id, file_location, file_name, date_paid, soa_status) VALUES ('$transmit_ID', '$directory', '$file_name', '$transmit_Date', 'UNPAID')");
         }
-        mysqli_query($conn, "INSERT INTO activity_log(network_type, remarks, network_date, role, action) VALUES ('SMART', '$role transmitted in smart', '$date', '$role', 'TRANSMITTED')");
+        mysqli_query($conn, "INSERT INTO activity_log(network_type, remarks, network_date, role, action) VALUES ('SMART', '$fname $lname transmitted in smart', '$date', '$role', 'TRANSMITTED')");
     } else {
         echo "No files were uploaded.";
     }
@@ -75,7 +77,7 @@ if ($transmit_Type == "transmitGlobe") {
 
             mysqli_query($conn, "INSERT INTO pldt_attachment(pldt_id, file_location, file_name, date_paid, soa_status) VALUES ('$transmit_ID', '$directory', '$file_name', '$transmit_Date', 'UNPAID')");
         }
-        mysqli_query($conn, "INSERT INTO activity_log(network_type, remarks, network_date, role, action) VALUES ('PLDT', '$role transmitted in pldt', '$date', '$role', 'TRANSMITTED')");
+        mysqli_query($conn, "INSERT INTO activity_log(network_type, remarks, network_date, role, action) VALUES ('PLDT', '$fname $lname transmitted in pldt', '$date', '$role', 'TRANSMITTED')");
     } else {
         echo "No files were uploaded.";
     }

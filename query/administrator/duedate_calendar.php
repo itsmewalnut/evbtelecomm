@@ -17,7 +17,7 @@ function fetchEvents($conn, $tableName)
     }
 
     // Query with the appropriate column names
-    $announcementrs = mysqli_query($conn, "SELECT $idColumn AS id, duedate, register_name, monthly FROM $tableName WHERE MONTH(duedate) = MONTH(now())");
+    $announcementrs = mysqli_query($conn, "SELECT $idColumn AS id, duedate, account_no, monthly FROM $tableName WHERE MONTH(duedate) = MONTH(now())");
 
     if (!$announcementrs) {
         die("Query failed: " . mysqli_error($conn)); // Output error if query fails
@@ -27,7 +27,7 @@ function fetchEvents($conn, $tableName)
     while ($r = mysqli_fetch_assoc($announcementrs)) {
         $event = array(
             'id' => $r['id'],
-            'name' => $r['register_name'],
+            'name' => $r['account_no'],
             'date' => $r['duedate'],
             'description' => 'Monthly - ' . $r['monthly'],
             'type' => 'event',

@@ -94,7 +94,7 @@ function loadPLDTTable() {
   });
 }
 
-// Fetching Account SOA in modal
+// View SOA in offcanvas
 $(document).on("click", "#getPLDTSOA", function () {
   $(".main-content").removeClass("ps ps--scrolling-y");
   $("#offcanvasRightLabel").text("SOA - " + $(this).data("name"));
@@ -102,6 +102,7 @@ $(document).on("click", "#getPLDTSOA", function () {
   var mydata = {
     soa_id: $(this).data("id"),
     soa_type: "pldt",
+    soa_role: $(this).data("role"),
   };
 
   $.ajax({

@@ -216,6 +216,7 @@ $(document).on("click", "#getSmartSOA", function () {
   var mydata = {
     soa_id: $(this).data("id"),
     soa_type: "smart",
+    soa_role: $(this).data("role"),
   };
 
   $.ajax({

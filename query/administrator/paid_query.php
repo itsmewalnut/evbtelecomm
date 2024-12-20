@@ -8,9 +8,12 @@ date_default_timezone_set('Asia/Manila');
 $date = date('Y-m-d H:i:s');
 $role = $_SESSION["role"];
 $empname = $_SESSION['fullname'];
+$fname = $_SESSION['firstname'];
+$lname = $_SESSION['lastname'];
 
 $paid_Type = $_POST['paid_type'];
 $paid_ID = $_POST['paid_ID'];
+$payment_ID = $_POST['payment_ID'];
 
 $paid_Date = mysqli_real_escape_string($conn, $_POST["paid_date"]);
 $paid_Amount = mysqli_real_escape_string($conn, $_POST["paid_amount"]);
@@ -32,9 +35,9 @@ if ($paid_Type == "paidGlobe") {
 
             $directory = ($upload_dir . '/' . $pname);
 
-            mysqli_query($conn, "UPDATE globe_attachment SET payment_image = '$directory', soa_status = 'PAID' WHERE globe_id = '$paid_ID'");
+            mysqli_query($conn, "UPDATE globe_attachment SET payment_image = '$directory', soa_status = 'PAID' WHERE id = '$payment_ID'");
         }
-        mysqli_query($conn, "INSERT INTO activity_log(network_type, remarks, network_date, role, action) VALUES ('GLOBE', '$role paid in globe', '$date', '$role', 'PAID')");
+        mysqli_query($conn, "INSERT INTO activity_log(network_type, remarks, network_date, role, action) VALUES ('GLOBE', '$fname $lname paid in globe', '$date', '$role', 'PAID')");
     } else {
         echo "No files were uploaded.";
     }
@@ -54,9 +57,9 @@ if ($paid_Type == "paidGlobe") {
 
             $directory = ($upload_dir . '/' . $pname);
 
-            mysqli_query($conn, "UPDATE smart_attachment SET payment_image = '$directory', soa_status = 'PAID' WHERE smart_id = '$paid_ID'");
+            mysqli_query($conn, "UPDATE smart_attachment SET payment_image = '$directory', soa_status = 'PAID' WHERE id = '$payment_ID'");
         }
-        mysqli_query($conn, "INSERT INTO activity_log(network_type, remarks, network_date, role, action) VALUES ('SMART', '$role paid in smart', '$date', '$role', 'PAID')");
+        mysqli_query($conn, "INSERT INTO activity_log(network_type, remarks, network_date, role, action) VALUES ('SMART', '$fname $lname paid in smart', '$date', '$role', 'PAID')");
     } else {
         echo "No files were uploaded.";
     }
@@ -76,9 +79,9 @@ if ($paid_Type == "paidGlobe") {
 
             $directory = ($upload_dir . '/' . $pname);
 
-            mysqli_query($conn, "UPDATE pldt_attachment SET payment_image = '$directory', soa_status = 'PAID' WHERE pldt_id = '$paid_ID'");
+            mysqli_query($conn, "UPDATE pldt_attachment SET payment_image = '$directory', soa_status = 'PAID' WHERE id = '$payment_ID'");
         }
-        mysqli_query($conn, "INSERT INTO activity_log(network_type, remarks, network_date, role, action) VALUES ('PLDT', '$role paid in pldt', '$date', '$role', 'PAID')");
+        mysqli_query($conn, "INSERT INTO activity_log(network_type, remarks, network_date, role, action) VALUES ('PLDT', '$fname $lname paid in pldt', '$date', '$role', 'PAID')");
     } else {
         echo "No files were uploaded.";
     }

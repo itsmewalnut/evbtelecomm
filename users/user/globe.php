@@ -202,7 +202,7 @@ if ($_SESSION['role'] == "ENCODER" || $_SESSION['role'] == "CHECKER") {
                                             </div>
                                             <div class="card-body pt-2">
                                                 <div class="row mt-4">
-                                                    <div class="col-md-12">
+                                                    <div class="col-md-6">
                                                         <div class="input-group input-group-static mb-4">
                                                             <label for="acc_Branch" class="ms-0">Branch</label>
                                                             <select class="form-control" name="acc_Branch" id="acc_Branch">
@@ -217,6 +217,24 @@ if ($_SESSION['role'] == "ENCODER" || $_SESSION['role'] == "CHECKER") {
                                                                 <option value="EVB CAINTA BRANCH">EVB CAINTA BRANCH</option>
                                                                 <option value="EVB INTRAMUROS BRANCH">EVB INTRAMUROS BRANCH</option>
                                                                 <option value="EVB KALIBO BRANCH">EVB KALIBO BRANCH</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="input-group input-group-static mb-4">
+                                                            <label for="acc_Department" class="ms-0">Department</label>
+                                                            <select class="form-control" name="acc_Department" id="acc_Department">
+                                                                <option value="" selected>Select Department</option>
+                                                                <option value="HUMAN RESOURCE DEPARTMENT">HUMAN RESOURCE DEPARTMENT</option>
+                                                                <option value="ACCOUNTING DEPARTMENT">ACCOUNTING DEPARTMENT</option>
+                                                                <option value="BOOKS DEPARTMENT">BOOKS DEPARTMENT</option>
+                                                                <option value="INTEGRATED INFORMATION AND COMMUNICATION SYSTEM">INTEGRATED INFORMATION AND COMMUNICATION SYSTEM</option>
+                                                                <option value="DOCUMENTATION DEPARTMENT">DOCUMENTATION DEPARTMENT</option>
+                                                                <option value="FINANCE DEPARTMENT">FINANCE DEPARTMENT</option>
+                                                                <option value="DISBURSING DEPARTMENT">DISBURSING DEPARTMENT</option>
+                                                                <option value="MARKETING DEPARTMENT">MARKETING DEPARTMENT</option>
+                                                                <option value="PRINTING DEPARTMENT">PRINTING DEPARTMENT</option>
+                                                                <option value="LICENSING DEPARTMENT">LICENSING DEPARTMENT</option>
                                                             </select>
                                                         </div>
                                                     </div>
@@ -328,7 +346,7 @@ if ($_SESSION['role'] == "ENCODER" || $_SESSION['role'] == "CHECKER") {
                                                     </div>
                                                     <div class="col-md-4">
                                                         <div class="input-group input-group-static mb-4 textive">
-                                                            <label>Phone</label>
+                                                            <label>Device</label>
                                                             <input type="text" name="accPhone" id="accPhone" class="form-control" autocomplete="off" required>
                                                         </div>
                                                     </div>
@@ -462,18 +480,9 @@ if ($_SESSION['role'] == "ENCODER" || $_SESSION['role'] == "CHECKER") {
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- Paid and Transmit Button -->
+                                    <!-- Transmit Button -->
                                     <?php
-                                    if ($_SESSION["role"] == "CHECKER") {
-                                        echo '<div class="row mt-4" id="PAID_BUTTON">
-                                                <div class="col-lg-5">
-                                                    <button class="btn bg-gradient-warning mb-0 mt-lg-auto w-100" type="button" id="payButton" name="button" data-bs-toggle="modal" data-bs-target="#paymentModal">
-                                                        <span class="btn-inner--icon"><i class="material-icons">payments</i>
-                                                        </span> paid
-                                                    </button>
-                                                </div>
-                                            </div>';
-                                    } else if ($_SESSION["role"] == "ENCODER") {
+                                    if ($_SESSION["role"] == "ENCODER") {
                                         echo '<div class="row mt-4" id="TRANSMIT_BUTTON">
                                                 <div class="col-lg-5">
                                                     <button class="btn bg-gradient-success mb-0 mt-lg-auto w-100" type="button" id="transmitButton" name="button" data-bs-toggle="modal" data-bs-target="#transmitModal">
@@ -482,6 +491,7 @@ if ($_SESSION['role'] == "ENCODER" || $_SESSION['role'] == "CHECKER") {
                                                     </button>
                                                 </div>
                                             </div>';
+                                    } else {
                                     }
                                     ?>
                                     <!-------------------------->
@@ -695,10 +705,11 @@ if ($_SESSION['role'] == "ENCODER" || $_SESSION['role'] == "CHECKER") {
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn bg-gradient-secondary" data-bs-target="#viewGlobe" data-bs-toggle="modal">Back</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                 <button type="submit" id="submit_payment" class="btn bg-gradient-warning">Paid</button>
                                 <input type="hidden" name="paid_type" id="paid_type" value="paidGlobe">
                                 <input type="hidden" name="paid_ID" id="paid_ID">
+                                <input type="hidden" name="payment_ID" id="payment_ID">
                             </div>
                         </form>
                     </div>
